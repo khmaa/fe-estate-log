@@ -11,6 +11,8 @@ dist/
 # cache
 .vite/
 coverage/
+storybook-static/
+.storybook-home/
 
 # IDE
 .vscode/
