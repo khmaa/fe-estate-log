@@ -73,6 +73,33 @@ pnpm -r --if-present test:run
 
 `web`과 `shared-ui`는 테스트 실행 시 커버리지 요약이 콘솔에 기본 출력되도록 설정되어 있습니다.
 
+## Storybook
+
+`libs/shared-ui`에는 공용 컴포넌트를 독립적으로 확인하기 위한 Storybook이 설정되어 있습니다.
+전체 애플리케이션을 실행하지 않고도 기본 컴포넌트의 형태, 상태, 상호작용 예시를 확인할 때 사용합니다.
+
+Storybook 실행:
+
+```bash
+pnpm -F @shared-ui/core storybook
+```
+
+정적 Storybook 빌드:
+
+```bash
+pnpm -F @shared-ui/core storybook:build
+```
+
+Storybook 관련 파일 구조는 다음과 같습니다:
+
+```text
+libs/shared-ui/
+  .storybook/                  Storybook 설정
+  src/components/*.stories.tsx 공용 컴포넌트 스토리 파일
+```
+
+새 공용 컴포넌트를 추가할 때는 같은 컴포넌트 영역에 스토리 파일도 함께 추가해서 독립적으로 확인할 수 있게 유지합니다.
+
 ## 프로젝트별 실행 방법
 
 ### `apps/web`
@@ -113,6 +140,18 @@ Vitest UI 실행:
 
 ```bash
 pnpm -F @shared-ui/core test:ui
+```
+
+Storybook 실행:
+
+```bash
+pnpm -F @shared-ui/core storybook
+```
+
+Storybook 빌드:
+
+```bash
+pnpm -F @shared-ui/core storybook:build
 ```
 
 ## 현재 범위

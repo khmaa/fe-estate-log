@@ -73,6 +73,33 @@ pnpm -r --if-present test:run
 
 Both `web` and `shared-ui` are configured to print coverage summaries in the console by default.
 
+## Storybook
+
+Storybook is configured for `libs/shared-ui` to preview shared components in isolation.
+Use it to inspect base component shape, states, and interaction examples without running the full application.
+
+Start Storybook:
+
+```bash
+pnpm -F @shared-ui/core storybook
+```
+
+Build static Storybook output:
+
+```bash
+pnpm -F @shared-ui/core storybook:build
+```
+
+Storybook-related files are organized as follows:
+
+```text
+libs/shared-ui/
+  .storybook/                  Storybook configuration
+  src/components/*.stories.tsx Story files for shared components
+```
+
+When a new shared component is added, its Storybook story should be added in the same component area so the component can be reviewed independently.
+
 ## Run by Project
 
 ### `apps/web`
@@ -113,6 +140,18 @@ Open Vitest UI:
 
 ```bash
 pnpm -F @shared-ui/core test:ui
+```
+
+Run Storybook:
+
+```bash
+pnpm -F @shared-ui/core storybook
+```
+
+Build Storybook:
+
+```bash
+pnpm -F @shared-ui/core storybook:build
 ```
 
 ## Current Scope

@@ -11,6 +11,8 @@ dist/
 # cache
 .vite/
 coverage/
+storybook-static/
+.storybook-home/
 
 # IDE
 .vscode/
@@ -21,3 +23,4 @@ coverage/
 
 # local AI context notes
 ai-context/
+AGENTS.md
