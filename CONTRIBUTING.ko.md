@@ -52,6 +52,25 @@ type: short summary
 
 추가 설명이 필요하면 본문에 여러 줄 bullet을 붙입니다.
 
+## Git Hook
+
+이 저장소는 Husky를 통해 Git hook을 사용합니다.
+
+Hook 동작:
+
+- `pre-commit`: `lint-staged`를 실행하고 lint 실패 시 커밋을 차단합니다
+- `commit-msg`: `commitlint`를 실행하고 커밋 메시지 형식이 틀리면 커밋을 차단합니다
+- `pre-push`: 워크스페이스 테스트와 web 빌드를 실행하고 둘 중 하나라도 실패하면 push를 차단합니다
+
+현재 검사 항목:
+
+- 커밋 단계:
+  - `apps/web`, `libs/shared-ui`의 staged TypeScript 파일을 ESLint로 검사
+  - 커밋 메시지가 설정된 conventional 형식을 따르는지 검사
+- 푸시 단계:
+  - `pnpm run test:all`
+  - `pnpm run build:web`
+
 ## 개발 흐름
 
 기본 작업 흐름:
