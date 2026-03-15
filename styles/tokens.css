@@ -1,0 +1,44 @@
+:root {
+  --color-background: #f3f6fb;
+  --color-foreground: #0f172a;
+  --color-surface: rgba(255, 255, 255, 0.78);
+  --color-surface-alt: #ffffff;
+  --color-border: rgba(148, 163, 184, 0.35);
+  --color-muted: #e2e8f0;
+  --color-muted-foreground: #64748b;
+  --color-primary: #0f172a;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #1e293b;
+  --color-primary-active: #334155;
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #0f172a;
+  --color-secondary-hover: #f8fafc;
+  --color-focus-ring: #0f172a;
+  --radius-ui: 0.875rem;
+  --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.12);
+  --gradient-page:
+    radial-gradient(circle at top, rgba(148, 163, 184, 0.22), transparent 30%),
+    linear-gradient(180deg, #f8fafc 0%, #dbeafe 100%);
+}
+
+.dark {
+  --color-background: #020617;
+  --color-foreground: #e2e8f0;
+  --color-surface: rgba(15, 23, 42, 0.82);
+  --color-surface-alt: #0f172a;
+  --color-border: rgba(71, 85, 105, 0.55);
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-primary: #e2e8f0;
+  --color-primary-foreground: #0f172a;
+  --color-primary-hover: #cbd5e1;
+  --color-primary-active: #94a3b8;
+  --color-secondary: #0f172a;
+  --color-secondary-foreground: #e2e8f0;
+  --color-secondary-hover: #1e293b;
+  --color-focus-ring: #e2e8f0;
+  --shadow-soft: 0 22px 60px rgba(2, 6, 23, 0.45);
+  --gradient-page:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 30%),
+    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+}

@@ -1,0 +1,19 @@
+@import "../../../styles/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+    font-family: Inter, "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
