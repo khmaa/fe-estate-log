@@ -12,4 +12,16 @@ describe("Button", () => {
     render(<Button className="bg-red-500">Click</Button>);
     expect(screen.getByRole("button", { name: "Click" })).toHaveClass("bg-red-500");
   });
+
+  it("applies the secondary variant classes", () => {
+    render(<Button variant="secondary">Secondary</Button>);
+    expect(screen.getByRole("button", { name: "Secondary" })).toHaveClass("bg-secondary");
+    expect(screen.getByRole("button", { name: "Secondary" })).toHaveClass("ring-border");
+  });
+
+  it("applies the large size classes", () => {
+    render(<Button size="lg">Large</Button>);
+    expect(screen.getByRole("button", { name: "Large" })).toHaveClass("h-12");
+    expect(screen.getByRole("button", { name: "Large" })).toHaveClass("px-5");
+  });
 });
