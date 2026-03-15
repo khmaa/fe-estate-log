@@ -1,9 +1,35 @@
 {
   "name": "fe-estate-log",
   "private": true,
+  "scripts": {
+    "build:web": "pnpm -F web build",
+    "lint": "eslint apps/web libs/shared-ui",
+    "lint:web": "pnpm -F web lint",
+    "prepare": "husky",
+    "test:all": "pnpm -r --if-present test:run"
+  },
+  "lint-staged": {
+    "apps/web/**/*.{ts,tsx}": [
+      "eslint"
+    ],
+    "libs/shared-ui/**/*.{ts,tsx}": [
+      "eslint"
+    ]
+  },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.4",
+    "@commitlint/config-conventional": "^20.4.4",
+    "@eslint/js": "^9.39.2",
     "autoprefixer": "10.4.27",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "postcss": "8.5.8",
-    "tailwindcss": "3.4.19"
+    "tailwindcss": "3.4.19",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.50.1"
   }
 }

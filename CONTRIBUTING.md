@@ -52,6 +52,25 @@ Examples:
 
 If more detail is helpful, add a multi-line body with bullets.
 
+## Git Hooks
+
+This repository uses Git hooks through Husky.
+
+Hook behavior:
+
+- `pre-commit`: runs `lint-staged` and blocks the commit if linting fails
+- `commit-msg`: runs `commitlint` and blocks the commit if the message format is invalid
+- `pre-push`: runs workspace tests and the web build, and blocks the push if either step fails
+
+Current checks:
+
+- Commit stage:
+  - staged TypeScript files in `apps/web` and `libs/shared-ui` are linted with ESLint
+  - commit messages must follow the configured conventional format
+- Push stage:
+  - `pnpm run test:all`
+  - `pnpm run build:web`
+
 ## Development Flow
 
 Typical workflow:
