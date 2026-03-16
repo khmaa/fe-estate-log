@@ -14,7 +14,10 @@ export default defineConfig([
     "node_modules/**",
   ]),
   {
-    files: ["apps/web/**/*.{ts,tsx}", "libs/shared-ui/**/*.{ts,tsx}"],
+    files: [
+      "apps/web/src/**/*.{ts,tsx}",
+      "libs/shared-ui/src/**/*.{ts,tsx}",
+    ],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -24,6 +27,22 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    files: [
+      "apps/web/*.ts",
+      "libs/shared-ui/*.ts",
+      "libs/shared-ui/.storybook/*.ts",
+    ],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
     },
   },
 ]);
