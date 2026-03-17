@@ -13,6 +13,8 @@
   --color-secondary: #ffffff;
   --color-secondary-foreground: #0f172a;
   --color-secondary-hover: #f8fafc;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
   --color-focus-ring: #0f172a;
   --radius-ui: 0.875rem;
   --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.12);
@@ -36,6 +38,8 @@
   --color-secondary: #0f172a;
   --color-secondary-foreground: #e2e8f0;
   --color-secondary-hover: #1e293b;
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.18);
   --color-focus-ring: #e2e8f0;
   --shadow-soft: 0 22px 60px rgba(2, 6, 23, 0.45);
   --gradient-page:
