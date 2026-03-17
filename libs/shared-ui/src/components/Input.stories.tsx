@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "./Input";
+import { Label } from "./Label";
 
 const meta = {
   title: "Components/Input",
@@ -48,4 +49,13 @@ export const Password: Story = {
     type: "password",
     placeholder: "Enter password",
   },
+};
+
+export const WithLabel: Story = {
+  render: (args) => (
+    <div className="flex w-full max-w-sm flex-col gap-2">
+      <Label htmlFor="storybook-email">Email address</Label>
+      <Input {...args} id="storybook-email" type="email" placeholder="hello@example.com" />
+    </div>
+  ),
 };

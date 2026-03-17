@@ -26,6 +26,10 @@ module.exports = {
           foreground: "var(--color-secondary-foreground)",
           hover: "var(--color-secondary-hover)",
         },
+        danger: {
+          DEFAULT: "var(--color-danger)",
+          soft: "var(--color-danger-soft)",
+        },
         focus: "var(--color-focus-ring)",
       },
       borderRadius: {
