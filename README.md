@@ -1,5 +1,7 @@
 # fe-estate-log
 
+[![Coverage](https://codecov.io/github/khmaa/fe-estate-log/graph/badge.svg)](https://codecov.io/github/khmaa/fe-estate-log)
+
 Frontend monorepo for building and learning a real estate exploration log service.
 
 [한국어 README](./README.ko.md)
@@ -72,6 +74,7 @@ pnpm -r --if-present test:run
 ```
 
 Both `web` and `shared-ui` are configured to print coverage summaries in the console by default.
+Coverage is uploaded from GitHub Actions to Codecov so the repository can show a coverage badge and pull request coverage checks.
 
 ## Storybook
 
