@@ -16,6 +16,19 @@ describe("Field", () => {
     expect(screen.getByRole("textbox")).toHaveAttribute("id", "email");
   });
 
+  it("merges an existing aria-describedby value", () => {
+    render(
+      <Field htmlFor="company" label="Company" helperText="This will be shown on your profile.">
+        <Input aria-describedby="custom-description" />
+      </Field>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveAttribute(
+      "aria-describedby",
+      "custom-description company-helper",
+    );
+  });
+
   it("renders error text and marks the control as invalid", () => {
     render(
       <Field htmlFor="password" label="Password" error="Password is required.">
