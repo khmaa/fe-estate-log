@@ -1,5 +1,7 @@
 # fe-estate-log
 
+[![Coverage](https://codecov.io/github/khmaa/fe-estate-log/graph/badge.svg)](https://codecov.io/github/khmaa/fe-estate-log)
+
 부동산 임장 기록 서비스를 만들며 프론트엔드 모노레포 구조를 학습하는 프로젝트입니다.
 
 [English README](./README.md)
@@ -72,6 +74,7 @@ pnpm -r --if-present test:run
 ```
 
 `web`과 `shared-ui`는 테스트 실행 시 커버리지 요약이 콘솔에 기본 출력되도록 설정되어 있습니다.
+GitHub Actions에서 생성한 커버리지 결과는 Codecov로 업로드되도록 구성해 두었고, 이를 통해 저장소에서 커버리지 배지와 PR 커버리지 체크를 확인할 수 있습니다.
 
 ## Storybook
 
