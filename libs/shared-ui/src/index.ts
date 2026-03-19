@@ -1,11 +1,13 @@
 export { Button } from "./components/Button";
 export { Checkbox } from "./components/Checkbox";
+export { CheckboxField } from "./components/CheckboxField";
 export { Field } from "./components/Field";
 export { Input } from "./components/Input";
 export { Label } from "./components/Label";
 export { Textarea } from "./components/Textarea";
 export type { ButtonProps } from "./components/Button";
 export type { CheckboxProps } from "./components/Checkbox";
+export type { CheckboxFieldProps } from "./components/CheckboxField";
 export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";
