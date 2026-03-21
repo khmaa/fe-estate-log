@@ -13,6 +13,7 @@ export { Field } from "./components/Field";
 export { Input } from "./components/Input";
 export { Label } from "./components/Label";
 export { RadioGroup } from "./components/RadioGroup";
+export { Select } from "./components/Select";
 export { Textarea } from "./components/Textarea";
 export type { ButtonProps } from "./components/Button";
 export type {
@@ -29,4 +30,5 @@ export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";
 export type { RadioGroupProps, RadioOption } from "./components/RadioGroup";
+export type { SelectProps } from "./components/Select";
 export type { TextareaProps } from "./components/Textarea";
