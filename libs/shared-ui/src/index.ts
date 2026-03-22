@@ -15,6 +15,7 @@ export { Input } from "./components/Input";
 export { Label } from "./components/Label";
 export { RadioGroup } from "./components/RadioGroup";
 export { Select } from "./components/Select";
+export { Switch } from "./components/Switch";
 export { Textarea } from "./components/Textarea";
 export type {
   AlertDescriptionProps,
@@ -38,4 +39,5 @@ export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";
 export type { RadioGroupProps, RadioOption } from "./components/RadioGroup";
 export type { SelectProps } from "./components/Select";
+export type { SwitchProps } from "./components/Switch";
 export type { TextareaProps } from "./components/Textarea";
