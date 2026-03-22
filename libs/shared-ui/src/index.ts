@@ -1,3 +1,4 @@
+export { Alert, AlertDescription, AlertTitle } from "./components/Alert";
 export { Button } from "./components/Button";
 export {
   Card,
@@ -15,6 +16,12 @@ export { Label } from "./components/Label";
 export { RadioGroup } from "./components/RadioGroup";
 export { Select } from "./components/Select";
 export { Textarea } from "./components/Textarea";
+export type {
+  AlertDescriptionProps,
+  AlertProps,
+  AlertTitleProps,
+  AlertVariant,
+} from "./components/Alert";
 export type { ButtonProps } from "./components/Button";
 export type {
   CardContentProps,

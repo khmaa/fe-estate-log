@@ -26,6 +26,18 @@ module.exports = {
           foreground: "var(--color-secondary-foreground)",
           hover: "var(--color-secondary-hover)",
         },
+        info: {
+          DEFAULT: "var(--color-info)",
+          soft: "var(--color-info-soft)",
+        },
+        success: {
+          DEFAULT: "var(--color-success)",
+          soft: "var(--color-success-soft)",
+        },
+        warning: {
+          DEFAULT: "var(--color-warning)",
+          soft: "var(--color-warning-soft)",
+        },
         danger: {
           DEFAULT: "var(--color-danger)",
           soft: "var(--color-danger-soft)",
