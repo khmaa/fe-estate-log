@@ -1,4 +1,5 @@
 export { Alert, AlertDescription, AlertTitle } from "./components/Alert";
+export { Badge } from "./components/Badge";
 export { Button } from "./components/Button";
 export {
   Card,
@@ -10,6 +11,7 @@ export {
 } from "./components/Card";
 export { Checkbox } from "./components/Checkbox";
 export { CheckboxField } from "./components/CheckboxField";
+export { EmptyState, EmptyStateAction } from "./components/EmptyState";
 export { Field } from "./components/Field";
 export { Input } from "./components/Input";
 export { Label } from "./components/Label";
@@ -23,6 +25,7 @@ export type {
   AlertTitleProps,
   AlertVariant,
 } from "./components/Alert";
+export type { BadgeProps, BadgeVariant } from "./components/Badge";
 export type { ButtonProps } from "./components/Button";
 export type {
   CardContentProps,
@@ -34,6 +37,7 @@ export type {
 } from "./components/Card";
 export type { CheckboxProps } from "./components/Checkbox";
 export type { CheckboxFieldProps } from "./components/CheckboxField";
+export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";
