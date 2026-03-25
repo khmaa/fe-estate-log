@@ -1,5 +1,6 @@
 export { Alert, AlertDescription, AlertTitle } from "./components/Alert";
 export { Badge } from "./components/Badge";
+export { Banner } from "./components/Banner";
 export { Button } from "./components/Button";
 export {
   Card,
@@ -26,6 +27,7 @@ export type {
   AlertVariant,
 } from "./components/Alert";
 export type { BadgeProps, BadgeVariant } from "./components/Badge";
+export type { BannerProps, BannerVariant } from "./components/Banner";
 export type { ButtonProps } from "./components/Button";
 export type {
   CardContentProps,
