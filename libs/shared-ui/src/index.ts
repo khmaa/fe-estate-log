@@ -16,6 +16,19 @@ export { EmptyState, EmptyStateAction } from "./components/EmptyState";
 export { Field } from "./components/Field";
 export { Input } from "./components/Input";
 export { Label } from "./components/Label";
+export {
+  Dialog,
+  DialogBody,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "./components/Dialog";
 export { RadioGroup } from "./components/RadioGroup";
 export { Select } from "./components/Select";
 export { Switch } from "./components/Switch";
@@ -39,6 +52,19 @@ export type {
 } from "./components/Card";
 export type { CheckboxProps } from "./components/Checkbox";
 export type { CheckboxFieldProps } from "./components/CheckboxField";
+export type {
+  DialogBodyProps,
+  DialogCloseProps,
+  DialogContentProps,
+  DialogDescriptionProps,
+  DialogFooterProps,
+  DialogHeaderProps,
+  DialogOverlayProps,
+  DialogPortalProps,
+  DialogProps,
+  DialogTitleProps,
+  DialogTriggerProps,
+} from "./components/Dialog";
 export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
