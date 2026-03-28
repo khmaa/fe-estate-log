@@ -41,6 +41,8 @@ export {
   ToastTitle,
   ToastViewport,
 } from "./components/Toast";
+export { ToastHostProvider } from "./components/ToastHost";
+export { useToast } from "./components/useToast";
 export type {
   AlertDescriptionProps,
   AlertProps,
@@ -81,6 +83,11 @@ export type { RadioGroupProps, RadioOption } from "./components/RadioGroup";
 export type { SelectProps } from "./components/Select";
 export type { SwitchProps } from "./components/Switch";
 export type { TextareaProps } from "./components/Textarea";
+export type {
+  ToastHostProviderProps,
+  ShowToastOptions,
+} from "./components/ToastHost";
+export type { ToastContextValue } from "./components/useToast";
 export type {
   ToastCloseProps,
   ToastDescriptionProps,
