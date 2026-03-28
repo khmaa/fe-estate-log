@@ -29,8 +29,18 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./components/Dialog";
+export {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./components/DropdownMenu";
 export { RadioGroup } from "./components/RadioGroup";
 export { Select } from "./components/Select";
+export { Spinner } from "./components/Spinner";
 export { Switch } from "./components/Switch";
 export { Textarea } from "./components/Textarea";
 export {
@@ -75,12 +85,22 @@ export type {
   DialogTitleProps,
   DialogTriggerProps,
 } from "./components/Dialog";
+export type {
+  DropdownMenuContentProps,
+  DropdownMenuItemProps,
+  DropdownMenuLabelProps,
+  DropdownMenuPortalProps,
+  DropdownMenuProps,
+  DropdownMenuSeparatorProps,
+  DropdownMenuTriggerProps,
+} from "./components/DropdownMenu";
 export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";
 export type { RadioGroupProps, RadioOption } from "./components/RadioGroup";
 export type { SelectProps } from "./components/Select";
+export type { SpinnerProps, SpinnerSize } from "./components/Spinner";
 export type { SwitchProps } from "./components/Switch";
 export type { TextareaProps } from "./components/Textarea";
 export type {
