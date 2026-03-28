@@ -43,6 +43,35 @@ describe("ToastHostProvider", () => {
     ).toBeInTheDocument();
   });
 
+  it("uses default variant and dismiss label when options are omitted", () => {
+    const MinimalToastConsumer = () => {
+      const { showToast } = useToast();
+
+      return (
+        <Button
+          onClick={() =>
+            showToast({
+              title: "Minimal toast",
+            })
+          }
+        >
+          Show minimal toast
+        </Button>
+      );
+    };
+
+    render(
+      <ToastHostProvider>
+        <MinimalToastConsumer />
+      </ToastHostProvider>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Show minimal toast" }));
+
+    expect(screen.getByText("Minimal toast")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Dismiss" })).toBeInTheDocument();
+  });
+
   it("dismisses the active toast through the helper hook", () => {
     render(
       <ToastHostProvider>
@@ -52,6 +81,19 @@ describe("ToastHostProvider", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Show toast" }));
     fireEvent.click(screen.getByRole("button", { name: "Dismiss toast" }));
+
+    expect(screen.queryByText("Saved")).not.toBeInTheDocument();
+  });
+
+  it("updates toast visibility through the internal dismiss action", () => {
+    render(
+      <ToastHostProvider>
+        <ToastConsumer />
+      </ToastHostProvider>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Show toast" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Dismiss" })[0]);
 
     expect(screen.queryByText("Saved")).not.toBeInTheDocument();
   });
