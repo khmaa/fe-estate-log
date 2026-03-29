@@ -1,4 +1,4 @@
-import { cn } from "../utils/cn";
+import { cn } from '../utils/cn';
 
 type RadioOption = {
   description?: string;
@@ -40,11 +40,11 @@ const RadioGroup = ({
   const descriptionId = error
     ? `${name}-error`
     : helperText
-    ? `${name}-helper`
-    : undefined;
+      ? `${name}-helper`
+      : undefined;
 
   return (
-    <div className={cn("flex w-full flex-col gap-3", className)}>
+    <div className={cn('flex w-full flex-col gap-3', className)}>
       <div className="space-y-1">
         <p className="text-sm font-semibold text-foreground">{label}</p>
         {error ? (
@@ -81,9 +81,9 @@ const RadioGroup = ({
               key={option.value}
               htmlFor={optionId}
               className={cn(
-                "flex items-start gap-3 rounded-ui border border-border bg-surface-alt px-4 py-3 transition-colors duration-200",
-                option.disabled && "cursor-not-allowed opacity-70",
-                value === option.value && "border-primary bg-primary/5"
+                'flex items-start gap-3 rounded-ui border border-border bg-surface-alt px-4 py-3 transition-colors duration-200',
+                option.disabled && 'cursor-not-allowed opacity-70',
+                value === option.value && 'border-primary bg-primary/5',
               )}
             >
               <input

@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Checkbox } from "./Checkbox";
-import { Label } from "./Label";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Checkbox } from './Checkbox';
+import { Label } from './Label';
 
 const meta = {
-  title: "Components/Checkbox",
+  title: 'Components/Checkbox',
   component: Checkbox,
   args: {
     defaultChecked: false,

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./Button";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from './Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,13 +7,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./DropdownMenu";
+} from './DropdownMenu';
 
 const meta = {
-  title: "Components/DropdownMenu",
+  title: 'Components/DropdownMenu',
   component: DropdownMenuContent,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 } satisfies Meta<typeof DropdownMenuContent>;
 

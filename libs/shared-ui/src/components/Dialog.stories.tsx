@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./Button";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from './Button';
 import {
   Dialog,
   DialogBody,
@@ -10,13 +10,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./Dialog";
+} from './Dialog';
 
 const meta = {
-  title: "Components/Dialog",
+  title: 'Components/Dialog',
   component: DialogContent,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 } satisfies Meta<typeof DialogContent>;
 

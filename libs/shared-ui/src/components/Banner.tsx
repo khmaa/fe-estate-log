@@ -1,10 +1,10 @@
-import type React from "react";
-import { cn } from "../utils/cn";
+import type React from 'react';
+import { cn } from '../utils/cn';
 
 const bannerVariants = {
-  info: "border-info bg-info-soft text-foreground",
-  success: "border-success bg-success-soft text-foreground",
-  warning: "border-warning bg-warning-soft text-foreground",
+  info: 'border-info bg-info-soft text-foreground',
+  success: 'border-success bg-success-soft text-foreground',
+  warning: 'border-warning bg-warning-soft text-foreground',
 } as const;
 
 type BannerVariant = keyof typeof bannerVariants;
@@ -21,7 +21,7 @@ const Banner = ({
   className,
   description,
   title,
-  variant = "info",
+  variant = 'info',
   ...props
 }: BannerProps) => {
   return (
@@ -29,9 +29,9 @@ const Banner = ({
       {...props}
       role="status"
       className={cn(
-        "flex flex-col gap-4 rounded-ui border px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between",
+        'flex flex-col gap-4 rounded-ui border px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between',
         bannerVariants[variant],
-        className
+        className,
       )}
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1">

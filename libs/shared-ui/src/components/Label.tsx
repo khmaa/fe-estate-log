@@ -1,5 +1,5 @@
-import type React from "react";
-import { cn } from "../utils/cn";
+import type React from 'react';
+import { cn } from '../utils/cn';
 
 type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
@@ -8,7 +8,7 @@ const Label = ({ className, ...props }: LabelProps) => {
     <label
       {...props}
       className={cn(
-        "inline-flex text-sm font-semibold leading-none text-foreground",
+        'inline-flex text-sm font-semibold leading-none text-foreground',
         className,
       )}
     />

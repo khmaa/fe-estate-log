@@ -1,0 +1,26 @@
+# Dependency directories
+/node_modules
+
+# Build output directories
+/dist
+/build
+/out
+**/dist
+**/coverage
+**/storybook-static
+**/.storybook-home
+
+# Version control directories
+/.git
+/.hg
+/.svn
+
+# Miscellaneous files to ignore
+.DS_Store
+Thumbs.db
+
+# Project-specific generated files
+*.min.js
+config-overrides.js
+**/vite.config.*.timestamp*
+**/vitest.config.*.timestamp*

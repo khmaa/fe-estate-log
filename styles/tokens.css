@@ -24,11 +24,8 @@
   --color-focus-ring: #0f172a;
   --radius-ui: 0.875rem;
   --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.12);
-  --gradient-page: radial-gradient(
-      circle at top,
-      rgba(148, 163, 184, 0.22),
-      transparent 30%
-    ),
+  --gradient-page:
+    radial-gradient(circle at top, rgba(148, 163, 184, 0.22), transparent 30%),
     linear-gradient(180deg, #f8fafc 0%, #dbeafe 100%);
 }
 
@@ -57,10 +54,7 @@
   --color-danger-soft: rgba(248, 113, 113, 0.18);
   --color-focus-ring: #e2e8f0;
   --shadow-soft: 0 22px 60px rgba(2, 6, 23, 0.45);
-  --gradient-page: radial-gradient(
-      circle at top,
-      rgba(59, 130, 246, 0.16),
-      transparent 30%
-    ),
+  --gradient-page:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 30%),
     linear-gradient(180deg, #020617 0%, #0f172a 100%);
 }

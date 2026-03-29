@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Field } from "./Field";
-import { Select } from "./Select";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Field } from './Field';
+import { Select } from './Select';
 
 const meta = {
-  title: "Components/Select",
+  title: 'Components/Select',
   component: Select,
 } satisfies Meta<typeof Select>;
 

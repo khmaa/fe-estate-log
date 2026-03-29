@@ -1,6 +1,7 @@
-import type React from "react";
-import { Badge } from "./Badge";
-import { Button } from "./Button";
+import type React from 'react';
+import { cn } from '../utils/cn';
+import { Badge } from './Badge';
+import { Button } from './Button';
 import {
   Card,
   CardContent,
@@ -8,8 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./Card";
-import { cn } from "../utils/cn";
+} from './Card';
 
 type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
   action?: React.ReactNode;
@@ -29,7 +29,7 @@ const EmptyState = ({
   return (
     <Card
       {...props}
-      className={cn("flex flex-col items-start text-left", className)}
+      className={cn('flex flex-col items-start text-left', className)}
     >
       <CardHeader className="max-w-2xl">
         {badge ? <Badge variant="secondary">{badge}</Badge> : null}

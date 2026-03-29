@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { useState } from "react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useState } from 'react';
+import { describe, expect, it } from 'vitest';
 import {
   Toast,
   ToastClose,
@@ -8,10 +8,10 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "../Toast";
+} from '../Toast';
 
-describe("Toast", () => {
-  it("renders title and description when open", () => {
+describe('Toast', () => {
+  it('renders title and description when open', () => {
     render(
       <ToastProvider>
         <Toast open variant="success">
@@ -20,16 +20,16 @@ describe("Toast", () => {
           <ToastClose>Dismiss</ToastClose>
         </Toast>
         <ToastViewport />
-      </ToastProvider>
+      </ToastProvider>,
     );
 
-    expect(screen.getByText("Changes published")).toBeInTheDocument();
+    expect(screen.getByText('Changes published')).toBeInTheDocument();
     expect(
-      screen.getByText("Shared UI styles are now live.")
+      screen.getByText('Shared UI styles are now live.'),
     ).toBeInTheDocument();
   });
 
-  it("applies the selected variant styles", () => {
+  it('applies the selected variant styles', () => {
     render(
       <ToastProvider>
         <Toast open variant="error">
@@ -38,15 +38,15 @@ describe("Toast", () => {
           <ToastClose>Dismiss</ToastClose>
         </Toast>
         <ToastViewport />
-      </ToastProvider>
+      </ToastProvider>,
     );
 
-    expect(screen.getByText("Publish failed").closest("li")).toHaveClass(
-      "border-danger"
+    expect(screen.getByText('Publish failed').closest('li')).toHaveClass(
+      'border-danger',
     );
   });
 
-  it("closes when the close action is pressed", () => {
+  it('closes when the close action is pressed', () => {
     const ToastHarness = () => {
       const [open, setOpen] = useState(true);
 
@@ -64,8 +64,8 @@ describe("Toast", () => {
 
     render(<ToastHarness />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Dismiss" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
 
-    expect(screen.queryByText("Dismissible toast")).not.toBeInTheDocument();
+    expect(screen.queryByText('Dismissible toast')).not.toBeInTheDocument();
   });
 });

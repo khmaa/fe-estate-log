@@ -1,6 +1,6 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-import type React from "react";
-import { cn } from "../utils/cn";
+import * as PopoverPrimitive from '@radix-ui/react-popover';
+import type React from 'react';
+import { cn } from '../utils/cn';
 
 type PopoverProps = React.ComponentProps<typeof PopoverPrimitive.Root>;
 type PopoverTriggerProps = React.ComponentProps<
@@ -30,8 +30,8 @@ const PopoverContent = ({
         {...props}
         sideOffset={sideOffset}
         className={cn(
-          "z-50 w-[min(24rem,calc(100vw-2rem))] rounded-[28px] border border-border bg-surface p-5 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-          className
+          'z-50 w-[min(24rem,calc(100vw-2rem))] rounded-[28px] border border-border bg-surface p-5 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+          className,
         )}
       />
     </PopoverPortal>

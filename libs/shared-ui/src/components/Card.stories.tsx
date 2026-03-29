@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from './Button';
 import {
   Card,
   CardContent,
@@ -6,15 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./Card";
-import { Button } from "./Button";
-import { CheckboxField } from "./CheckboxField";
-import { Field } from "./Field";
-import { Input } from "./Input";
-import { Textarea } from "./Textarea";
+} from './Card';
+import { CheckboxField } from './CheckboxField';
+import { Field } from './Field';
+import { Input } from './Input';
+import { Textarea } from './Textarea';
 
 const meta = {
-  title: "Components/Card",
+  title: 'Components/Card',
   component: Card,
 } satisfies Meta<typeof Card>;
 

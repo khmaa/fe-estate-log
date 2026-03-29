@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./Button";
-import { ToastHostProvider } from "./ToastHost";
-import { useToast } from "./useToast";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from './Button';
+import { ToastHostProvider } from './ToastHost';
+import { useToast } from './useToast';
 
 const meta = {
-  title: "Components/ToastHost",
+  title: 'Components/ToastHost',
   component: ToastHostProvider,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
 } satisfies Meta<typeof ToastHostProvider>;
 
@@ -21,9 +21,9 @@ const ToastHostDemo = () => {
       <Button
         onClick={() =>
           showToast({
-            title: "Draft saved",
-            description: "The current showcase state was stored locally.",
-            variant: "success",
+            title: 'Draft saved',
+            description: 'The current showcase state was stored locally.',
+            variant: 'success',
           })
         }
       >
@@ -33,9 +33,9 @@ const ToastHostDemo = () => {
         variant="secondary"
         onClick={() =>
           showToast({
-            title: "Validation failed",
-            description: "Review the highlighted fields and try again.",
-            variant: "error",
+            title: 'Validation failed',
+            description: 'Review the highlighted fields and try again.',
+            variant: 'error',
           })
         }
       >

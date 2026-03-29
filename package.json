@@ -3,12 +3,18 @@
   "private": true,
   "scripts": {
     "build:web": "pnpm -F web build",
-    "lint": "eslint apps/web libs/shared-ui",
+    "format": "pnpm run format:write",
+    "format:write": "prettier . --write && eslint . --fix",
+    "format:check": "prettier . --check",
+    "lint": "eslint .",
     "lint:web": "pnpm -F web lint",
     "prepare": "husky",
     "test:all": "pnpm -r --if-present test:run"
   },
   "lint-staged": {
+    "**/*.json": [
+      "eslint"
+    ],
     "apps/web/**/*.{ts,tsx}": [
       "eslint"
     ],
@@ -26,8 +32,11 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
+    "jsonc-eslint-parser": "^3.1.0",
     "lint-staged": "^16.4.0",
     "postcss": "8.5.8",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "tailwindcss": "3.4.19",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.50.1"

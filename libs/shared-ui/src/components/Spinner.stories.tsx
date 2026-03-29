@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Spinner } from "./Spinner";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Spinner } from './Spinner';
 
 const meta = {
-  title: "Components/Spinner",
+  title: 'Components/Spinner',
   component: Spinner,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 } satisfies Meta<typeof Spinner>;
 
@@ -15,18 +15,18 @@ export default meta;
 
 export const Default: Story = {
   args: {
-    size: "md",
+    size: 'md',
   },
 };
 
 export const Small: Story = {
   args: {
-    size: "sm",
+    size: 'sm',
   },
 };
 
 export const Large: Story = {
   args: {
-    size: "lg",
+    size: 'lg',
   },
 };
