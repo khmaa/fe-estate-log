@@ -1,6 +1,6 @@
-import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./Button";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { Button } from './Button';
 import {
   Toast,
   ToastClose,
@@ -8,13 +8,13 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "./Toast";
+} from './Toast';
 
 const meta = {
-  title: "Components/Toast",
+  title: 'Components/Toast',
   component: Toast,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
 } satisfies Meta<typeof Toast>;
 
@@ -25,7 +25,7 @@ const ToastStory = ({
   title,
   description,
 }: {
-  variant: "info" | "success" | "error";
+  variant: 'info' | 'success' | 'error';
   title: string;
   description: string;
 }) => {

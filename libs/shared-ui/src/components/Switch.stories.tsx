@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Switch } from "./Switch";
-import { Label } from "./Label";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Label } from './Label';
+import { Switch } from './Switch';
 
 const meta = {
-  title: "Components/Switch",
+  title: 'Components/Switch',
   component: Switch,
   args: {
     defaultChecked: false,

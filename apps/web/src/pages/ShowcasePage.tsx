@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Alert,
   AlertDescription,
@@ -41,22 +40,23 @@ import {
   Textarea,
   ToastHostProvider,
   useToast,
-} from "@shared-ui/core";
+} from '@shared-ui/core';
+import { useState } from 'react';
 
 const contactOptions = [
-  { label: "Email", value: "email", description: "Best for async updates." },
-  { label: "Phone", value: "phone", description: "For urgent follow-ups." },
-  { label: "Chat", value: "chat", description: "Fast product feedback." },
+  { label: 'Email', value: 'email', description: 'Best for async updates.' },
+  { label: 'Phone', value: 'phone', description: 'For urgent follow-ups.' },
+  { label: 'Chat', value: 'chat', description: 'Fast product feedback.' },
 ];
 
 const propertyOptions = [
-  { label: "Apartment", value: "apartment" },
-  { label: "Office", value: "office" },
-  { label: "Retail", value: "retail" },
+  { label: 'Apartment', value: 'apartment' },
+  { label: 'Office', value: 'office' },
+  { label: 'Retail', value: 'retail' },
 ];
 
 const ShowcaseContent = () => {
-  const [contactMethod, setContactMethod] = useState("email");
+  const [contactMethod, setContactMethod] = useState('email');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const { showToast } = useToast();
 
@@ -287,10 +287,10 @@ const ShowcaseContent = () => {
                   <Button
                     onClick={() =>
                       showToast({
-                        title: "Preview saved",
+                        title: 'Preview saved',
                         description:
-                          "Your showcase preferences were saved for the current session.",
-                        variant: "success",
+                          'Your showcase preferences were saved for the current session.',
+                        variant: 'success',
                       })
                     }
                   >

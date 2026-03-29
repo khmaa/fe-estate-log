@@ -1,15 +1,15 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { Button } from "../Button";
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { Button } from '../Button';
 import {
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-} from "../Popover";
+} from '../Popover';
 
-describe("Popover", () => {
-  it("opens content through the trigger", () => {
+describe('Popover', () => {
+  it('opens content through the trigger', () => {
     render(
       <Popover>
         <PopoverTrigger asChild>
@@ -18,15 +18,15 @@ describe("Popover", () => {
         <PopoverContent>
           <p>Popover content</p>
         </PopoverContent>
-      </Popover>
+      </Popover>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Open popover" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Open popover' }));
 
-    expect(screen.getByText("Popover content")).toBeInTheDocument();
+    expect(screen.getByText('Popover content')).toBeInTheDocument();
   });
 
-  it("closes content through the close action", () => {
+  it('closes content through the close action', () => {
     render(
       <Popover defaultOpen>
         <PopoverContent>
@@ -34,23 +34,23 @@ describe("Popover", () => {
             <Button variant="ghost">Close</Button>
           </PopoverClose>
         </PopoverContent>
-      </Popover>
+      </Popover>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
 
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  it("merges className on content", () => {
+  it('merges className on content', () => {
     render(
       <Popover defaultOpen>
         <PopoverContent className="custom-popover">
           <p>Popover content</p>
         </PopoverContent>
-      </Popover>
+      </Popover>,
     );
 
-    expect(screen.getByRole("dialog")).toHaveClass("custom-popover");
+    expect(screen.getByRole('dialog')).toHaveClass('custom-popover');
   });
 });

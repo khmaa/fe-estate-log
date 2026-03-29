@@ -1,4 +1,4 @@
-import { ShowcasePage } from "./pages/ShowcasePage";
+import { ShowcasePage } from './pages/ShowcasePage';
 
 function App() {
   return <ShowcasePage />;

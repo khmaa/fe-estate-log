@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { Button } from "../Button";
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { Button } from '../Button';
 import {
   Dialog,
   DialogBody,
@@ -11,10 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../Dialog";
+} from '../Dialog';
 
-describe("Dialog", () => {
-  it("opens content through the trigger", () => {
+describe('Dialog', () => {
+  it('opens content through the trigger', () => {
     render(
       <Dialog>
         <DialogTrigger asChild>
@@ -29,19 +29,19 @@ describe("Dialog", () => {
             <p>Dialog body content</p>
           </DialogBody>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Open dialog" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }));
 
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Create a new visit log" })
+      screen.getByRole('heading', { name: 'Create a new visit log' }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Dialog body content")).toBeInTheDocument();
+    expect(screen.getByText('Dialog body content')).toBeInTheDocument();
   });
 
-  it("closes content through the close action", () => {
+  it('closes content through the close action', () => {
     render(
       <Dialog defaultOpen>
         <DialogContent>
@@ -55,15 +55,15 @@ describe("Dialog", () => {
             </DialogClose>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
 
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  it("merges className on content", () => {
+  it('merges className on content', () => {
     render(
       <Dialog defaultOpen>
         <DialogContent className="custom-dialog">
@@ -72,9 +72,9 @@ describe("Dialog", () => {
             <DialogDescription>Dialog description</DialogDescription>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
-    expect(screen.getByRole("dialog")).toHaveClass("custom-dialog");
+    expect(screen.getByRole('dialog')).toHaveClass('custom-dialog');
   });
 });

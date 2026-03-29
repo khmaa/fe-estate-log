@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
-import type React from "react";
-import type { ToastVariant } from "./Toast";
+import type React from 'react';
+import { createContext, useContext } from 'react';
+import type { ToastVariant } from './Toast';
 
 type ShowToastOptions = {
   title: string;
@@ -25,7 +25,7 @@ const useToast = () => {
   const context = useContext(ToastContext);
 
   if (!context) {
-    throw new Error("useToast must be used within ToastHostProvider");
+    throw new Error('useToast must be used within ToastHostProvider');
   }
 
   return context;

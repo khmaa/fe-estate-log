@@ -1,8 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { Button } from "../Button";
-import { ToastHostProvider } from "../ToastHost";
-import { useToast } from "../useToast";
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { Button } from '../Button';
+import { ToastHostProvider } from '../ToastHost';
+import { useToast } from '../useToast';
 
 const ToastConsumer = () => {
   const { dismissToast, showToast } = useToast();
@@ -12,9 +12,9 @@ const ToastConsumer = () => {
       <Button
         onClick={() =>
           showToast({
-            title: "Saved",
-            description: "The latest changes were saved.",
-            variant: "success",
+            title: 'Saved',
+            description: 'The latest changes were saved.',
+            variant: 'success',
           })
         }
       >
@@ -27,23 +27,23 @@ const ToastConsumer = () => {
   );
 };
 
-describe("ToastHostProvider", () => {
-  it("shows a toast through the helper hook", () => {
+describe('ToastHostProvider', () => {
+  it('shows a toast through the helper hook', () => {
     render(
       <ToastHostProvider>
         <ToastConsumer />
-      </ToastHostProvider>
+      </ToastHostProvider>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Show toast" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show toast' }));
 
-    expect(screen.getByText("Saved")).toBeInTheDocument();
+    expect(screen.getByText('Saved')).toBeInTheDocument();
     expect(
-      screen.getByText("The latest changes were saved.")
+      screen.getByText('The latest changes were saved.'),
     ).toBeInTheDocument();
   });
 
-  it("uses default variant and dismiss label when options are omitted", () => {
+  it('uses default variant and dismiss label when options are omitted', () => {
     const MinimalToastConsumer = () => {
       const { showToast } = useToast();
 
@@ -51,7 +51,7 @@ describe("ToastHostProvider", () => {
         <Button
           onClick={() =>
             showToast({
-              title: "Minimal toast",
+              title: 'Minimal toast',
             })
           }
         >
@@ -63,38 +63,38 @@ describe("ToastHostProvider", () => {
     render(
       <ToastHostProvider>
         <MinimalToastConsumer />
-      </ToastHostProvider>
+      </ToastHostProvider>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Show minimal toast" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show minimal toast' }));
 
-    expect(screen.getByText("Minimal toast")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Dismiss" })).toBeInTheDocument();
+    expect(screen.getByText('Minimal toast')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
   });
 
-  it("dismisses the active toast through the helper hook", () => {
+  it('dismisses the active toast through the helper hook', () => {
     render(
       <ToastHostProvider>
         <ToastConsumer />
-      </ToastHostProvider>
+      </ToastHostProvider>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Show toast" }));
-    fireEvent.click(screen.getByRole("button", { name: "Dismiss toast" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show toast' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss toast' }));
 
-    expect(screen.queryByText("Saved")).not.toBeInTheDocument();
+    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
   });
 
-  it("updates toast visibility through the internal dismiss action", () => {
+  it('updates toast visibility through the internal dismiss action', () => {
     render(
       <ToastHostProvider>
         <ToastConsumer />
-      </ToastHostProvider>
+      </ToastHostProvider>,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Show toast" }));
-    fireEvent.click(screen.getAllByRole("button", { name: "Dismiss" })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Show toast' }));
+    fireEvent.click(screen.getAllByRole('button', { name: 'Dismiss' })[0]);
 
-    expect(screen.queryByText("Saved")).not.toBeInTheDocument();
+    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
   });
 });

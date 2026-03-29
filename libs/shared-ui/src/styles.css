@@ -1,4 +1,4 @@
-@import "../../../styles/tokens.css";
+@import '../../../styles/tokens.css';
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,7 @@
   :root {
     color: var(--color-foreground);
     background-color: var(--color-background);
-    font-family: Inter, "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+    font-family: Inter, 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
   }
 
   body {

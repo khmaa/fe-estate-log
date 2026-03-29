@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 import {
   Toast,
   ToastClose,
@@ -6,13 +6,13 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "./Toast";
+} from './Toast';
 import {
   ToastContext,
   type ShowToastOptions,
   type ToastContextValue,
   type ToastHostProviderProps,
-} from "./useToast";
+} from './useToast';
 
 type ToastState = ShowToastOptions & {
   open: boolean;
@@ -33,20 +33,20 @@ const ToastHostProvider = ({
                 ...current,
                 open: false,
               }
-            : null
+            : null,
         );
       },
       showToast: (options) => {
         setToast({
-          dismissLabel: options.dismissLabel ?? "Dismiss",
+          dismissLabel: options.dismissLabel ?? 'Dismiss',
           duration: options.duration ?? duration,
           open: true,
-          variant: options.variant ?? "info",
+          variant: options.variant ?? 'info',
           ...options,
         });
       },
     }),
-    [duration]
+    [duration],
   );
 
   return (
@@ -65,7 +65,7 @@ const ToastHostProvider = ({
                       ...current,
                       open,
                     }
-                  : null
+                  : null,
               )
             }
           >

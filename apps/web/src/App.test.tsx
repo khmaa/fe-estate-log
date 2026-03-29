@@ -1,49 +1,49 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import App from "./App";
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import App from './App';
 
-describe("App", () => {
-  it("renders the shared ui showcase page", () => {
+describe('App', () => {
+  it('renders the shared ui showcase page', () => {
     render(<App />);
     expect(
-      screen.getByRole("heading", { name: "Shared UI Showcase" })
+      screen.getByRole('heading', { name: 'Shared UI Showcase' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText("Email address")).toBeInTheDocument();
+    expect(screen.getByLabelText('Email address')).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Layered interaction patterns" })
+      screen.getByRole('heading', { name: 'Layered interaction patterns' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Open dialog preview" })
+      screen.getByRole('button', { name: 'Open dialog preview' }),
     ).toBeInTheDocument();
   });
 
-  it("opens the dialog and shows a toast from the showcase actions", () => {
+  it('opens the dialog and shows a toast from the showcase actions', () => {
     render(<App />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Show success toast" }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show success toast' }));
 
-    expect(screen.getByText("Preview saved")).toBeInTheDocument();
+    expect(screen.getByText('Preview saved')).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Your showcase preferences were saved for the current session."
-      )
+        'Your showcase preferences were saved for the current session.',
+      ),
     ).toBeInTheDocument();
 
     fireEvent.click(
-      screen.getByRole("button", { name: "Open dialog preview" })
+      screen.getByRole('button', { name: 'Open dialog preview' }),
     );
 
     expect(
-      screen.getByRole("heading", { name: "Create a new visit log" })
+      screen.getByRole('heading', { name: 'Create a new visit log' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText("Title")).toBeInTheDocument();
+    expect(screen.getByLabelText('Title')).toBeInTheDocument();
   });
 
-  it("toggles the release notification switch", () => {
+  it('toggles the release notification switch', () => {
     render(<App />);
 
-    const toggle = screen.getByRole("checkbox", {
-      name: "Enable release notifications",
+    const toggle = screen.getByRole('checkbox', {
+      name: 'Enable release notifications',
     });
 
     expect(toggle).toBeChecked();

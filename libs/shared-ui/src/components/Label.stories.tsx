@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Label } from "./Label";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Label } from './Label';
 
 const meta = {
-  title: "Components/Label",
+  title: 'Components/Label',
   component: Label,
   args: {
-    children: "Email address",
+    children: 'Email address',
   },
 } satisfies Meta<typeof Label>;
 
@@ -17,8 +17,8 @@ export const Default: Story = {};
 
 export const Muted: Story = {
   args: {
-    children: "Optional field",
-    className: "text-muted-foreground",
+    children: 'Optional field',
+    className: 'text-muted-foreground',
   },
 };
 
