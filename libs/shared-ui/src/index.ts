@@ -38,6 +38,14 @@ export {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./components/DropdownMenu";
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverClose,
+  PopoverContent,
+  PopoverPortal,
+  PopoverTrigger,
+} from "./components/Popover";
 export { RadioGroup } from "./components/RadioGroup";
 export { Select } from "./components/Select";
 export { Spinner } from "./components/Spinner";
@@ -94,6 +102,14 @@ export type {
   DropdownMenuSeparatorProps,
   DropdownMenuTriggerProps,
 } from "./components/DropdownMenu";
+export type {
+  PopoverAnchorProps,
+  PopoverCloseProps,
+  PopoverContentProps,
+  PopoverPortalProps,
+  PopoverProps,
+  PopoverTriggerProps,
+} from "./components/Popover";
 export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { InputProps } from "./components/Input";
