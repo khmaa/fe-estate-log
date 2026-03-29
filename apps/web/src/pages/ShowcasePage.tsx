@@ -21,11 +21,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   EmptyState,
   Field,
   Input,
   RadioGroup,
   Select,
+  Spinner,
   Switch,
   Textarea,
   ToastHostProvider,
@@ -205,6 +212,16 @@ const ShowcaseContent = () => {
                 <Badge variant="warning">Needs Attention</Badge>
                 <Badge variant="error">Blocked</Badge>
               </div>
+              <div className="flex flex-wrap items-center gap-4 rounded-ui border border-border bg-background px-4 py-4">
+                <Button loading>Saving changes</Button>
+                <Button variant="secondary" loading>
+                  Publishing
+                </Button>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <Spinner size="sm" />
+                  Background sync in progress
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -275,6 +292,32 @@ const ShowcaseContent = () => {
                   >
                     Show success toast
                   </Button>
+                </div>
+              </div>
+
+              <div className="rounded-ui border border-border bg-background px-4 py-4">
+                <p className="text-sm font-semibold text-foreground">
+                  Dropdown menu preview
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Use menus for grouped actions rather than value selection.
+                </p>
+                <div className="mt-4">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="secondary">Open actions menu</Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Visit log actions</DropdownMenuLabel>
+                      <DropdownMenuItem>Edit draft</DropdownMenuItem>
+                      <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>Archive</DropdownMenuItem>
+                      <DropdownMenuItem className="text-danger focus:bg-danger-soft/50">
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
             </CardContent>
