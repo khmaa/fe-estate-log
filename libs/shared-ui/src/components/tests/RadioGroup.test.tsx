@@ -57,6 +57,33 @@ describe('RadioGroup', () => {
     );
   });
 
+  it('uses helper text as aria-describedby when an option has no description', () => {
+    render(
+      <RadioGroup
+        label="Contact method"
+        name="contact"
+        options={[
+          {
+            value: 'email',
+            label: 'Email',
+          },
+          {
+            value: 'phone',
+            label: 'Phone',
+            description: 'Use this for urgent scheduling.',
+          },
+        ]}
+        value="email"
+        helperText="Choose one method for follow-up."
+      />,
+    );
+
+    expect(screen.getByRole('radio', { name: /Email/i })).toHaveAttribute(
+      'aria-describedby',
+      'contact-helper',
+    );
+  });
+
   it('marks the group as invalid when error text is present', () => {
     render(
       <RadioGroup
