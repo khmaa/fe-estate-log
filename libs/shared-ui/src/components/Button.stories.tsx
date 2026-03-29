@@ -61,3 +61,18 @@ export const Small: Story = {
     size: "sm",
   },
 };
+
+export const Loading: Story = {
+  args: {
+    children: "Saving",
+    loading: true,
+  },
+};
+
+export const SecondaryLoading: Story = {
+  args: {
+    children: "Publishing",
+    loading: true,
+    variant: "secondary",
+  },
+};
