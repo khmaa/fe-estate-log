@@ -30,6 +30,10 @@ import {
   EmptyState,
   Field,
   Input,
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
   RadioGroup,
   Select,
   Spinner,
@@ -318,6 +322,45 @@ const ShowcaseContent = () => {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
+                </div>
+              </div>
+
+              <div className="rounded-ui border border-border bg-background px-4 py-4">
+                <p className="text-sm font-semibold text-foreground">
+                  Popover preview
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Use popovers for contextual panels that need richer content
+                  than a simple menu.
+                </p>
+                <div className="mt-4">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="secondary">Open filter popover</Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="end">
+                      <div className="space-y-4">
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-foreground">
+                            Quick filters
+                          </p>
+                          <p className="text-sm leading-6 text-muted-foreground">
+                            Keep lightweight settings near the trigger instead
+                            of opening a full dialog.
+                          </p>
+                        </div>
+                        <div className="rounded-ui border border-border bg-background px-4 py-3 text-sm text-muted-foreground">
+                          Apartments, under 1B KRW, and 10 minutes from transit
+                        </div>
+                        <div className="flex justify-end gap-3">
+                          <PopoverClose asChild>
+                            <Button variant="ghost">Close</Button>
+                          </PopoverClose>
+                          <Button>Apply filters</Button>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </CardContent>
