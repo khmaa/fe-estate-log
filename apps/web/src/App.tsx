@@ -1,7 +1,7 @@
-import { ShowcasePage } from './pages/ShowcasePage';
+import { VisitLogsPage } from './pages/VisitLogsPage';
 
 function App() {
-  return <ShowcasePage />;
+  return <VisitLogsPage />;
 }
 
 export default App;

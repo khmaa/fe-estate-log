@@ -22,5 +22,6 @@ Thumbs.db
 # Project-specific generated files
 *.min.js
 config-overrides.js
+pnpm-lock.yaml
 **/vite.config.*.timestamp*
 **/vitest.config.*.timestamp*
