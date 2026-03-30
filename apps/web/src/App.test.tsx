@@ -1,55 +1,70 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import App from './App';
+import { AppProviders } from './app/AppProviders';
+
+const renderApp = () =>
+  render(
+    <AppProviders>
+      <App />
+    </AppProviders>,
+  );
 
 describe('App', () => {
-  it('renders the shared ui showcase page', () => {
-    render(<App />);
+  it('renders the visit logs workspace page', async () => {
+    renderApp();
+
     expect(
-      screen.getByRole('heading', { name: 'Shared UI Showcase' }),
+      await screen.findByRole('heading', { name: 'Visit logs workspace' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText('Email address')).toBeInTheDocument();
+    expect(screen.getByLabelText('Search visit logs')).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: 'Layered interaction patterns' }),
+      screen.getByRole('button', { name: 'Create visit log' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Open dialog preview' }),
+      await screen.findByText('Samsung-dong river-view apartment'),
     ).toBeInTheDocument();
   });
 
-  it('opens the dialog and shows a toast from the showcase actions', () => {
-    render(<App />);
-
-    fireEvent.click(screen.getByRole('button', { name: 'Show success toast' }));
-
-    expect(screen.getByText('Preview saved')).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Your showcase preferences were saved for the current session.',
-      ),
-    ).toBeInTheDocument();
+  it('opens the create dialog and shows a toast after creating a draft', async () => {
+    renderApp();
 
     fireEvent.click(
-      screen.getByRole('button', { name: 'Open dialog preview' }),
+      await screen.findByRole('button', { name: 'Create visit log' }),
     );
 
     expect(
       screen.getByRole('heading', { name: 'Create a new visit log' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText('Title')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create draft' }));
+
+    expect(await screen.findByText('Draft flow prepared')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'The visit-logs page is ready for a real create mutation once the API is wired in.',
+      ),
+    ).toBeInTheDocument();
   });
 
-  it('toggles the release notification switch', () => {
-    render(<App />);
+  it('filters the list by pinned visit logs only', async () => {
+    renderApp();
+
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Advanced filters' }),
+    );
 
     const toggle = screen.getByRole('checkbox', {
-      name: 'Enable release notifications',
+      name: 'Show pinned visit logs only',
     });
-
-    expect(toggle).toBeChecked();
 
     fireEvent.click(toggle);
 
-    expect(toggle).not.toBeChecked();
+    expect(
+      screen.getByText('Samsung-dong river-view apartment'),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText('Seongsu mixed-use office floor'),
+    ).not.toBeInTheDocument();
   });
 });
