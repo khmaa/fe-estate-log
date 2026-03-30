@@ -23,5 +23,6 @@ Thumbs.db
 *.min.js
 config-overrides.js
 pnpm-lock.yaml
+apps/web/public/mockServiceWorker.js
 **/vite.config.*.timestamp*
 **/vitest.config.*.timestamp*
