@@ -15,4 +15,12 @@ type VisitLog = {
 
 type VisitLogSort = 'latest' | 'oldest' | 'district';
 
-export type { VisitLog, VisitLogSort, VisitLogStatus };
+type CreateVisitLogInput = {
+  district: string;
+  priceLabel: string;
+  propertyType: VisitLog['propertyType'];
+  summary: string;
+  title: string;
+};
+
+export type { CreateVisitLogInput, VisitLog, VisitLogSort, VisitLogStatus };

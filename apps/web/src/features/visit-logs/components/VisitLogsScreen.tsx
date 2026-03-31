@@ -22,6 +22,7 @@ import {
 } from '@shared-ui/core';
 import { useMemo, useState } from 'react';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
+import { VisitLogCreateDialog } from './VisitLogCreateDialog';
 import { VisitLogFilters } from './VisitLogFilters';
 import { VisitLogList } from './VisitLogList';
 
@@ -63,9 +64,9 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
   const handleCreateConfirm = () => {
     setIsCreateDialogOpen(false);
     showToast({
-      title: 'Draft flow prepared',
+      title: 'Visit log created',
       description:
-        'The visit-logs page is ready for a real create mutation once the API is wired in.',
+        'The new draft has been added through the feature mutation flow.',
       variant: 'success',
     });
   };
@@ -131,31 +132,11 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
           onOpenDetails={handleOpenDetails}
         />
 
-        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create a new visit log</DialogTitle>
-              <DialogDescription>
-                The modal is already wired for feature use. A future mutation
-                can replace this placeholder flow without changing the page
-                structure.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogBody>
-              <p className="text-sm leading-6 text-muted-foreground">
-                This confirmation intentionally stays simple. The next step is a
-                dedicated create form feature or a mutation hook for draft
-                creation.
-              </p>
-            </DialogBody>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="ghost">Cancel</Button>
-              </DialogClose>
-              <Button onClick={handleCreateConfirm}>Create draft</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <VisitLogCreateDialog
+          open={isCreateDialogOpen}
+          onOpenChange={setIsCreateDialogOpen}
+          onCreated={handleCreateConfirm}
+        />
 
         <Dialog
           open={selectedLog !== null}
