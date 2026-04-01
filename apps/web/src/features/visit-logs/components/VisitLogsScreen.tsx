@@ -23,6 +23,7 @@ import {
 import { useMemo, useState } from 'react';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
+import { VisitLogEditDialog } from './VisitLogEditDialog';
 import { VisitLogFilters } from './VisitLogFilters';
 import { VisitLogList } from './VisitLogList';
 
@@ -35,7 +36,9 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
   const [query, setQuery] = useState('');
   const [pinnedOnly, setPinnedOnly] = useState(false);
   const [selectedLog, setSelectedLog] = useState<VisitLog | null>(null);
+  const [editingLog, setEditingLog] = useState<VisitLog | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [sort, setSort] = useState<VisitLogSort>('latest');
   const { showToast } = useToast();
 
@@ -73,6 +76,27 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
 
   const handleOpenDetails = (log: VisitLog) => {
     setSelectedLog(log);
+  };
+
+  const handleStartEdit = () => {
+    if (!selectedLog) {
+      return;
+    }
+
+    setEditingLog(selectedLog);
+    setSelectedLog(null);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleEditConfirm = (updatedVisitLog: VisitLog) => {
+    setEditingLog(updatedVisitLog);
+    setIsEditDialogOpen(false);
+    showToast({
+      title: 'Visit log updated',
+      description:
+        'The latest edits were synced through the feature mutation flow.',
+      variant: 'success',
+    });
   };
 
   return (
@@ -138,6 +162,19 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
           onCreated={handleCreateConfirm}
         />
 
+        <VisitLogEditDialog
+          key={`${editingLog?.id ?? 'empty'}-${isEditDialogOpen ? 'open' : 'closed'}`}
+          log={editingLog}
+          open={isEditDialogOpen}
+          onOpenChange={(open) => {
+            setIsEditDialogOpen(open);
+            if (!open) {
+              setEditingLog(null);
+            }
+          }}
+          onUpdated={handleEditConfirm}
+        />
+
         <Dialog
           open={selectedLog !== null}
           onOpenChange={(open) => {
@@ -182,6 +219,9 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
               ) : null}
             </DialogBody>
             <DialogFooter>
+              <Button variant="secondary" onClick={handleStartEdit}>
+                Edit
+              </Button>
               <DialogClose asChild>
                 <Button variant="ghost">Close</Button>
               </DialogClose>

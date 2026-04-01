@@ -52,8 +52,19 @@ const appendVisitLogMock = (visitLog: VisitLog) => {
   visitLogsMock = [visitLog, ...visitLogsMock];
 };
 
+const updateVisitLogMock = (visitLog: VisitLog) => {
+  visitLogsMock = visitLogsMock.map((current) =>
+    current.id === visitLog.id ? visitLog : current,
+  );
+};
+
 const resetVisitLogsMock = () => {
   visitLogsMock = [...initialVisitLogs];
 };
 
-export { appendVisitLogMock, listVisitLogsMock, resetVisitLogsMock };
+export {
+  appendVisitLogMock,
+  listVisitLogsMock,
+  resetVisitLogsMock,
+  updateVisitLogMock,
+};
