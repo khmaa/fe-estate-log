@@ -86,4 +86,47 @@ describe('App', () => {
       screen.queryByText('성수 복합용도 오피스 층'),
     ).not.toBeInTheDocument();
   });
+
+  it('updates an existing visit log from the detail dialog', async () => {
+    renderApp();
+
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 재방문'),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      (await screen.findAllByRole('button', { name: 'Review note' }))[0],
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Edit visit log' }),
+    ).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('Title'), {
+      target: { value: '삼성동 한강뷰 아파트 수정 메모' },
+    });
+    fireEvent.change(screen.getByLabelText('District'), {
+      target: { value: '송파구' },
+    });
+    fireEvent.change(screen.getByLabelText('Price'), {
+      target: { value: 'KRW 1.40B' },
+    });
+    fireEvent.change(screen.getByLabelText('Summary'), {
+      target: { value: '업데이트된 현장 메모입니다.' },
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+    expect(await screen.findByText('Visit log updated')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'The latest edits were synced through the feature mutation flow.',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 수정 메모'),
+    ).toBeInTheDocument();
+  });
 });

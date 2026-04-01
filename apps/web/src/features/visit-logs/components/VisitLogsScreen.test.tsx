@@ -82,4 +82,15 @@ describe('VisitLogsScreen', () => {
       screen.getByRole('heading', { name: 'Create a new visit log' }),
     ).toBeInTheDocument();
   });
+
+  it('opens the edit dialog from the detail modal', async () => {
+    renderScreen();
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Edit visit log' }),
+    ).toBeInTheDocument();
+  });
 });

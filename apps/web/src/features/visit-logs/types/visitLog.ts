@@ -23,4 +23,14 @@ type CreateVisitLogInput = {
   title: string;
 };
 
-export type { CreateVisitLogInput, VisitLog, VisitLogSort, VisitLogStatus };
+type UpdateVisitLogInput = CreateVisitLogInput & {
+  id: string;
+};
+
+export type {
+  CreateVisitLogInput,
+  UpdateVisitLogInput,
+  VisitLog,
+  VisitLogSort,
+  VisitLogStatus,
+};
