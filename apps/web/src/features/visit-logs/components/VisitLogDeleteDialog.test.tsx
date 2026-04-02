@@ -54,4 +54,25 @@ describe('VisitLogDeleteDialog', () => {
     });
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
+
+  it('does not submit a delete mutation when no log is provided', () => {
+    const onDeleted = vi.fn();
+
+    render(
+      <AppProviders>
+        <VisitLogDeleteDialog
+          log={null}
+          open
+          onDeleted={onDeleted}
+          onOpenChange={vi.fn()}
+        />
+      </AppProviders>,
+    );
+
+    expect(
+      screen.getByText('Are you sure you want to delete this visit log?'),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    expect(onDeleted).not.toHaveBeenCalled();
+  });
 });

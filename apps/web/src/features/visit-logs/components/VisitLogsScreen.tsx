@@ -86,12 +86,8 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
     setSelectedLog(log);
   };
 
-  const handleStartEdit = () => {
-    if (!selectedLog) {
-      return;
-    }
-
-    setEditingLog(selectedLog);
+  const handleStartEdit = (visitLog: VisitLog) => {
+    setEditingLog(visitLog);
     setSelectedLog(null);
     setIsEditDialogOpen(true);
   };
@@ -107,12 +103,8 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
     });
   };
 
-  const handleStartDelete = () => {
-    if (!selectedLog) {
-      return;
-    }
-
-    setDeletingLog(selectedLog);
+  const handleStartDelete = (visitLog: VisitLog) => {
+    setDeletingLog(visitLog);
     setSelectedLog(null);
     setIsDeleteDialogOpen(true);
   };
@@ -260,16 +252,23 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
               ) : null}
             </DialogBody>
             <DialogFooter>
-              <Button variant="secondary" onClick={handleStartEdit}>
-                Edit
-              </Button>
-              <Button
-                variant="ghost"
-                className="text-danger hover:bg-danger-soft/50"
-                onClick={handleStartDelete}
-              >
-                Delete
-              </Button>
+              {selectedLog ? (
+                <>
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleStartEdit(selectedLog)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="text-danger hover:bg-danger-soft/50"
+                    onClick={() => handleStartDelete(selectedLog)}
+                  >
+                    Delete
+                  </Button>
+                </>
+              ) : null}
               <DialogClose asChild>
                 <Button variant="ghost">Close</Button>
               </DialogClose>
