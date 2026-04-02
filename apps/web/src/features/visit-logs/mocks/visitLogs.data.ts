@@ -58,6 +58,12 @@ const updateVisitLogMock = (visitLog: VisitLog) => {
   );
 };
 
+const removeVisitLogMock = (visitLogId: string) => {
+  visitLogsMock = visitLogsMock.filter(
+    (visitLog) => visitLog.id !== visitLogId,
+  );
+};
+
 const resetVisitLogsMock = () => {
   visitLogsMock = [...initialVisitLogs];
 };
@@ -65,6 +71,7 @@ const resetVisitLogsMock = () => {
 export {
   appendVisitLogMock,
   listVisitLogsMock,
+  removeVisitLogMock,
   resetVisitLogsMock,
   updateVisitLogMock,
 };

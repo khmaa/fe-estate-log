@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { AppProviders } from '../../../app/AppProviders';
 import { VisitLogsScreen } from './VisitLogsScreen';
@@ -92,5 +92,45 @@ describe('VisitLogsScreen', () => {
     expect(
       await screen.findByRole('heading', { name: 'Edit visit log' }),
     ).toBeInTheDocument();
+  });
+
+  it('opens the delete dialog from the detail modal', async () => {
+    renderScreen();
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Delete visit log' }),
+    ).toBeInTheDocument();
+  });
+
+  it('closes the delete dialog and clears the pending delete state', async () => {
+    renderScreen();
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByRole('heading', { name: 'Delete visit log' }),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('removes a deleted visit log from the current list and shows a toast', async () => {
+    renderScreen();
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Delete' }));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Samsung-dong river-view apartment'),
+      ).not.toBeInTheDocument();
+    });
+    expect(screen.getByText('Visit log deleted')).toBeInTheDocument();
   });
 });
