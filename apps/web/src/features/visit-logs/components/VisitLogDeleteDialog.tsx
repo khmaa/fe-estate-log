@@ -34,9 +34,9 @@ const VisitLogDeleteDialog = ({
     onOpenChange(nextOpen);
   };
 
-  const handleConfirm = async () => {
-    await mutation.mutateAsync(log.id);
-    onDeleted(log.id);
+  const handleConfirm = async (visitLog: VisitLog) => {
+    await mutation.mutateAsync(visitLog.id);
+    onDeleted(visitLog.id);
     handleOpenChange(false);
   };
 
@@ -76,7 +76,7 @@ const VisitLogDeleteDialog = ({
             className="bg-danger text-white hover:bg-danger"
             disabled={mutation.isPending || !log}
             loading={mutation.isPending}
-            onClick={log ? handleConfirm : undefined}
+            onClick={log ? () => handleConfirm(log) : undefined}
           >
             Delete
           </Button>
