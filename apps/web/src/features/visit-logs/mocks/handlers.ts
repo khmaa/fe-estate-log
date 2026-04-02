@@ -7,6 +7,7 @@ import type {
 import {
   appendVisitLogMock,
   listVisitLogsMock,
+  removeVisitLogMock,
   updateVisitLogMock,
 } from './visitLogs.data';
 
@@ -63,6 +64,23 @@ const visitLogsHandlers = [
     updateVisitLogMock(updatedVisitLog);
 
     return HttpResponse.json(updatedVisitLog);
+  }),
+  http.delete('/api/visit-logs/:visitLogId', async ({ params }) => {
+    const currentVisitLog = listVisitLogsMock().find(
+      (visitLog) => visitLog.id === params.visitLogId,
+    );
+
+    if (!currentVisitLog) {
+      return new HttpResponse(null, {
+        status: 404,
+      });
+    }
+
+    removeVisitLogMock(currentVisitLog.id);
+
+    return new HttpResponse(null, {
+      status: 204,
+    });
   }),
 ];
 

@@ -129,4 +129,30 @@ describe('App', () => {
       await screen.findByText('삼성동 한강뷰 아파트 수정 메모'),
     ).toBeInTheDocument();
   });
+
+  it('deletes an existing visit log from the detail dialog', async () => {
+    renderApp();
+
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 재방문'),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      (await screen.findAllByRole('button', { name: 'Review note' }))[0],
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Delete visit log' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+
+    expect(await screen.findByText('Visit log deleted')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'The selected visit log was removed through the feature mutation flow.',
+      ),
+    ).toBeInTheDocument();
+  });
 });

@@ -23,6 +23,7 @@ import {
 import { useMemo, useState } from 'react';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
+import { VisitLogDeleteDialog } from './VisitLogDeleteDialog';
 import { VisitLogEditDialog } from './VisitLogEditDialog';
 import { VisitLogFilters } from './VisitLogFilters';
 import { VisitLogList } from './VisitLogList';
@@ -35,9 +36,12 @@ type VisitLogsScreenProps = {
 const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
   const [query, setQuery] = useState('');
   const [pinnedOnly, setPinnedOnly] = useState(false);
+  const [deletedLogIds, setDeletedLogIds] = useState<string[]>([]);
   const [selectedLog, setSelectedLog] = useState<VisitLog | null>(null);
   const [editingLog, setEditingLog] = useState<VisitLog | null>(null);
+  const [deletingLog, setDeletingLog] = useState<VisitLog | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [sort, setSort] = useState<VisitLogSort>('latest');
   const { showToast } = useToast();
@@ -46,6 +50,10 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return logs.filter((log) => {
+      if (deletedLogIds.includes(log.id)) {
+        return false;
+      }
+
       if (pinnedOnly && !log.isPinned) {
         return false;
       }
@@ -58,7 +66,7 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
         value.toLowerCase().includes(normalizedQuery),
       );
     });
-  }, [logs, pinnedOnly, query]);
+  }, [deletedLogIds, logs, pinnedOnly, query]);
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -95,6 +103,27 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
       title: 'Visit log updated',
       description:
         'The latest edits were synced through the feature mutation flow.',
+      variant: 'success',
+    });
+  };
+
+  const handleStartDelete = () => {
+    if (!selectedLog) {
+      return;
+    }
+
+    setDeletingLog(selectedLog);
+    setSelectedLog(null);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = (deletedVisitLogId: string) => {
+    setIsDeleteDialogOpen(false);
+    setDeletedLogIds((current) => [...current, deletedVisitLogId]);
+    showToast({
+      title: 'Visit log deleted',
+      description:
+        'The selected visit log was removed through the feature mutation flow.',
       variant: 'success',
     });
   };
@@ -175,6 +204,18 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
           onUpdated={handleEditConfirm}
         />
 
+        <VisitLogDeleteDialog
+          log={deletingLog}
+          open={isDeleteDialogOpen}
+          onOpenChange={(open) => {
+            setIsDeleteDialogOpen(open);
+            if (!open) {
+              setDeletingLog(null);
+            }
+          }}
+          onDeleted={handleDeleteConfirm}
+        />
+
         <Dialog
           open={selectedLog !== null}
           onOpenChange={(open) => {
@@ -221,6 +262,13 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
             <DialogFooter>
               <Button variant="secondary" onClick={handleStartEdit}>
                 Edit
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-danger hover:bg-danger-soft/50"
+                onClick={handleStartDelete}
+              >
+                Delete
               </Button>
               <DialogClose asChild>
                 <Button variant="ghost">Close</Button>

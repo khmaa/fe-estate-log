@@ -93,4 +93,15 @@ describe('VisitLogsScreen', () => {
       await screen.findByRole('heading', { name: 'Edit visit log' }),
     ).toBeInTheDocument();
   });
+
+  it('opens the delete dialog from the detail modal', async () => {
+    renderScreen();
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Delete visit log' }),
+    ).toBeInTheDocument();
+  });
 });
