@@ -3,12 +3,15 @@ import { describe, expect, it } from 'vitest';
 import App from './App';
 import { AppProviders } from './app/AppProviders';
 
-const renderApp = () =>
-  render(
+const renderApp = (route = '/') => {
+  window.history.pushState({}, '', route);
+
+  return render(
     <AppProviders>
       <App />
     </AppProviders>,
   );
+};
 
 describe('App', () => {
   it('renders the visit logs workspace page', async () => {
@@ -24,6 +27,18 @@ describe('App', () => {
     expect(
       await screen.findByText('삼성동 한강뷰 아파트 재방문'),
     ).toBeInTheDocument();
+  });
+
+  it('renders the showcase page on the showcase route', async () => {
+    renderApp('/showcase');
+
+    expect(
+      await screen.findByRole('heading', { name: 'Shared UI Showcase' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Showcase' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
   });
 
   it('opens the create dialog and shows a toast after creating a draft', async () => {
