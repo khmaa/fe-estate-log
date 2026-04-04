@@ -41,6 +41,21 @@ describe('App', () => {
     );
   });
 
+  it('renders the not found page on an unknown route', async () => {
+    renderApp('/missing-route');
+
+    expect(
+      await screen.findByRole('heading', { name: 'Page not found' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Go to visit logs' }),
+    ).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Open showcase' })).toHaveAttribute(
+      'href',
+      '/showcase',
+    );
+  });
+
   it('opens the create dialog and shows a toast after creating a draft', async () => {
     renderApp();
 
