@@ -29,6 +29,22 @@ describe('App', () => {
     ).toBeInTheDocument();
   });
 
+  it('hydrates visit log filters from the query string', async () => {
+    renderApp('/?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true');
+
+    expect(
+      await screen.findByRole('heading', { name: 'Visit logs workspace' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Search visit logs')).toHaveValue('강남');
+    expect(screen.getByLabelText('Sort by')).toHaveValue('district');
+    fireEvent.click(screen.getByRole('button', { name: 'Advanced filters' }));
+    expect(
+      await screen.findByRole('checkbox', {
+        name: 'Show pinned visit logs only',
+      }),
+    ).toBeChecked();
+  });
+
   it('renders the showcase page on the showcase route', async () => {
     renderApp('/showcase');
 

@@ -29,13 +29,26 @@ import { VisitLogFilters } from './VisitLogFilters';
 import { VisitLogList } from './VisitLogList';
 
 type VisitLogsScreenProps = {
+  filters: {
+    pinnedOnly: boolean;
+    query: string;
+    sort: VisitLogSort;
+  };
   isLoading: boolean;
   logs: VisitLog[];
+  onPinnedOnlyChange: (checked: boolean) => void;
+  onQueryChange: (value: string) => void;
+  onSortChange: (sort: VisitLogSort) => void;
 };
 
-const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
-  const [query, setQuery] = useState('');
-  const [pinnedOnly, setPinnedOnly] = useState(false);
+const VisitLogsScreen = ({
+  filters,
+  isLoading,
+  logs,
+  onPinnedOnlyChange,
+  onQueryChange,
+  onSortChange,
+}: VisitLogsScreenProps) => {
   const [deletedLogIds, setDeletedLogIds] = useState<string[]>([]);
   const [selectedLog, setSelectedLog] = useState<VisitLog | null>(null);
   const [editingLog, setEditingLog] = useState<VisitLog | null>(null);
@@ -43,18 +56,17 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [sort, setSort] = useState<VisitLogSort>('latest');
   const { showToast } = useToast();
 
   const filteredLogs = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = filters.query.trim().toLowerCase();
 
     return logs.filter((log) => {
       if (deletedLogIds.includes(log.id)) {
         return false;
       }
 
-      if (pinnedOnly && !log.isPinned) {
+      if (filters.pinnedOnly && !log.isPinned) {
         return false;
       }
 
@@ -66,7 +78,7 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
         value.toLowerCase().includes(normalizedQuery),
       );
     });
-  }, [deletedLogIds, logs, pinnedOnly, query]);
+  }, [deletedLogIds, filters.pinnedOnly, filters.query, logs]);
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -151,12 +163,12 @@ const VisitLogsScreen = ({ isLoading, logs }: VisitLogsScreenProps) => {
           </CardHeader>
           <CardContent className="space-y-6">
             <VisitLogFilters
-              query={query}
-              sort={sort}
-              pinnedOnly={pinnedOnly}
-              onQueryChange={setQuery}
-              onSortChange={setSort}
-              onPinnedOnlyChange={setPinnedOnly}
+              query={filters.query}
+              sort={filters.sort}
+              pinnedOnly={filters.pinnedOnly}
+              onQueryChange={onQueryChange}
+              onSortChange={onSortChange}
+              onPinnedOnlyChange={onPinnedOnlyChange}
             />
           </CardContent>
         </Card>
