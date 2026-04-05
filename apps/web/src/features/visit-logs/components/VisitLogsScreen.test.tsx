@@ -30,19 +30,33 @@ const visitLogs = [
   },
 ];
 
-const renderScreen = (logs = visitLogs) =>
+const renderScreen = (
+  logs = visitLogs,
+  filters = {
+    pinnedOnly: false,
+    query: '',
+    sort: 'latest' as const,
+  },
+) =>
   render(
     <AppProviders>
-      <VisitLogsScreen logs={logs} isLoading={false} />
+      <VisitLogsScreen
+        logs={logs}
+        isLoading={false}
+        filters={filters}
+        onPinnedOnlyChange={() => {}}
+        onQueryChange={() => {}}
+        onSortChange={() => {}}
+      />
     </AppProviders>,
   );
 
 describe('VisitLogsScreen', () => {
   it('filters logs by the search query', () => {
-    renderScreen();
-
-    fireEvent.change(screen.getByLabelText('Search visit logs'), {
-      target: { value: 'yeonnam' },
+    renderScreen(visitLogs, {
+      pinnedOnly: false,
+      query: 'yeonnam',
+      sort: 'latest',
     });
 
     expect(
