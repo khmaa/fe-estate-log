@@ -17,6 +17,20 @@ const visitLog = {
 };
 
 describe('VisitLogDetailScreen', () => {
+  it('renders a loading state before the visit log is ready', () => {
+    render(
+      <VisitLogDetailScreen
+        log={null}
+        isLoading={true}
+        onBack={vi.fn()}
+        onDelete={vi.fn()}
+        onEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText('Loading visit log details')).toBeInTheDocument();
+  });
+
   it('renders a visit log detail view', () => {
     render(
       <VisitLogDetailScreen
