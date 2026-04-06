@@ -27,7 +27,7 @@ const NotFoundPage = () => {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                to="/"
+                to="/visit-logs"
                 className="inline-flex h-11 items-center justify-center rounded-ui bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-soft transition-colors duration-200 hover:bg-primary-hover"
               >
                 Go to visit logs

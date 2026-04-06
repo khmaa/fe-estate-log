@@ -22,7 +22,7 @@ const statusVariantMap = {
 
 type VisitLogCardProps = {
   log: VisitLog;
-  onOpenDetails: (log: VisitLog) => void;
+  onOpenDetails: (visitLogId: string) => void;
 };
 
 const formatVisitedAt = (visitedAt: string) => {
@@ -56,7 +56,7 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Visit log actions</DropdownMenuLabel>
-              <DropdownMenuItem onSelect={() => onOpenDetails(log)}>
+              <DropdownMenuItem onSelect={() => onOpenDetails(log.id)}>
                 Open details
               </DropdownMenuItem>
               <DropdownMenuItem>Duplicate</DropdownMenuItem>
@@ -86,7 +86,7 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
         <p className="text-sm leading-6 text-muted-foreground">{log.summary}</p>
         <div className="flex items-center justify-between gap-4 text-sm">
           <p className="text-muted-foreground">Handled by {log.agentName}</p>
-          <Button variant="secondary" onClick={() => onOpenDetails(log)}>
+          <Button variant="secondary" onClick={() => onOpenDetails(log.id)}>
             Review note
           </Button>
         </div>

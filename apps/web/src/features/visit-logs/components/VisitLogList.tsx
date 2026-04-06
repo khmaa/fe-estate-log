@@ -6,7 +6,7 @@ type VisitLogListProps = {
   isLoading: boolean;
   logs: VisitLog[];
   onCreateFirstLog: () => void;
-  onOpenDetails: (log: VisitLog) => void;
+  onOpenDetails: (visitLogId: string) => void;
 };
 
 const VisitLogList = ({

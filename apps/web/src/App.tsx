@@ -23,7 +23,7 @@ function App() {
               </p>
             </div>
             <nav className="flex flex-wrap items-center gap-2">
-              <NavLink to="/" end className={navigationLinkClassName}>
+              <NavLink to="/visit-logs" className={navigationLinkClassName}>
                 Visit Logs
               </NavLink>
               <NavLink to="/showcase" className={navigationLinkClassName}>

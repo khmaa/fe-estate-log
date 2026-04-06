@@ -82,7 +82,7 @@ describe('ToastHostProvider', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Show toast' }));
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss toast' }));
 
-    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
+    expect(screen.queryByText('Saved')).toBeNull();
   });
 
   it('updates toast visibility through the internal dismiss action', () => {
@@ -95,6 +95,6 @@ describe('ToastHostProvider', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Show toast' }));
     fireEvent.click(screen.getAllByRole('button', { name: 'Dismiss' })[0]);
 
-    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
+    expect(screen.queryByText('Saved')).toBeNull();
   });
 });
