@@ -10,21 +10,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   useToast,
 } from '@shared-ui/core';
 import { useMemo, useState } from 'react';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
-import { VisitLogDeleteDialog } from './VisitLogDeleteDialog';
-import { VisitLogEditDialog } from './VisitLogEditDialog';
 import { VisitLogFilters } from './VisitLogFilters';
 import { VisitLogList } from './VisitLogList';
 
@@ -36,6 +26,7 @@ type VisitLogsScreenProps = {
   };
   isLoading: boolean;
   logs: VisitLog[];
+  onOpenDetails: (visitLogId: string) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
   onSortChange: (sort: VisitLogSort) => void;
@@ -45,27 +36,18 @@ const VisitLogsScreen = ({
   filters,
   isLoading,
   logs,
+  onOpenDetails,
   onPinnedOnlyChange,
   onQueryChange,
   onSortChange,
 }: VisitLogsScreenProps) => {
-  const [deletedLogIds, setDeletedLogIds] = useState<string[]>([]);
-  const [selectedLog, setSelectedLog] = useState<VisitLog | null>(null);
-  const [editingLog, setEditingLog] = useState<VisitLog | null>(null);
-  const [deletingLog, setDeletingLog] = useState<VisitLog | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { showToast } = useToast();
 
   const filteredLogs = useMemo(() => {
     const normalizedQuery = filters.query.trim().toLowerCase();
 
     return logs.filter((log) => {
-      if (deletedLogIds.includes(log.id)) {
-        return false;
-      }
-
       if (filters.pinnedOnly && !log.isPinned) {
         return false;
       }
@@ -78,7 +60,7 @@ const VisitLogsScreen = ({
         value.toLowerCase().includes(normalizedQuery),
       );
     });
-  }, [deletedLogIds, filters.pinnedOnly, filters.query, logs]);
+  }, [filters.pinnedOnly, filters.query, logs]);
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -90,44 +72,6 @@ const VisitLogsScreen = ({
       title: 'Visit log created',
       description:
         'The new draft has been added through the feature mutation flow.',
-      variant: 'success',
-    });
-  };
-
-  const handleOpenDetails = (log: VisitLog) => {
-    setSelectedLog(log);
-  };
-
-  const handleStartEdit = (visitLog: VisitLog) => {
-    setEditingLog(visitLog);
-    setSelectedLog(null);
-    setIsEditDialogOpen(true);
-  };
-
-  const handleEditConfirm = (updatedVisitLog: VisitLog) => {
-    setEditingLog(updatedVisitLog);
-    setIsEditDialogOpen(false);
-    showToast({
-      title: 'Visit log updated',
-      description:
-        'The latest edits were synced through the feature mutation flow.',
-      variant: 'success',
-    });
-  };
-
-  const handleStartDelete = (visitLog: VisitLog) => {
-    setDeletingLog(visitLog);
-    setSelectedLog(null);
-    setIsDeleteDialogOpen(true);
-  };
-
-  const handleDeleteConfirm = (deletedVisitLogId: string) => {
-    setIsDeleteDialogOpen(false);
-    setDeletedLogIds((current) => [...current, deletedVisitLogId]);
-    showToast({
-      title: 'Visit log deleted',
-      description:
-        'The selected visit log was removed through the feature mutation flow.',
       variant: 'success',
     });
   };
@@ -186,7 +130,7 @@ const VisitLogsScreen = ({
           logs={filteredLogs}
           isLoading={isLoading}
           onCreateFirstLog={handleCreateClick}
-          onOpenDetails={handleOpenDetails}
+          onOpenDetails={onOpenDetails}
         />
 
         <VisitLogCreateDialog
@@ -194,99 +138,6 @@ const VisitLogsScreen = ({
           onOpenChange={setIsCreateDialogOpen}
           onCreated={handleCreateConfirm}
         />
-
-        <VisitLogEditDialog
-          key={`${editingLog?.id ?? 'empty'}-${isEditDialogOpen ? 'open' : 'closed'}`}
-          log={editingLog}
-          open={isEditDialogOpen}
-          onOpenChange={(open) => {
-            setIsEditDialogOpen(open);
-            if (!open) {
-              setEditingLog(null);
-            }
-          }}
-          onUpdated={handleEditConfirm}
-        />
-
-        <VisitLogDeleteDialog
-          log={deletingLog}
-          open={isDeleteDialogOpen}
-          onOpenChange={(open) => {
-            setIsDeleteDialogOpen(open);
-            if (!open) {
-              setDeletingLog(null);
-            }
-          }}
-          onDeleted={handleDeleteConfirm}
-        />
-
-        <Dialog
-          open={selectedLog !== null}
-          onOpenChange={(open) => {
-            if (!open) {
-              setSelectedLog(null);
-            }
-          }}
-        >
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                {selectedLog?.title ?? 'Visit log details'}
-              </DialogTitle>
-              <DialogDescription>
-                This detail modal is driven by feature state rather than
-                hard-coded page markup.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogBody>
-              {selectedLog ? (
-                <div className="space-y-4 text-sm leading-6 text-muted-foreground">
-                  <p>{selectedLog.summary}</p>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <p className="font-semibold text-foreground">District</p>
-                      <p>{selectedLog.district}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">Agent</p>
-                      <p>{selectedLog.agentName}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">Price</p>
-                      <p>{selectedLog.priceLabel}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">Pinned</p>
-                      <p>{selectedLog.isPinned ? 'Yes' : 'No'}</p>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-            </DialogBody>
-            <DialogFooter>
-              {selectedLog ? (
-                <>
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleStartEdit(selectedLog)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-danger hover:bg-danger-soft/50"
-                    onClick={() => handleStartDelete(selectedLog)}
-                  >
-                    Delete
-                  </Button>
-                </>
-              ) : null}
-              <DialogClose asChild>
-                <Button variant="ghost">Close</Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
       </section>
     </main>
   );

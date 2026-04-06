@@ -35,7 +35,7 @@ describe('VisitLogCard', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Review note' }));
 
-    expect(handleOpenDetails).toHaveBeenCalledWith(visitLog);
+    expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
   });
 
   it('opens details from the dropdown action', async () => {
@@ -48,6 +48,6 @@ describe('VisitLogCard', () => {
       await screen.findByRole('menuitem', { name: 'Open details' }),
     );
 
-    expect(handleOpenDetails).toHaveBeenCalledWith(visitLog);
+    expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
   });
 });

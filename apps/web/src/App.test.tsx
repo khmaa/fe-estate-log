@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import App from './App';
 import { AppProviders } from './app/AppProviders';
@@ -11,6 +11,19 @@ const renderApp = (route = '/') => {
       <App />
     </AppProviders>,
   );
+};
+
+const openVisitLogDetails = async (title: string) => {
+  const titleElement = await screen.findByText(title);
+  const card =
+    titleElement.closest('[class*="rounded-[28px]"]') ??
+    titleElement.closest('div');
+
+  if (!(card instanceof HTMLElement)) {
+    throw new Error(`Could not find a visit log card for "${title}"`);
+  }
+
+  fireEvent.click(within(card).getByRole('button', { name: 'Review note' }));
 };
 
 describe('App', () => {
@@ -30,7 +43,7 @@ describe('App', () => {
   });
 
   it('hydrates visit log filters from the query string', async () => {
-    renderApp('/?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true');
+    renderApp('/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true');
 
     expect(
       await screen.findByRole('heading', { name: 'Visit logs workspace' }),
@@ -65,7 +78,7 @@ describe('App', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: 'Go to visit logs' }),
-    ).toHaveAttribute('href', '/');
+    ).toHaveAttribute('href', '/visit-logs');
     expect(screen.getByRole('link', { name: 'Open showcase' })).toHaveAttribute(
       'href',
       '/showcase',
@@ -128,9 +141,7 @@ describe('App', () => {
     fireEvent.click(toggle);
 
     expect(screen.getByText('삼성동 한강뷰 아파트 재방문')).toBeInTheDocument();
-    expect(
-      screen.queryByText('성수 복합용도 오피스 층'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('성수 복합용도 오피스 층')).toBeNull();
   });
 
   it('updates an existing visit log from the detail dialog', async () => {
@@ -140,10 +151,13 @@ describe('App', () => {
       await screen.findByText('삼성동 한강뷰 아파트 재방문'),
     ).toBeInTheDocument();
 
-    fireEvent.click(
-      (await screen.findAllByRole('button', { name: 'Review note' }))[0],
-    );
+    await openVisitLogDetails('삼성동 한강뷰 아파트 재방문');
 
+    expect(
+      await screen.findByRole('heading', {
+        name: '삼성동 한강뷰 아파트 재방문',
+      }),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
 
     expect(
@@ -183,9 +197,13 @@ describe('App', () => {
       await screen.findByText('삼성동 한강뷰 아파트 재방문'),
     ).toBeInTheDocument();
 
-    fireEvent.click(
-      (await screen.findAllByRole('button', { name: 'Review note' }))[0],
-    );
+    await openVisitLogDetails('삼성동 한강뷰 아파트 재방문');
+
+    expect(
+      await screen.findByRole('heading', {
+        name: '삼성동 한강뷰 아파트 재방문',
+      }),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
     expect(
@@ -200,5 +218,37 @@ describe('App', () => {
         'The selected visit log was removed through the feature mutation flow.',
       ),
     ).toBeInTheDocument();
+  });
+
+  it('renders a visit log detail page from a direct route', async () => {
+    renderApp('/visit-logs/visit-log-1');
+
+    expect(
+      await screen.findByRole('heading', {
+        name: '삼성동 한강뷰 아파트 재방문',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Back to visit logs' }),
+    ).toBeInTheDocument();
+  });
+
+  it('keeps search params when returning from a detail route', async () => {
+    renderApp('/visit-logs/visit-log-1?query=%EA%B0%95%EB%82%A8');
+
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Back to visit logs' }),
+    );
+
+    expect(
+      await screen.findByRole('heading', { name: 'Visit logs workspace' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Search visit logs')).toHaveValue('강남');
+  });
+
+  it('renders the visit log empty state for an unknown detail route', async () => {
+    renderApp('/visit-logs/missing-log');
+
+    expect(await screen.findByText('Visit log not found')).toBeInTheDocument();
   });
 });

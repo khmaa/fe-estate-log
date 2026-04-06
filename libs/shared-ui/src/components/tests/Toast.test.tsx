@@ -66,6 +66,6 @@ describe('Toast', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
 
-    expect(screen.queryByText('Dismissible toast')).not.toBeInTheDocument();
+    expect(screen.queryByText('Dismissible toast')).toBeNull();
   });
 });
