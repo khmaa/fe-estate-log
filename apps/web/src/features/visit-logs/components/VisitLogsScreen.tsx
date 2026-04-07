@@ -13,6 +13,7 @@ import {
   useToast,
 } from '@shared-ui/core';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
 import { VisitLogFilters } from './VisitLogFilters';
@@ -43,6 +44,7 @@ const VisitLogsScreen = ({
 }: VisitLogsScreenProps) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { showToast } = useToast();
+  const { t } = useTranslation();
 
   const filteredLogs = useMemo(() => {
     const normalizedQuery = filters.query.trim().toLowerCase();
@@ -69,9 +71,8 @@ const VisitLogsScreen = ({
   const handleCreateConfirm = () => {
     setIsCreateDialogOpen(false);
     showToast({
-      title: 'Visit log created',
-      description:
-        'The new draft has been added through the feature mutation flow.',
+      title: t('visitLogs.page.toast.title'),
+      description: t('visitLogs.page.toast.description'),
       variant: 'success',
     });
   };
@@ -80,29 +81,37 @@ const VisitLogsScreen = ({
     <main className="min-h-screen px-6 py-16">
       <section className="mx-auto flex max-w-6xl flex-col gap-8">
         <Banner
-          title="Visit logs domain preview"
-          description="This page is structured as a feature-based screen backed by TanStack Query, even though the current data source is still mocked."
+          title={t('visitLogs.page.banner.title')}
+          description={t('visitLogs.page.banner.description')}
           variant="info"
-          action={<Button variant="secondary">Open API contract</Button>}
+          action={
+            <Button variant="secondary">
+              {t('visitLogs.page.banner.action')}
+            </Button>
+          }
         />
 
         <Card className="overflow-hidden">
           <CardHeader className="gap-4">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge>Visit Logs</Badge>
-              <Badge variant="secondary">Feature-first</Badge>
-              <Badge variant="success">TanStack Query</Badge>
+              <Badge>{t('visitLogs.badges.visitLogs')}</Badge>
+              <Badge variant="secondary">
+                {t('visitLogs.badges.featureFirst')}
+              </Badge>
+              <Badge variant="success">
+                {t('visitLogs.badges.tanstackQuery')}
+              </Badge>
             </div>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="space-y-2">
-                <CardTitle>Visit logs workspace</CardTitle>
+                <CardTitle>{t('visitLogs.page.title')}</CardTitle>
                 <CardDescription className="max-w-3xl">
-                  The page composition now lives on top of a feature-layer
-                  structure: API, service, hook, domain components, and a thin
-                  page entry.
+                  {t('visitLogs.page.description')}
                 </CardDescription>
               </div>
-              <Button onClick={handleCreateClick}>Create visit log</Button>
+              <Button onClick={handleCreateClick}>
+                {t('visitLogs.page.create')}
+              </Button>
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -118,11 +127,9 @@ const VisitLogsScreen = ({
         </Card>
 
         <Alert>
-          <AlertTitle>Current implementation note</AlertTitle>
+          <AlertTitle>{t('visitLogs.page.alert.title')}</AlertTitle>
           <AlertDescription>
-            The query layer is real, but the data source is still mocked. This
-            gives the page a production-like state boundary without locking the
-            screen to a fake in-component array.
+            {t('visitLogs.page.alert.description')}
           </AlertDescription>
         </Alert>
 

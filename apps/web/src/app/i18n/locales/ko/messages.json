@@ -1,0 +1,103 @@
+{
+  "app": {
+    "brandDescription": "웹 워크스페이스를 위한 라우트 기반 앱 셸입니다.",
+    "language": {
+      "en": "EN",
+      "ko": "KO",
+      "label": "언어"
+    },
+    "nav": {
+      "showcase": "쇼케이스",
+      "visitLogs": "임장 기록"
+    }
+  },
+  "notFound": {
+    "actions": {
+      "showcase": "쇼케이스 열기",
+      "visitLogs": "임장 기록으로 이동"
+    },
+    "badge": "경로 없음",
+    "description": "요청한 경로는 현재 웹 워크스페이스에 없습니다. 상단 네비게이션을 사용하거나 임장 기록 페이지로 돌아가세요.",
+    "title": "페이지를 찾을 수 없습니다"
+  },
+  "visitLogs": {
+    "badges": {
+      "featureFirst": "기능 중심 구조",
+      "routeBacked": "라우트 기반",
+      "tanstackQuery": "TanStack Query",
+      "visitLogs": "임장 기록"
+    },
+    "detail": {
+      "actions": {
+        "back": "임장 기록으로 돌아가기",
+        "delete": "삭제",
+        "edit": "수정"
+      },
+      "empty": {
+        "badge": "임장 기록",
+        "description": "선택한 임장 기록을 현재 워크스페이스 데이터에서 찾을 수 없습니다.",
+        "title": "임장 기록을 찾을 수 없습니다"
+      },
+      "fields": {
+        "agent": "담당 중개사",
+        "district": "지역",
+        "price": "가격",
+        "visited": "방문일"
+      },
+      "loading": "임장 기록 상세를 불러오는 중입니다",
+      "pinned": "고정됨",
+      "toasts": {
+        "deleted": {
+          "description": "선택한 임장 기록이 feature mutation 흐름을 통해 삭제되었습니다.",
+          "title": "임장 기록이 삭제되었습니다"
+        },
+        "updated": {
+          "description": "최신 수정 내용이 feature mutation 흐름을 통해 반영되었습니다.",
+          "title": "임장 기록이 수정되었습니다"
+        }
+      }
+    },
+    "filters": {
+      "advanced": "고급 필터",
+      "close": "닫기",
+      "pinned": {
+        "description": "후속 확인이 필요한 고정 기록만 빠르게 확인합니다.",
+        "label": "고정된 기록만 보기"
+      },
+      "search": {
+        "helper": "제목, 지역, 중개사 이름으로 검색합니다.",
+        "label": "임장 기록 검색",
+        "placeholder": "제목, 지역 또는 중개사로 검색"
+      },
+      "sort": {
+        "district": "지역순",
+        "helper": "정렬이 바뀌면 query hook이 다시 조회합니다.",
+        "label": "정렬 기준",
+        "latest": "최신 방문순",
+        "oldest": "오래된 방문순"
+      },
+      "summary": {
+        "description": "공용 UI 레이어가 아니라 도메인 페이지 가까이에 필터 상태를 유지합니다.",
+        "title": "빠른 화면 필터"
+      }
+    },
+    "page": {
+      "alert": {
+        "description": "Query 레이어는 실제 구조를 사용하지만 데이터 소스는 아직 mock입니다. 덕분에 화면은 in-component 배열에 묶이지 않고도 실제와 비슷한 상태 경계를 가집니다.",
+        "title": "현재 구현 메모"
+      },
+      "banner": {
+        "action": "API 계약 보기",
+        "description": "이 페이지는 아직 mock 데이터를 사용하지만, TanStack Query 위에서 feature 기반 화면 구조로 정리되어 있습니다.",
+        "title": "임장 기록 도메인 프리뷰"
+      },
+      "create": "임장 기록 생성",
+      "description": "현재 페이지 구성은 API, service, hook, 도메인 컴포넌트, 얇은 page entry로 나뉜 feature 레이어 구조 위에 올라가 있습니다.",
+      "title": "임장 기록 워크스페이스",
+      "toast": {
+        "description": "새 임장 기록 초안이 feature mutation 흐름을 통해 추가되었습니다.",
+        "title": "임장 기록이 생성되었습니다"
+      }
+    }
+  }
+}

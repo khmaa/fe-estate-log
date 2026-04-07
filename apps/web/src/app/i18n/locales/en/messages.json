@@ -1,0 +1,103 @@
+{
+  "app": {
+    "brandDescription": "Route-based app shell for the web workspace.",
+    "language": {
+      "en": "EN",
+      "ko": "KO",
+      "label": "Language"
+    },
+    "nav": {
+      "showcase": "Showcase",
+      "visitLogs": "Visit Logs"
+    }
+  },
+  "notFound": {
+    "actions": {
+      "showcase": "Open showcase",
+      "visitLogs": "Go to visit logs"
+    },
+    "badge": "Route Not Found",
+    "description": "The route you requested is not available in the current web workspace. Use the primary navigation or go back to the visit logs page.",
+    "title": "Page not found"
+  },
+  "visitLogs": {
+    "badges": {
+      "featureFirst": "Feature-first",
+      "routeBacked": "Route-backed",
+      "tanstackQuery": "TanStack Query",
+      "visitLogs": "Visit Logs"
+    },
+    "detail": {
+      "actions": {
+        "back": "Back to visit logs",
+        "delete": "Delete",
+        "edit": "Edit"
+      },
+      "empty": {
+        "badge": "Visit log",
+        "description": "The selected visit log could not be found in the current workspace data.",
+        "title": "Visit log not found"
+      },
+      "fields": {
+        "agent": "Agent",
+        "district": "District",
+        "price": "Price",
+        "visited": "Visited"
+      },
+      "loading": "Loading visit log details",
+      "pinned": "Pinned",
+      "toasts": {
+        "deleted": {
+          "description": "The selected visit log was removed through the feature mutation flow.",
+          "title": "Visit log deleted"
+        },
+        "updated": {
+          "description": "The latest edits were synced through the feature mutation flow.",
+          "title": "Visit log updated"
+        }
+      }
+    },
+    "filters": {
+      "advanced": "Advanced filters",
+      "close": "Close",
+      "pinned": {
+        "description": "Focus on high-priority logs you marked for follow-up.",
+        "label": "Pinned only"
+      },
+      "search": {
+        "helper": "Search by title, district, or agent name.",
+        "label": "Search visit logs",
+        "placeholder": "Search by title, district, or agent"
+      },
+      "sort": {
+        "district": "District",
+        "helper": "The query hook refetches when the sort changes.",
+        "label": "Sort by",
+        "latest": "Latest visit",
+        "oldest": "Oldest visit"
+      },
+      "summary": {
+        "description": "Keep feature-specific filters close to the domain page instead of the shared-ui layer.",
+        "title": "Quick view filters"
+      }
+    },
+    "page": {
+      "alert": {
+        "description": "The query layer is real, but the data source is still mocked. This gives the page a production-like state boundary without locking the screen to a fake in-component array.",
+        "title": "Current implementation note"
+      },
+      "banner": {
+        "action": "Open API contract",
+        "description": "This page is structured as a feature-based screen backed by TanStack Query, even though the current data source is still mocked.",
+        "title": "Visit logs domain preview"
+      },
+      "create": "Create visit log",
+      "description": "The page composition now lives on top of a feature-layer structure: API, service, hook, domain components, and a thin page entry.",
+      "title": "Visit logs workspace",
+      "toast": {
+        "description": "The new draft has been added through the feature mutation flow.",
+        "title": "Visit log created"
+      }
+    }
+  }
+}
