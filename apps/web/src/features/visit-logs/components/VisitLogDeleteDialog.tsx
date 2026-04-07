@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@shared-ui/core';
+import { useTranslation } from 'react-i18next';
 import { useDeleteVisitLog } from '../hooks/useDeleteVisitLog';
 import type { VisitLog } from '../types/visitLog';
 
@@ -26,6 +27,7 @@ const VisitLogDeleteDialog = ({
   open,
 }: VisitLogDeleteDialogProps) => {
   const mutation = useDeleteVisitLog();
+  const { t } = useTranslation();
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -44,32 +46,31 @@ const VisitLogDeleteDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete visit log</DialogTitle>
+          <DialogTitle>{t('visitLogs.deleteDialog.title')}</DialogTitle>
           <DialogDescription>
-            This action removes the selected visit log from the current
-            workspace.
+            {t('visitLogs.deleteDialog.description')}
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
           <div className="space-y-3 text-sm leading-6 text-muted-foreground">
             <p>
-              {log ? (
-                <>
-                  Are you sure you want to delete <strong>{log.title}</strong>?
-                </>
-              ) : (
-                'Are you sure you want to delete this visit log?'
-              )}
+              {log
+                ? t('visitLogs.deleteDialog.message.withTitle', {
+                    title: log.title,
+                  })
+                : t('visitLogs.deleteDialog.message.fallback')}
             </p>
-            <p>This action cannot be undone.</p>
+            <p>{t('visitLogs.deleteDialog.warning')}</p>
             {mutation.isError ? (
-              <p className="text-danger">Failed to delete the visit log.</p>
+              <p className="text-danger">{t('visitLogs.deleteDialog.error')}</p>
             ) : null}
           </div>
         </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="ghost">Cancel</Button>
+            <Button variant="ghost">
+              {t('visitLogs.deleteDialog.cancel')}
+            </Button>
           </DialogClose>
           <Button
             variant="secondary"
@@ -78,7 +79,7 @@ const VisitLogDeleteDialog = ({
             loading={mutation.isPending}
             onClick={log ? () => handleConfirm(log) : undefined}
           >
-            Delete
+            {t('visitLogs.deleteDialog.confirm')}
           </Button>
         </DialogFooter>
       </DialogContent>

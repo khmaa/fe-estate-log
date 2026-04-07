@@ -57,6 +57,24 @@ describe('App', () => {
     expect(
       screen.getByRole('button', { name: '임장 기록 생성' }),
     ).toBeInTheDocument();
+    expect(
+      (await screen.findAllByRole('button', { name: '기록 검토' })).length,
+    ).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByRole('button', { name: '임장 기록 생성' }));
+
+    expect(
+      await screen.findByRole('heading', { name: '새 임장 기록 만들기' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('제목')).toBeInTheDocument();
+    expect(screen.getByLabelText('지역')).toBeInTheDocument();
+    expect(screen.getByLabelText('가격')).toBeInTheDocument();
+    expect(screen.getByLabelText('요약')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '초안 생성' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '취소' }));
 
     fireEvent.click(screen.getByRole('button', { name: 'EN' }));
 

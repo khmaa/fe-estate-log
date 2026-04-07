@@ -98,6 +98,93 @@
         "description": "The new draft has been added through the feature mutation flow.",
         "title": "Visit log created"
       }
+    },
+    "card": {
+      "actions": "Actions",
+      "archive": "Archive record",
+      "details": "Open details",
+      "duplicate": "Duplicate draft",
+      "fields": {
+        "district": "District",
+        "price": "Price",
+        "visited": "Visited"
+      },
+      "handledBy": "Handled by {{name}}",
+      "menuLabel": "Visit log actions",
+      "review": "Review note"
+    },
+    "list": {
+      "loading": "Loading visit logs",
+      "empty": {
+        "badge": "No results",
+        "title": "Nothing matched your filters",
+        "description": "Try widening the current filters or create a fresh visit log to start a new review thread.",
+        "action": "Create a visit log"
+      }
+    },
+    "createDialog": {
+      "title": "Create a new visit log",
+      "description": "Capture a new draft without breaking the feature-layer boundaries.",
+      "fields": {
+        "title": "Title",
+        "district": "District",
+        "price": "Price",
+        "propertyType": "Property type",
+        "summary": "Summary"
+      },
+      "placeholders": {
+        "title": "Songpa riverside apartment revisit",
+        "district": "Songpa-gu",
+        "price": "KRW 1.35B",
+        "summary": "Notes about sunlight, noise, and commute conditions."
+      },
+      "error": "Failed to create the visit log.",
+      "cancel": "Cancel",
+      "create": "Create draft"
+    },
+    "editDialog": {
+      "title": "Edit visit log",
+      "description": "Update the current log through the feature mutation flow.",
+      "fields": {
+        "title": "Title",
+        "district": "District",
+        "price": "Price",
+        "propertyType": "Property type",
+        "summary": "Summary"
+      },
+      "placeholders": {
+        "title": "Songpa riverside apartment revisit",
+        "district": "Songpa-gu",
+        "price": "KRW 1.35B",
+        "summary": "Notes about sunlight, noise, and commute conditions."
+      },
+      "error": "Failed to update the visit log.",
+      "cancel": "Cancel",
+      "save": "Save changes"
+    },
+    "deleteDialog": {
+      "title": "Delete visit log",
+      "description": "Review the selected record before removing it.",
+      "message": {
+        "withTitle": "Delete \"{{title}}\" from the current visit log workspace?",
+        "fallback": "Are you sure you want to delete this visit log?"
+      },
+      "warning": "This action updates the feature state immediately and cannot be undone.",
+      "error": "Failed to delete the visit log.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "enums": {
+      "propertyType": {
+        "apartment": "Apartment",
+        "office": "Office",
+        "retail": "Retail"
+      },
+      "status": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "completed": "Completed"
+      }
     }
   }
 }

@@ -14,8 +14,10 @@ import {
   Textarea,
 } from '@shared-ui/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCreateVisitLog } from '../hooks/useCreateVisitLog';
 import type { CreateVisitLogInput, VisitLog } from '../types/visitLog';
+import { getVisitLogPropertyTypeLabel } from '../utils/visitLogLabels';
 
 type VisitLogCreateDialogProps = {
   onCreated: (visitLog: VisitLog) => void;
@@ -38,6 +40,7 @@ const VisitLogCreateDialog = ({
 }: VisitLogCreateDialogProps) => {
   const [form, setForm] = useState<CreateVisitLogInput>(initialFormState);
   const mutation = useCreateVisitLog();
+  const { t } = useTranslation();
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -64,14 +67,16 @@ const VisitLogCreateDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create a new visit log</DialogTitle>
+          <DialogTitle>{t('visitLogs.createDialog.title')}</DialogTitle>
           <DialogDescription>
-            This dialog now uses a real mutation boundary. The underlying
-            backend is still mocked through MSW.
+            {t('visitLogs.createDialog.description')}
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
-          <Field htmlFor="create-visit-log-title" label="Title">
+          <Field
+            htmlFor="create-visit-log-title"
+            label={t('visitLogs.createDialog.fields.title')}
+          >
             <Input
               id="create-visit-log-title"
               value={form.title}
@@ -81,11 +86,14 @@ const VisitLogCreateDialog = ({
                   title: event.target.value,
                 }))
               }
-              placeholder="e.g. Gangnam apartment revisit"
+              placeholder={t('visitLogs.createDialog.placeholders.title')}
             />
           </Field>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field htmlFor="create-visit-log-district" label="District">
+            <Field
+              htmlFor="create-visit-log-district"
+              label={t('visitLogs.createDialog.fields.district')}
+            >
               <Input
                 id="create-visit-log-district"
                 value={form.district}
@@ -95,10 +103,13 @@ const VisitLogCreateDialog = ({
                     district: event.target.value,
                   }))
                 }
-                placeholder="Gangnam-gu"
+                placeholder={t('visitLogs.createDialog.placeholders.district')}
               />
             </Field>
-            <Field htmlFor="create-visit-log-price" label="Price">
+            <Field
+              htmlFor="create-visit-log-price"
+              label={t('visitLogs.createDialog.fields.price')}
+            >
               <Input
                 id="create-visit-log-price"
                 value={form.priceLabel}
@@ -108,11 +119,14 @@ const VisitLogCreateDialog = ({
                     priceLabel: event.target.value,
                   }))
                 }
-                placeholder="KRW 1.10B"
+                placeholder={t('visitLogs.createDialog.placeholders.price')}
               />
             </Field>
           </div>
-          <Field htmlFor="create-visit-log-property-type" label="Property type">
+          <Field
+            htmlFor="create-visit-log-property-type"
+            label={t('visitLogs.createDialog.fields.propertyType')}
+          >
             <Select
               id="create-visit-log-property-type"
               value={form.propertyType}
@@ -124,12 +138,21 @@ const VisitLogCreateDialog = ({
                 }))
               }
             >
-              <option value="apartment">Apartment</option>
-              <option value="office">Office</option>
-              <option value="retail">Retail</option>
+              <option value="apartment">
+                {getVisitLogPropertyTypeLabel(t, 'apartment')}
+              </option>
+              <option value="office">
+                {getVisitLogPropertyTypeLabel(t, 'office')}
+              </option>
+              <option value="retail">
+                {getVisitLogPropertyTypeLabel(t, 'retail')}
+              </option>
             </Select>
           </Field>
-          <Field htmlFor="create-visit-log-summary" label="Summary">
+          <Field
+            htmlFor="create-visit-log-summary"
+            label={t('visitLogs.createDialog.fields.summary')}
+          >
             <Textarea
               id="create-visit-log-summary"
               value={form.summary}
@@ -139,23 +162,27 @@ const VisitLogCreateDialog = ({
                   summary: event.target.value,
                 }))
               }
-              placeholder="Capture the first on-site impression and the next validation step."
+              placeholder={t('visitLogs.createDialog.placeholders.summary')}
             />
           </Field>
           {mutation.isError ? (
-            <p className="text-sm text-danger">Failed to create a visit log.</p>
+            <p className="text-sm text-danger">
+              {t('visitLogs.createDialog.error')}
+            </p>
           ) : null}
         </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="ghost">Cancel</Button>
+            <Button variant="ghost">
+              {t('visitLogs.createDialog.cancel')}
+            </Button>
           </DialogClose>
           <Button
             disabled={isCreateDisabled}
             loading={mutation.isPending}
             onClick={handleSubmit}
           >
-            Create draft
+            {t('visitLogs.createDialog.create')}
           </Button>
         </DialogFooter>
       </DialogContent>

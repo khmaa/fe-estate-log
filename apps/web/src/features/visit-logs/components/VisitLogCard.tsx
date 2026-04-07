@@ -12,7 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@shared-ui/core';
+import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
+import {
+  getVisitLogPropertyTypeLabel,
+  getVisitLogStatusLabel,
+} from '../utils/visitLogLabels';
 
 const statusVariantMap = {
   completed: 'success',
@@ -34,6 +39,8 @@ const formatVisitedAt = (visitedAt: string) => {
 };
 
 const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
+  const { t } = useTranslation();
+
   return (
     <Card className="overflow-hidden">
       <CardHeader className="gap-4">
@@ -41,28 +48,35 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant={statusVariantMap[log.status]}>
-                {log.status[0].toUpperCase()}
-                {log.status.slice(1)}
+                {getVisitLogStatusLabel(t, log.status)}
               </Badge>
-              <Badge variant="secondary">{log.propertyType}</Badge>
-              {log.isPinned ? <Badge>Pinned</Badge> : null}
+              <Badge variant="secondary">
+                {getVisitLogPropertyTypeLabel(t, log.propertyType)}
+              </Badge>
+              {log.isPinned ? (
+                <Badge>{t('visitLogs.detail.pinned')}</Badge>
+              ) : null}
             </div>
             <CardTitle className="text-xl">{log.title}</CardTitle>
           </div>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost">Actions</Button>
+              <Button variant="ghost">{t('visitLogs.card.actions')}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Visit log actions</DropdownMenuLabel>
+              <DropdownMenuLabel>
+                {t('visitLogs.card.menuLabel')}
+              </DropdownMenuLabel>
               <DropdownMenuItem onSelect={() => onOpenDetails(log.id)}>
-                Open details
+                {t('visitLogs.card.details')}
               </DropdownMenuItem>
-              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+              <DropdownMenuItem>
+                {t('visitLogs.card.duplicate')}
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-danger focus:bg-danger-soft/50">
-                Archive
+                {t('visitLogs.card.archive')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -71,23 +85,31 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
       <CardContent className="space-y-4">
         <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
           <div>
-            <p className="font-semibold text-foreground">District</p>
+            <p className="font-semibold text-foreground">
+              {t('visitLogs.card.fields.district')}
+            </p>
             <p>{log.district}</p>
           </div>
           <div>
-            <p className="font-semibold text-foreground">Price</p>
+            <p className="font-semibold text-foreground">
+              {t('visitLogs.card.fields.price')}
+            </p>
             <p>{log.priceLabel}</p>
           </div>
           <div>
-            <p className="font-semibold text-foreground">Visited</p>
+            <p className="font-semibold text-foreground">
+              {t('visitLogs.card.fields.visited')}
+            </p>
             <p>{formatVisitedAt(log.visitedAt)}</p>
           </div>
         </div>
         <p className="text-sm leading-6 text-muted-foreground">{log.summary}</p>
         <div className="flex items-center justify-between gap-4 text-sm">
-          <p className="text-muted-foreground">Handled by {log.agentName}</p>
+          <p className="text-muted-foreground">
+            {t('visitLogs.card.handledBy', { name: log.agentName })}
+          </p>
           <Button variant="secondary" onClick={() => onOpenDetails(log.id)}>
-            Review note
+            {t('visitLogs.card.review')}
           </Button>
         </div>
       </CardContent>

@@ -10,6 +10,10 @@ import {
 } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
+import {
+  getVisitLogPropertyTypeLabel,
+  getVisitLogStatusLabel,
+} from '../utils/visitLogLabels';
 
 const statusVariantMap = {
   completed: 'success',
@@ -101,10 +105,11 @@ const VisitLogDetailScreen = ({
           <CardHeader className="gap-4">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant={statusVariantMap[log.status]}>
-                {log.status[0].toUpperCase()}
-                {log.status.slice(1)}
+                {getVisitLogStatusLabel(t, log.status)}
               </Badge>
-              <Badge variant="secondary">{log.propertyType}</Badge>
+              <Badge variant="secondary">
+                {getVisitLogPropertyTypeLabel(t, log.propertyType)}
+              </Badge>
               {log.isPinned ? (
                 <Badge>{t('visitLogs.detail.pinned')}</Badge>
               ) : null}
