@@ -1,5 +1,6 @@
 import { useToast } from '@shared-ui/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { VisitLogDeleteDialog } from '../features/visit-logs/components/VisitLogDeleteDialog';
 import { VisitLogDetailScreen } from '../features/visit-logs/components/VisitLogDetailScreen';
@@ -10,6 +11,7 @@ const VisitLogDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
+  const { t } = useTranslation();
   const { visitLogId } = useParams();
   const { isLoading, log } = useVisitLogDetail(visitLogId);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -23,9 +25,8 @@ const VisitLogDetailPage = () => {
   const handleEditConfirm = () => {
     setIsEditDialogOpen(false);
     showToast({
-      title: 'Visit log updated',
-      description:
-        'The latest edits were synced through the feature mutation flow.',
+      title: t('visitLogs.detail.toasts.updated.title'),
+      description: t('visitLogs.detail.toasts.updated.description'),
       variant: 'success',
     });
   };
@@ -33,9 +34,8 @@ const VisitLogDetailPage = () => {
   const handleDeleteConfirm = () => {
     setIsDeleteDialogOpen(false);
     showToast({
-      title: 'Visit log deleted',
-      description:
-        'The selected visit log was removed through the feature mutation flow.',
+      title: t('visitLogs.detail.toasts.deleted.title'),
+      description: t('visitLogs.detail.toasts.deleted.description'),
       variant: 'success',
     });
     navigate(returnPath);

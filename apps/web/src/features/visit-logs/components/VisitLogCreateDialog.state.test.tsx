@@ -33,7 +33,7 @@ describe('VisitLogCreateDialog state handling', () => {
     );
 
     expect(
-      screen.getByText('Failed to create a visit log.'),
+      screen.getByText('Failed to create the visit log.'),
     ).toBeInTheDocument();
   });
 

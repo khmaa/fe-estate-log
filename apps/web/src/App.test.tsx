@@ -42,6 +42,47 @@ describe('App', () => {
     ).toBeInTheDocument();
   });
 
+  it('switches the app shell and visit logs copy to Korean', async () => {
+    renderApp();
+
+    fireEvent.click(screen.getByRole('button', { name: 'KO' }));
+
+    expect(
+      await screen.findByRole('heading', { name: '임장 기록 워크스페이스' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '임장 기록' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(
+      screen.getByRole('button', { name: '임장 기록 생성' }),
+    ).toBeInTheDocument();
+    expect(
+      (await screen.findAllByRole('button', { name: '기록 검토' })).length,
+    ).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByRole('button', { name: '임장 기록 생성' }));
+
+    expect(
+      await screen.findByRole('heading', { name: '새 임장 기록 만들기' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('제목')).toBeInTheDocument();
+    expect(screen.getByLabelText('지역')).toBeInTheDocument();
+    expect(screen.getByLabelText('가격')).toBeInTheDocument();
+    expect(screen.getByLabelText('요약')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '초안 생성' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '취소' }));
+
+    fireEvent.click(screen.getByRole('button', { name: 'EN' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Visit logs workspace' }),
+    ).toBeInTheDocument();
+  });
+
   it('hydrates visit log filters from the query string', async () => {
     renderApp('/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true');
 
@@ -53,7 +94,7 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Advanced filters' }));
     expect(
       await screen.findByRole('checkbox', {
-        name: 'Show pinned visit logs only',
+        name: 'Pinned only',
       }),
     ).toBeChecked();
   });
@@ -135,7 +176,7 @@ describe('App', () => {
     );
 
     const toggle = screen.getByRole('checkbox', {
-      name: 'Show pinned visit logs only',
+      name: 'Pinned only',
     });
 
     fireEvent.click(toggle);

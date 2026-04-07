@@ -8,7 +8,12 @@ import {
   EmptyState,
   Spinner,
 } from '@shared-ui/core';
+import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
+import {
+  getVisitLogPropertyTypeLabel,
+  getVisitLogStatusLabel,
+} from '../utils/visitLogLabels';
 
 const statusVariantMap = {
   completed: 'success',
@@ -39,6 +44,8 @@ const VisitLogDetailScreen = ({
   onDelete,
   onEdit,
 }: VisitLogDetailScreenProps) => {
+  const { t } = useTranslation();
+
   if (isLoading) {
     return (
       <main className="min-h-screen px-6 py-16">
@@ -46,7 +53,7 @@ const VisitLogDetailScreen = ({
           <div className="flex min-h-72 items-center justify-center rounded-[32px] border border-border bg-surface p-10 shadow-soft">
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <Spinner size="sm" />
-              Loading visit log details
+              {t('visitLogs.detail.loading')}
             </div>
           </div>
         </section>
@@ -59,10 +66,14 @@ const VisitLogDetailScreen = ({
       <main className="min-h-screen px-6 py-16">
         <section className="mx-auto max-w-4xl">
           <EmptyState
-            badge="Visit log"
-            title="Visit log not found"
-            description="The selected visit log could not be found in the current workspace data."
-            action={<Button onClick={onBack}>Back to visit logs</Button>}
+            badge={t('visitLogs.detail.empty.badge')}
+            title={t('visitLogs.detail.empty.title')}
+            description={t('visitLogs.detail.empty.description')}
+            action={
+              <Button onClick={onBack}>
+                {t('visitLogs.detail.actions.back')}
+              </Button>
+            }
           />
         </section>
       </main>
@@ -74,18 +85,18 @@ const VisitLogDetailScreen = ({
       <section className="mx-auto flex max-w-4xl flex-col gap-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Button variant="ghost" onClick={onBack}>
-            Back to visit logs
+            {t('visitLogs.detail.actions.back')}
           </Button>
           <div className="flex flex-wrap gap-3">
             <Button variant="secondary" onClick={onEdit}>
-              Edit
+              {t('visitLogs.detail.actions.edit')}
             </Button>
             <Button
               variant="ghost"
               className="text-danger hover:bg-danger-soft/50"
               onClick={onDelete}
             >
-              Delete
+              {t('visitLogs.detail.actions.delete')}
             </Button>
           </div>
         </div>
@@ -94,11 +105,14 @@ const VisitLogDetailScreen = ({
           <CardHeader className="gap-4">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant={statusVariantMap[log.status]}>
-                {log.status[0].toUpperCase()}
-                {log.status.slice(1)}
+                {getVisitLogStatusLabel(t, log.status)}
               </Badge>
-              <Badge variant="secondary">{log.propertyType}</Badge>
-              {log.isPinned ? <Badge>Pinned</Badge> : null}
+              <Badge variant="secondary">
+                {getVisitLogPropertyTypeLabel(t, log.propertyType)}
+              </Badge>
+              {log.isPinned ? (
+                <Badge>{t('visitLogs.detail.pinned')}</Badge>
+              ) : null}
             </div>
             <CardTitle>{log.title}</CardTitle>
           </CardHeader>
@@ -108,19 +122,27 @@ const VisitLogDetailScreen = ({
             </p>
             <div className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
               <div>
-                <p className="font-semibold text-foreground">District</p>
+                <p className="font-semibold text-foreground">
+                  {t('visitLogs.detail.fields.district')}
+                </p>
                 <p>{log.district}</p>
               </div>
               <div>
-                <p className="font-semibold text-foreground">Price</p>
+                <p className="font-semibold text-foreground">
+                  {t('visitLogs.detail.fields.price')}
+                </p>
                 <p>{log.priceLabel}</p>
               </div>
               <div>
-                <p className="font-semibold text-foreground">Visited</p>
+                <p className="font-semibold text-foreground">
+                  {t('visitLogs.detail.fields.visited')}
+                </p>
                 <p>{formatVisitedAt(log.visitedAt)}</p>
               </div>
               <div>
-                <p className="font-semibold text-foreground">Agent</p>
+                <p className="font-semibold text-foreground">
+                  {t('visitLogs.detail.fields.agent')}
+                </p>
                 <p>{log.agentName}</p>
               </div>
             </div>

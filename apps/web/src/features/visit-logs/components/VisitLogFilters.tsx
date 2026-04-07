@@ -10,6 +10,7 @@ import {
   Switch,
 } from '@shared-ui/core';
 import type { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { VisitLogSort } from '../types/visitLog';
 
 type VisitLogFiltersProps = {
@@ -29,6 +30,8 @@ const VisitLogFilters = ({
   query,
   sort,
 }: VisitLogFiltersProps) => {
+  const { t } = useTranslation();
+
   const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
     onSortChange(event.target.value as VisitLogSort);
   };
@@ -37,52 +40,55 @@ const VisitLogFilters = ({
     <div className="grid gap-4 xl:grid-cols-[1.4fr_0.7fr_auto]">
       <Field
         htmlFor="visit-log-search"
-        label="Search visit logs"
-        helperText="Search by title, district, or agent name."
+        label={t('visitLogs.filters.search.label')}
+        helperText={t('visitLogs.filters.search.helper')}
       >
         <Input
           id="visit-log-search"
           value={query}
           onChange={(event) => onQueryChange(event.target.value)}
-          placeholder="Search by title, district, or agent"
+          placeholder={t('visitLogs.filters.search.placeholder')}
         />
       </Field>
 
       <Field
         htmlFor="visit-log-sort"
-        label="Sort by"
-        helperText="The query hook refetches when the sort changes."
+        label={t('visitLogs.filters.sort.label')}
+        helperText={t('visitLogs.filters.sort.helper')}
       >
         <Select id="visit-log-sort" value={sort} onChange={handleSortChange}>
-          <option value="latest">Latest visit</option>
-          <option value="oldest">Oldest visit</option>
-          <option value="district">District</option>
+          <option value="latest">{t('visitLogs.filters.sort.latest')}</option>
+          <option value="oldest">{t('visitLogs.filters.sort.oldest')}</option>
+          <option value="district">
+            {t('visitLogs.filters.sort.district')}
+          </option>
         </Select>
       </Field>
 
       <div className="flex items-end gap-3">
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="secondary">Advanced filters</Button>
+            <Button variant="secondary">
+              {t('visitLogs.filters.advanced')}
+            </Button>
           </PopoverTrigger>
           <PopoverContent align="end">
             <div className="space-y-4">
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-foreground">
-                  Quick view filters
+                  {t('visitLogs.filters.summary.title')}
                 </p>
                 <p className="text-sm leading-6 text-muted-foreground">
-                  Keep feature-specific filters close to the domain page instead
-                  of the shared-ui layer.
+                  {t('visitLogs.filters.summary.description')}
                 </p>
               </div>
               <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-foreground">
-                    Pinned only
+                    {t('visitLogs.filters.pinned.label')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Focus on high-priority logs you marked for follow-up.
+                    {t('visitLogs.filters.pinned.description')}
                   </p>
                 </div>
                 <Switch
@@ -90,12 +96,14 @@ const VisitLogFilters = ({
                   onChange={(event) =>
                     onPinnedOnlyChange(event.currentTarget.checked)
                   }
-                  aria-label="Show pinned visit logs only"
+                  aria-label={t('visitLogs.filters.pinned.label')}
                 />
               </div>
               <div className="flex justify-end gap-3">
                 <PopoverClose asChild>
-                  <Button variant="ghost">Close</Button>
+                  <Button variant="ghost">
+                    {t('visitLogs.filters.close')}
+                  </Button>
                 </PopoverClose>
               </div>
             </div>

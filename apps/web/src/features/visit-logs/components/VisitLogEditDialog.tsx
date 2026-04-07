@@ -14,8 +14,10 @@ import {
   Textarea,
 } from '@shared-ui/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useUpdateVisitLog } from '../hooks/useUpdateVisitLog';
 import type { UpdateVisitLogInput, VisitLog } from '../types/visitLog';
+import { getVisitLogPropertyTypeLabel } from '../utils/visitLogLabels';
 
 type VisitLogEditDialogProps = {
   log: VisitLog | null;
@@ -41,6 +43,7 @@ const VisitLogEditDialog = ({
 }: VisitLogEditDialogProps) => {
   const [form, setForm] = useState<UpdateVisitLogInput>(toFormState(log));
   const mutation = useUpdateVisitLog();
+  const { t } = useTranslation();
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -67,13 +70,16 @@ const VisitLogEditDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit visit log</DialogTitle>
+          <DialogTitle>{t('visitLogs.editDialog.title')}</DialogTitle>
           <DialogDescription>
-            Update the draft details through the feature mutation layer.
+            {t('visitLogs.editDialog.description')}
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
-          <Field htmlFor="edit-visit-log-title" label="Title">
+          <Field
+            htmlFor="edit-visit-log-title"
+            label={t('visitLogs.editDialog.fields.title')}
+          >
             <Input
               id="edit-visit-log-title"
               value={form.title}
@@ -83,11 +89,14 @@ const VisitLogEditDialog = ({
                   title: event.target.value,
                 }))
               }
-              placeholder="e.g. Gangnam apartment revisit"
+              placeholder={t('visitLogs.editDialog.placeholders.title')}
             />
           </Field>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field htmlFor="edit-visit-log-district" label="District">
+            <Field
+              htmlFor="edit-visit-log-district"
+              label={t('visitLogs.editDialog.fields.district')}
+            >
               <Input
                 id="edit-visit-log-district"
                 value={form.district}
@@ -97,10 +106,13 @@ const VisitLogEditDialog = ({
                     district: event.target.value,
                   }))
                 }
-                placeholder="Gangnam-gu"
+                placeholder={t('visitLogs.editDialog.placeholders.district')}
               />
             </Field>
-            <Field htmlFor="edit-visit-log-price" label="Price">
+            <Field
+              htmlFor="edit-visit-log-price"
+              label={t('visitLogs.editDialog.fields.price')}
+            >
               <Input
                 id="edit-visit-log-price"
                 value={form.priceLabel}
@@ -110,11 +122,14 @@ const VisitLogEditDialog = ({
                     priceLabel: event.target.value,
                   }))
                 }
-                placeholder="KRW 1.10B"
+                placeholder={t('visitLogs.editDialog.placeholders.price')}
               />
             </Field>
           </div>
-          <Field htmlFor="edit-visit-log-property-type" label="Property type">
+          <Field
+            htmlFor="edit-visit-log-property-type"
+            label={t('visitLogs.editDialog.fields.propertyType')}
+          >
             <Select
               id="edit-visit-log-property-type"
               value={form.propertyType}
@@ -126,12 +141,21 @@ const VisitLogEditDialog = ({
                 }))
               }
             >
-              <option value="apartment">Apartment</option>
-              <option value="office">Office</option>
-              <option value="retail">Retail</option>
+              <option value="apartment">
+                {getVisitLogPropertyTypeLabel(t, 'apartment')}
+              </option>
+              <option value="office">
+                {getVisitLogPropertyTypeLabel(t, 'office')}
+              </option>
+              <option value="retail">
+                {getVisitLogPropertyTypeLabel(t, 'retail')}
+              </option>
             </Select>
           </Field>
-          <Field htmlFor="edit-visit-log-summary" label="Summary">
+          <Field
+            htmlFor="edit-visit-log-summary"
+            label={t('visitLogs.editDialog.fields.summary')}
+          >
             <Textarea
               id="edit-visit-log-summary"
               value={form.summary}
@@ -141,25 +165,25 @@ const VisitLogEditDialog = ({
                   summary: event.target.value,
                 }))
               }
-              placeholder="Capture the updated on-site review and the next validation step."
+              placeholder={t('visitLogs.editDialog.placeholders.summary')}
             />
           </Field>
           {mutation.isError ? (
             <p className="text-sm text-danger">
-              Failed to update the visit log.
+              {t('visitLogs.editDialog.error')}
             </p>
           ) : null}
         </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="ghost">Cancel</Button>
+            <Button variant="ghost">{t('visitLogs.editDialog.cancel')}</Button>
           </DialogClose>
           <Button
             disabled={isUpdateDisabled}
             loading={mutation.isPending}
             onClick={handleSubmit}
           >
-            Save changes
+            {t('visitLogs.editDialog.save')}
           </Button>
         </DialogFooter>
       </DialogContent>

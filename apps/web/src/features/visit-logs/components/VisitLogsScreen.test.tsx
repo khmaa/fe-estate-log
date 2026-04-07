@@ -80,9 +80,7 @@ describe('VisitLogsScreen', () => {
   it('opens the create dialog from the empty state action', () => {
     renderScreen([]);
 
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Add first visit log' }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: 'Create a visit log' }));
 
     expect(
       screen.getByRole('heading', { name: 'Create a new visit log' }),

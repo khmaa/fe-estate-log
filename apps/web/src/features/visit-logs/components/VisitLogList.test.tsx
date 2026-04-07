@@ -26,9 +26,7 @@ describe('VisitLogList', () => {
       />,
     );
 
-    expect(
-      screen.getByText('Loading the latest visit logs'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Loading visit logs')).toBeInTheDocument();
   });
 
   it('renders an empty state and forwards the action', () => {
@@ -43,9 +41,7 @@ describe('VisitLogList', () => {
       />,
     );
 
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Add first visit log' }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: 'Create a visit log' }));
 
     expect(handleCreateFirstLog).toHaveBeenCalled();
   });
