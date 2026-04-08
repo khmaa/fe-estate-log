@@ -181,7 +181,9 @@ describe('App', () => {
 
     fireEvent.click(toggle);
 
-    expect(screen.getByText('삼성동 한강뷰 아파트 재방문')).toBeInTheDocument();
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 재방문'),
+    ).toBeInTheDocument();
     expect(screen.queryByText('성수 복합용도 오피스 층')).toBeNull();
   });
 

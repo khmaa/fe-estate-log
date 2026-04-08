@@ -3,6 +3,7 @@ import type {
   CreateVisitLogInput,
   UpdateVisitLogInput,
   VisitLog,
+  VisitLogFilters,
 } from '../types/visitLog';
 import {
   appendVisitLogMock,
@@ -11,13 +12,70 @@ import {
   updateVisitLogMock,
 } from './visitLogs.data';
 
+const getVisitLogFilters = (requestUrl: string): VisitLogFilters => {
+  const url = new URL(requestUrl);
+
+  return {
+    pinnedOnly: url.searchParams.get('pinned') === 'true',
+    query: url.searchParams.get('query') ?? '',
+    sort:
+      url.searchParams.get('sort') === 'oldest' ||
+      url.searchParams.get('sort') === 'district'
+        ? (url.searchParams.get('sort') as VisitLogFilters['sort'])
+        : 'latest',
+  };
+};
+
+const applyVisitLogFilters = (logs: VisitLog[], filters: VisitLogFilters) => {
+  const normalizedQuery = filters.query.trim().toLowerCase();
+  const filteredLogs = logs.filter((log) => {
+    if (filters.pinnedOnly && !log.isPinned) {
+      return false;
+    }
+
+    if (!normalizedQuery) {
+      return true;
+    }
+
+    return [log.title, log.district, log.agentName].some((value) =>
+      value.toLowerCase().includes(normalizedQuery),
+    );
+  });
+
+  const nextLogs = [...filteredLogs];
+
+  switch (filters.sort) {
+    case 'oldest':
+      return nextLogs.sort(
+        (left, right) =>
+          new Date(left.visitedAt).getTime() -
+          new Date(right.visitedAt).getTime(),
+      );
+    case 'district':
+      return nextLogs.sort((left, right) =>
+        left.district.localeCompare(right.district),
+      );
+    case 'latest':
+    default:
+      return nextLogs.sort(
+        (left, right) =>
+          new Date(right.visitedAt).getTime() -
+          new Date(left.visitedAt).getTime(),
+      );
+  }
+};
+
 const visitLogsHandlers = [
-  http.get('/api/visit-logs', async () => {
+  http.get('/api/visit-logs', async ({ request }) => {
     await new Promise((resolve) => {
       setTimeout(resolve, 120);
     });
 
-    return HttpResponse.json(listVisitLogsMock());
+    const filters = getVisitLogFilters(request.url);
+
+    return HttpResponse.json(
+      applyVisitLogFilters(listVisitLogsMock(), filters),
+    );
   }),
   http.post('/api/visit-logs', async ({ request }) => {
     const payload = (await request.json()) as CreateVisitLogInput;

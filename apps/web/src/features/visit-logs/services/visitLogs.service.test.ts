@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { getVisitLogs } from '../api/getVisitLogs';
-import type { VisitLog } from '../types/visitLog';
-import { listVisitLogs, sortVisitLogs } from './visitLogs.service';
+import type { VisitLog, VisitLogFilters } from '../types/visitLog';
+import { listVisitLogs } from './visitLogs.service';
 
 vi.mock('../api/getVisitLogs', () => ({
   getVisitLogs: vi.fn(),
@@ -47,43 +47,16 @@ const visitLogs: VisitLog[] = [
 ];
 
 describe('visitLogs.service', () => {
-  it('sorts visit logs by latest visit by default', () => {
-    const result = sortVisitLogs(visitLogs, 'latest');
+  it('loads visit logs through the api layer with the current filters', async () => {
+    const filters: VisitLogFilters = {
+      pinnedOnly: true,
+      query: 'gangnam',
+      sort: 'oldest',
+    };
 
-    expect(result.map((log) => log.id)).toEqual([
-      'visit-log-3',
-      'visit-log-1',
-      'visit-log-2',
-    ]);
-  });
-
-  it('sorts visit logs by oldest visit', () => {
-    const result = sortVisitLogs(visitLogs, 'oldest');
-
-    expect(result.map((log) => log.id)).toEqual([
-      'visit-log-2',
-      'visit-log-1',
-      'visit-log-3',
-    ]);
-  });
-
-  it('sorts visit logs by district', () => {
-    const result = sortVisitLogs(visitLogs, 'district');
-
-    expect(result.map((log) => log.id)).toEqual([
-      'visit-log-1',
-      'visit-log-2',
-      'visit-log-3',
-    ]);
-  });
-
-  it('loads visit logs through the api layer and sorts them', async () => {
     vi.mocked(getVisitLogs).mockResolvedValue(visitLogs);
 
-    await expect(listVisitLogs('oldest')).resolves.toMatchObject([
-      { id: 'visit-log-2' },
-      { id: 'visit-log-1' },
-      { id: 'visit-log-3' },
-    ]);
+    await expect(listVisitLogs(filters)).resolves.toEqual(visitLogs);
+    expect(getVisitLogs).toHaveBeenCalledWith(filters);
   });
 });

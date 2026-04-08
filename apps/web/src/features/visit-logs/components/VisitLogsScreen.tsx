@@ -12,7 +12,7 @@ import {
   CardTitle,
   useToast,
 } from '@shared-ui/core';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
@@ -45,24 +45,6 @@ const VisitLogsScreen = ({
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { showToast } = useToast();
   const { t } = useTranslation();
-
-  const filteredLogs = useMemo(() => {
-    const normalizedQuery = filters.query.trim().toLowerCase();
-
-    return logs.filter((log) => {
-      if (filters.pinnedOnly && !log.isPinned) {
-        return false;
-      }
-
-      if (!normalizedQuery) {
-        return true;
-      }
-
-      return [log.title, log.district, log.agentName].some((value) =>
-        value.toLowerCase().includes(normalizedQuery),
-      );
-    });
-  }, [filters.pinnedOnly, filters.query, logs]);
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -134,7 +116,7 @@ const VisitLogsScreen = ({
         </Alert>
 
         <VisitLogList
-          logs={filteredLogs}
+          logs={logs}
           isLoading={isLoading}
           onCreateFirstLog={handleCreateClick}
           onOpenDetails={onOpenDetails}

@@ -7,7 +7,7 @@ const VisitLogsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { filters, setPinnedOnly, setQuery, setSort } = useVisitLogFilters();
-  const query = useVisitLogs(filters.sort);
+  const query = useVisitLogs(filters);
   const handleOpenDetails = (visitLogId: string) => {
     navigate(`/visit-logs/${visitLogId}${location.search}`);
   };

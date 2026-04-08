@@ -15,8 +15,16 @@ describe('getVisitLogs', () => {
 
     vi.stubGlobal('fetch', fetchMock);
 
-    await expect(getVisitLogs()).resolves.toEqual(visitLogs);
-    expect(fetchMock).toHaveBeenCalledWith('/api/visit-logs');
+    await expect(
+      getVisitLogs({
+        pinnedOnly: true,
+        query: 'gangnam',
+        sort: 'district',
+      }),
+    ).resolves.toEqual(visitLogs);
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/api/visit-logs?query=gangnam&sort=district&pinned=true',
+    );
   });
 
   it('throws when the request fails', async () => {
@@ -27,6 +35,12 @@ describe('getVisitLogs', () => {
       }),
     );
 
-    await expect(getVisitLogs()).rejects.toThrow('Failed to load visit logs.');
+    await expect(
+      getVisitLogs({
+        pinnedOnly: false,
+        query: '',
+        sort: 'latest',
+      }),
+    ).rejects.toThrow('Failed to load visit logs.');
   });
 });

@@ -54,7 +54,7 @@ const renderScreen = (
   );
 
 describe('VisitLogsScreen', () => {
-  it('filters logs by the search query', () => {
+  it('renders the logs provided by the query layer', () => {
     renderScreen(visitLogs, {
       pinnedOnly: false,
       query: 'yeonnam',
@@ -62,9 +62,11 @@ describe('VisitLogsScreen', () => {
     });
 
     expect(
+      screen.getByText('Samsung-dong river-view apartment'),
+    ).toBeInTheDocument();
+    expect(
       screen.getByText('Yeonnam boutique retail corner'),
     ).toBeInTheDocument();
-    expect(screen.queryByText('Samsung-dong river-view apartment')).toBeNull();
   });
 
   it('forwards detail navigation from the card actions', async () => {
