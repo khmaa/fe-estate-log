@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { listVisitLogs } from '../services/visitLogs.service';
-import type { VisitLogSort } from '../types/visitLog';
+import type { VisitLogFilters } from '../types/visitLog';
 
-const useVisitLogs = (sort: VisitLogSort) => {
+const useVisitLogs = (filters: VisitLogFilters) => {
   return useQuery({
-    queryKey: ['visit-logs', sort],
-    queryFn: () => listVisitLogs(sort),
+    queryKey: ['visit-logs', filters],
+    queryFn: () => listVisitLogs(filters),
   });
 };
 

@@ -6,6 +6,18 @@ describe('visitLogsHandlers', () => {
     resetVisitLogsMock();
   });
 
+  it('filters and sorts visit logs from query params', async () => {
+    const response = await fetch(
+      '/api/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true',
+    );
+
+    const visitLogs = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(visitLogs).toHaveLength(1);
+    expect(visitLogs[0]?.id).toBe('visit-log-1');
+  });
+
   it('returns 404 when trying to delete a missing visit log', async () => {
     const response = await fetch('/api/visit-logs/missing-log', {
       method: 'DELETE',

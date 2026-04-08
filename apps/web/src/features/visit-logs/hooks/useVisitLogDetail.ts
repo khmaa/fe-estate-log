@@ -1,8 +1,14 @@
 import { useMemo } from 'react';
 import { useVisitLogs } from './useVisitLogs';
 
+const defaultVisitLogFilters = {
+  pinnedOnly: false,
+  query: '',
+  sort: 'latest' as const,
+};
+
 const useVisitLogDetail = (visitLogId: string | undefined) => {
-  const query = useVisitLogs('latest');
+  const query = useVisitLogs(defaultVisitLogFilters);
 
   const log = useMemo(() => {
     if (!visitLogId || !query.data) {

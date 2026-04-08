@@ -29,7 +29,10 @@ const createWrapper = (queryClient: QueryClient) => {
 describe('useVisitLogDetail', () => {
   it('returns the matching visit log from the query cache', () => {
     const queryClient = new QueryClient();
-    queryClient.setQueryData(['visit-logs', 'latest'], visitLogs);
+    queryClient.setQueryData(
+      ['visit-logs', { pinnedOnly: false, query: '', sort: 'latest' }],
+      visitLogs,
+    );
 
     const { result } = renderHook(() => useVisitLogDetail('visit-log-1'), {
       wrapper: createWrapper(queryClient),
@@ -41,7 +44,10 @@ describe('useVisitLogDetail', () => {
 
   it('returns null when the visit log id is missing or not found', () => {
     const queryClient = new QueryClient();
-    queryClient.setQueryData(['visit-logs', 'latest'], visitLogs);
+    queryClient.setQueryData(
+      ['visit-logs', { pinnedOnly: false, query: '', sort: 'latest' }],
+      visitLogs,
+    );
 
     const { result, rerender } = renderHook(
       ({ visitLogId }) => useVisitLogDetail(visitLogId),

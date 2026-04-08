@@ -15,6 +15,12 @@ type VisitLog = {
 
 type VisitLogSort = 'latest' | 'oldest' | 'district';
 
+type VisitLogFilters = {
+  pinnedOnly: boolean;
+  query: string;
+  sort: VisitLogSort;
+};
+
 type CreateVisitLogInput = {
   district: string;
   priceLabel: string;
@@ -31,6 +37,7 @@ export type {
   CreateVisitLogInput,
   UpdateVisitLogInput,
   VisitLog,
+  VisitLogFilters,
   VisitLogSort,
   VisitLogStatus,
 };
