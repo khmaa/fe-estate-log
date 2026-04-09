@@ -17,6 +17,7 @@ const useVisitLogFilters = () => {
 
   const filters = useMemo(
     () => ({
+      page: Math.max(1, Number(searchParams.get('page') ?? '1') || 1),
       pinnedOnly: searchParams.get('pinned') === 'true',
       query: searchParams.get('query') ?? '',
       sort: getVisitLogSort(searchParams.get('sort')),
@@ -25,6 +26,7 @@ const useVisitLogFilters = () => {
   );
 
   const updateSearchParams = (updates: {
+    page?: number;
     pinnedOnly?: boolean;
     query?: string;
     sort?: VisitLogSort;
@@ -39,6 +41,8 @@ const useVisitLogFilters = () => {
       } else {
         nextSearchParams.delete('query');
       }
+
+      nextSearchParams.delete('page');
     }
 
     if (updates.sort !== undefined) {
@@ -47,6 +51,8 @@ const useVisitLogFilters = () => {
       } else {
         nextSearchParams.set('sort', updates.sort);
       }
+
+      nextSearchParams.delete('page');
     }
 
     if (updates.pinnedOnly !== undefined) {
@@ -55,6 +61,16 @@ const useVisitLogFilters = () => {
       } else {
         nextSearchParams.delete('pinned');
       }
+
+      nextSearchParams.delete('page');
+    }
+
+    if (updates.page !== undefined) {
+      if (updates.page <= 1) {
+        nextSearchParams.delete('page');
+      } else {
+        nextSearchParams.set('page', String(updates.page));
+      }
     }
 
     setSearchParams(nextSearchParams, { replace: true });
@@ -62,6 +78,7 @@ const useVisitLogFilters = () => {
 
   return {
     filters,
+    setPage: (page: number) => updateSearchParams({ page }),
     setPinnedOnly: (pinnedOnly: boolean) => updateSearchParams({ pinnedOnly }),
     setQuery: (query: string) => updateSearchParams({ query }),
     setSort: (sort: VisitLogSort) => updateSearchParams({ sort }),

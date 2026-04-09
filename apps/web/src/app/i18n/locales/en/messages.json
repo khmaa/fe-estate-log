@@ -122,6 +122,12 @@
         "action": "Create a visit log"
       }
     },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "current": "Page {{page}} of {{totalPages}}",
+      "summary": "Showing page {{page}} of {{totalPages}} across {{totalCount}} visit logs."
+    },
     "createDialog": {
       "title": "Create a new visit log",
       "description": "Capture a new draft without breaking the feature-layer boundaries.",

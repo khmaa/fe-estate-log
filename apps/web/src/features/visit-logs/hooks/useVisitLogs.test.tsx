@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import type React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { listVisitLogs } from '../services/visitLogs.service';
-import type { VisitLog } from '../types/visitLog';
+import type { VisitLogListResponse } from '../types/visitLog';
 import { useVisitLogs } from './useVisitLogs';
 
 vi.mock('../services/visitLogs.service', () => ({
@@ -26,21 +26,28 @@ const createWrapper = () => {
 
 describe('useVisitLogs', () => {
   it('queries visit logs with filter-aware query keys', async () => {
-    const visitLogs: VisitLog[] = [
-      {
-        id: 'visit-log-1',
-        title: 'Alpha',
-        district: 'Gangnam-gu',
-        propertyType: 'apartment',
-        status: 'completed',
-        visitedAt: '2026-03-27T10:30:00.000Z',
-        priceLabel: 'KRW 1.28B',
-        agentName: 'Minji Park',
-        isPinned: true,
-        summary: 'Summary',
-      },
-    ];
+    const visitLogs: VisitLogListResponse = {
+      items: [
+        {
+          id: 'visit-log-1',
+          title: 'Alpha',
+          district: 'Gangnam-gu',
+          propertyType: 'apartment',
+          status: 'completed',
+          visitedAt: '2026-03-27T10:30:00.000Z',
+          priceLabel: 'KRW 1.28B',
+          agentName: 'Minji Park',
+          isPinned: true,
+          summary: 'Summary',
+        },
+      ],
+      page: 2,
+      pageSize: 2,
+      totalCount: 3,
+      totalPages: 2,
+    };
     const filters = {
+      page: 2,
       pinnedOnly: true,
       query: 'gangnam',
       sort: 'district' as const,

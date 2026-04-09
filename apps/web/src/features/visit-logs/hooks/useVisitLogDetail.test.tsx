@@ -1,9 +1,15 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { renderHook } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 import type React from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { VisitLog } from '../types/visitLog';
 import { useVisitLogDetail } from './useVisitLogDetail';
+
+vi.mock('../services/visitLogDetail.service', () => ({
+  loadVisitLogDetail: vi.fn(),
+}));
+
+import { loadVisitLogDetail } from '../services/visitLogDetail.service';
 
 const visitLogs: VisitLog[] = [
   {
@@ -27,26 +33,26 @@ const createWrapper = (queryClient: QueryClient) => {
 };
 
 describe('useVisitLogDetail', () => {
-  it('returns the matching visit log from the query cache', () => {
+  it('loads the matching visit log through the detail query', async () => {
     const queryClient = new QueryClient();
-    queryClient.setQueryData(
-      ['visit-logs', { pinnedOnly: false, query: '', sort: 'latest' }],
-      visitLogs,
-    );
+    vi.mocked(loadVisitLogDetail).mockResolvedValue(visitLogs[0] as VisitLog);
 
     const { result } = renderHook(() => useVisitLogDetail('visit-log-1'), {
       wrapper: createWrapper(queryClient),
+    });
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
     });
 
     expect(result.current.log?.id).toBe('visit-log-1');
     expect(result.current.isLoading).toBe(false);
   });
 
-  it('returns null when the visit log id is missing or not found', () => {
+  it('returns null when the visit log id is missing or the query fails', async () => {
     const queryClient = new QueryClient();
-    queryClient.setQueryData(
-      ['visit-logs', { pinnedOnly: false, query: '', sort: 'latest' }],
-      visitLogs,
+    vi.mocked(loadVisitLogDetail).mockRejectedValue(
+      new Error('Failed to load the visit log detail.'),
     );
 
     const { result, rerender } = renderHook(
@@ -60,6 +66,10 @@ describe('useVisitLogDetail', () => {
     expect(result.current.log).toBeNull();
 
     rerender({ visitLogId: 'missing-log' });
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
 
     expect(result.current.log).toBeNull();
   });

@@ -6,7 +6,12 @@ const useUpdateVisitLog = () => {
 
   return useMutation({
     mutationFn: updateVisitLogEntry,
-    onSuccess: async () => {
+    onSuccess: async (updatedVisitLog) => {
+      queryClient.setQueryData(
+        ['visit-log-detail', updatedVisitLog.id],
+        updatedVisitLog,
+      );
+
       await queryClient.invalidateQueries({
         queryKey: ['visit-logs'],
       });
