@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import { AppProviders } from './app/AppProviders';
+import { resetVisitLogsMock } from './features/visit-logs/mocks/visitLogs.data';
 
 const renderApp = (route = '/') => {
   window.history.pushState({}, '', route);
@@ -27,6 +28,10 @@ const openVisitLogDetails = async (title: string) => {
 };
 
 describe('App', () => {
+  beforeEach(() => {
+    resetVisitLogsMock();
+  });
+
   it('renders the visit logs workspace page', async () => {
     renderApp();
 
@@ -84,7 +89,9 @@ describe('App', () => {
   });
 
   it('hydrates visit log filters from the query string', async () => {
-    renderApp('/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true');
+    renderApp(
+      '/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true&page=2',
+    );
 
     expect(
       await screen.findByRole('heading', { name: 'Visit logs workspace' }),
@@ -97,6 +104,7 @@ describe('App', () => {
         name: 'Pinned only',
       }),
     ).toBeChecked();
+    expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
   });
 
   it('renders the showcase page on the showcase route', async () => {
@@ -264,16 +272,32 @@ describe('App', () => {
   });
 
   it('renders a visit log detail page from a direct route', async () => {
-    renderApp('/visit-logs/visit-log-1');
+    renderApp('/visit-logs/visit-log-3');
 
     expect(
       await screen.findByRole('heading', {
-        name: '삼성동 한강뷰 아파트 재방문',
+        name: '연남동 부티크 상가 코너',
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Back to visit logs' }),
     ).toBeInTheDocument();
+  });
+
+  it('moves between visit log pages through the pagination controls', async () => {
+    renderApp('/visit-logs');
+
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 재방문'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+
+    expect(
+      await screen.findByText('연남동 부티크 상가 코너'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
   });
 
   it('keeps search params when returning from a detail route', async () => {

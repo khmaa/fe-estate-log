@@ -122,6 +122,12 @@
         "action": "임장 기록 생성"
       }
     },
+    "pagination": {
+      "previous": "이전",
+      "next": "다음",
+      "current": "{{totalPages}}페이지 중 {{page}}페이지",
+      "summary": "전체 {{totalCount}}개의 임장 기록 중 {{page}} / {{totalPages}}페이지를 보고 있습니다."
+    },
     "createDialog": {
       "title": "새 임장 기록 만들기",
       "description": "feature 레이어 경계를 유지한 채 새 초안을 추가합니다.",

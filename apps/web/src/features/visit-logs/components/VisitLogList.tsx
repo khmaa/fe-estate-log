@@ -2,12 +2,17 @@ import { EmptyState, EmptyStateAction, Spinner } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
 import { VisitLogCard } from './VisitLogCard';
+import { VisitLogPagination } from './VisitLogPagination';
 
 type VisitLogListProps = {
   isLoading: boolean;
   logs: VisitLog[];
   onCreateFirstLog: () => void;
   onOpenDetails: (visitLogId: string) => void;
+  onPageChange: (page: number) => void;
+  page: number;
+  totalCount: number;
+  totalPages: number;
 };
 
 const VisitLogList = ({
@@ -15,6 +20,10 @@ const VisitLogList = ({
   logs,
   onCreateFirstLog,
   onOpenDetails,
+  onPageChange,
+  page,
+  totalCount,
+  totalPages,
 }: VisitLogListProps) => {
   const { t } = useTranslation();
 
@@ -49,6 +58,12 @@ const VisitLogList = ({
       {logs.map((log) => (
         <VisitLogCard key={log.id} log={log} onOpenDetails={onOpenDetails} />
       ))}
+      <VisitLogPagination
+        page={page}
+        totalCount={totalCount}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

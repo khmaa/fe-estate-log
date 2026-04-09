@@ -17,6 +17,7 @@ describe('useUpdateVisitLog', () => {
 
     const queryClient = new QueryClient();
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
+    const setQueryDataSpy = vi.spyOn(queryClient, 'setQueryData');
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
@@ -39,5 +40,9 @@ describe('useUpdateVisitLog', () => {
         queryKey: ['visit-logs'],
       });
     });
+    expect(setQueryDataSpy).toHaveBeenCalledWith(
+      ['visit-log-detail', 'visit-log-1'],
+      expect.objectContaining({ id: 'visit-log-1' }),
+    );
   });
 });

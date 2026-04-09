@@ -21,6 +21,7 @@ import { VisitLogList } from './VisitLogList';
 
 type VisitLogsScreenProps = {
   filters: {
+    page: number;
     pinnedOnly: boolean;
     query: string;
     sort: VisitLogSort;
@@ -28,9 +29,12 @@ type VisitLogsScreenProps = {
   isLoading: boolean;
   logs: VisitLog[];
   onOpenDetails: (visitLogId: string) => void;
+  onPageChange: (page: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
   onSortChange: (sort: VisitLogSort) => void;
+  totalCount: number;
+  totalPages: number;
 };
 
 const VisitLogsScreen = ({
@@ -38,9 +42,12 @@ const VisitLogsScreen = ({
   isLoading,
   logs,
   onOpenDetails,
+  onPageChange,
   onPinnedOnlyChange,
   onQueryChange,
   onSortChange,
+  totalCount,
+  totalPages,
 }: VisitLogsScreenProps) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { showToast } = useToast();
@@ -120,6 +127,10 @@ const VisitLogsScreen = ({
           isLoading={isLoading}
           onCreateFirstLog={handleCreateClick}
           onOpenDetails={onOpenDetails}
+          onPageChange={onPageChange}
+          page={filters.page}
+          totalCount={totalCount}
+          totalPages={totalPages}
         />
 
         <VisitLogCreateDialog

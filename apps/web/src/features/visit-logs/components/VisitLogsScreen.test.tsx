@@ -33,11 +33,13 @@ const visitLogs = [
 const renderScreen = (
   logs = visitLogs,
   filters = {
+    page: 1,
     pinnedOnly: false,
     query: '',
     sort: 'latest' as const,
   },
   onOpenDetails = vi.fn(),
+  onPageChange = vi.fn(),
 ) =>
   render(
     <AppProviders>
@@ -45,10 +47,13 @@ const renderScreen = (
         logs={logs}
         isLoading={false}
         filters={filters}
+        onPageChange={onPageChange}
         onPinnedOnlyChange={() => {}}
         onQueryChange={() => {}}
         onSortChange={() => {}}
         onOpenDetails={onOpenDetails}
+        totalCount={logs.length}
+        totalPages={1}
       />
     </AppProviders>,
   );
@@ -56,6 +61,7 @@ const renderScreen = (
 describe('VisitLogsScreen', () => {
   it('renders the logs provided by the query layer', () => {
     renderScreen(visitLogs, {
+      page: 1,
       pinnedOnly: false,
       query: 'yeonnam',
       sort: 'latest',
@@ -77,6 +83,36 @@ describe('VisitLogsScreen', () => {
     fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
 
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
+  });
+
+  it('forwards pagination changes from the list controls', () => {
+    const handlePageChange = vi.fn();
+
+    render(
+      <AppProviders>
+        <VisitLogsScreen
+          logs={visitLogs}
+          isLoading={false}
+          filters={{
+            page: 1,
+            pinnedOnly: false,
+            query: '',
+            sort: 'latest',
+          }}
+          onPageChange={handlePageChange}
+          onPinnedOnlyChange={() => {}}
+          onQueryChange={() => {}}
+          onSortChange={() => {}}
+          onOpenDetails={vi.fn()}
+          totalCount={3}
+          totalPages={2}
+        />
+      </AppProviders>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+
+    expect(handlePageChange).toHaveBeenCalledWith(2);
   });
 
   it('opens the create dialog from the empty state action', () => {

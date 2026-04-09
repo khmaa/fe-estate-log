@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import type React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { deleteVisitLogEntry } from '../services/deleteVisitLog.service';
-import type { VisitLog } from '../types/visitLog';
+import type { VisitLogListResponse } from '../types/visitLog';
 import { useDeleteVisitLog } from './useDeleteVisitLog';
 
 vi.mock('../services/deleteVisitLog.service', () => ({
@@ -16,6 +16,7 @@ describe('useDeleteVisitLog', () => {
 
     const queryClient = new QueryClient();
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
+    const removeQueriesSpy = vi.spyOn(queryClient, 'removeQueries');
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
@@ -31,6 +32,9 @@ describe('useDeleteVisitLog', () => {
         queryKey: ['visit-logs'],
       });
     });
+    expect(removeQueriesSpy).toHaveBeenCalledWith({
+      queryKey: ['visit-log-detail', 'visit-log-1'],
+    });
   });
 
   it('handles an empty visit logs cache when a delete mutation succeeds', async () => {
@@ -38,44 +42,30 @@ describe('useDeleteVisitLog', () => {
 
     const queryClient = new QueryClient();
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
-    const setQueriesDataSpy = vi
-      .spyOn(queryClient, 'setQueriesData')
-      .mockImplementation((filters, updater) => {
-        expect(filters).toEqual({ queryKey: ['visit-logs'] });
+    const setQueriesDataSpy = vi.spyOn(queryClient, 'setQueriesData');
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
 
-        const updateLogs = updater as (
-          current: VisitLog[] | undefined,
-        ) => VisitLog[] | undefined;
+    const { result } = renderHook(() => useDeleteVisitLog(), { wrapper });
 
-        expect(updateLogs(undefined)).toBeUndefined();
-        expect(
-          updateLogs([
-            {
-              id: 'visit-log-keep',
-              title: 'Keep',
-              district: '강남구',
-              propertyType: 'apartment',
-              status: 'draft',
-              visitedAt: '2026-04-02T10:00:00.000Z',
-              priceLabel: 'KRW 1.00B',
-              agentName: '테스터',
-              isPinned: false,
-              summary: 'Summary',
-            },
-            {
-              id: 'missing-log',
-              title: 'Remove',
-              district: '마포구',
-              propertyType: 'retail',
-              status: 'completed',
-              visitedAt: '2026-04-02T11:00:00.000Z',
-              priceLabel: 'KRW 900M',
-              agentName: '테스터',
-              isPinned: true,
-              summary: 'Summary',
-            },
-          ]),
-        ).toEqual([
+    await act(async () => {
+      await result.current.mutateAsync('missing-log');
+    });
+
+    expect(setQueriesDataSpy).toHaveBeenCalled();
+    expect(setQueriesDataSpy.mock.calls[0]?.[0]).toEqual({
+      queryKey: ['visit-logs'],
+    });
+
+    const updateLogs = setQueriesDataSpy.mock.calls[0]?.[1] as (
+      current: VisitLogListResponse | undefined,
+    ) => VisitLogListResponse | undefined;
+
+    expect(updateLogs(undefined)).toBeUndefined();
+    expect(
+      updateLogs({
+        items: [
           {
             id: 'visit-log-keep',
             title: 'Keep',
@@ -88,21 +78,45 @@ describe('useDeleteVisitLog', () => {
             isPinned: false,
             summary: 'Summary',
           },
-        ]);
-
-        return [];
-      });
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-
-    const { result } = renderHook(() => useDeleteVisitLog(), { wrapper });
-
-    await act(async () => {
-      await result.current.mutateAsync('missing-log');
+          {
+            id: 'missing-log',
+            title: 'Remove',
+            district: '마포구',
+            propertyType: 'retail',
+            status: 'completed',
+            visitedAt: '2026-04-02T11:00:00.000Z',
+            priceLabel: 'KRW 900M',
+            agentName: '테스터',
+            isPinned: true,
+            summary: 'Summary',
+          },
+        ],
+        page: 1,
+        pageSize: 2,
+        totalCount: 2,
+        totalPages: 1,
+      }),
+    ).toEqual({
+      items: [
+        {
+          id: 'visit-log-keep',
+          title: 'Keep',
+          district: '강남구',
+          propertyType: 'apartment',
+          status: 'draft',
+          visitedAt: '2026-04-02T10:00:00.000Z',
+          priceLabel: 'KRW 1.00B',
+          agentName: '테스터',
+          isPinned: false,
+          summary: 'Summary',
+        },
+      ],
+      page: 1,
+      pageSize: 2,
+      totalCount: 1,
+      totalPages: 1,
     });
 
-    expect(setQueriesDataSpy).toHaveBeenCalled();
     await waitFor(() => {
       expect(invalidateQueriesSpy).toHaveBeenCalledWith({
         queryKey: ['visit-logs'],

@@ -21,6 +21,7 @@ describe('useVisitLogFilters', () => {
     });
 
     expect(result.current.filters).toEqual({
+      page: 1,
       pinnedOnly: true,
       query: 'gangnam',
       sort: 'district',
@@ -33,11 +34,14 @@ describe('useVisitLogFilters', () => {
     });
 
     expect(result.current.filters.sort).toBe('latest');
+    expect(result.current.filters.page).toBe(1);
   });
 
   it('updates and clears query string filters through the setter helpers', () => {
     const { result } = renderHook(() => useVisitLogFilters(), {
-      wrapper: createWrapper('/?query=gangnam&sort=district&pinned=true'),
+      wrapper: createWrapper(
+        '/?query=gangnam&sort=district&pinned=true&page=3',
+      ),
     });
 
     act(() => {
@@ -45,6 +49,7 @@ describe('useVisitLogFilters', () => {
     });
 
     expect(result.current.filters.pinnedOnly).toBe(false);
+    expect(result.current.filters.page).toBe(1);
 
     act(() => {
       result.current.setQuery('  mapo  ');
@@ -69,9 +74,30 @@ describe('useVisitLogFilters', () => {
     });
 
     expect(result.current.filters).toEqual({
+      page: 1,
       pinnedOnly: false,
       query: '',
       sort: 'latest',
     });
+  });
+
+  it('updates and clears the page through the setter helper', () => {
+    const { result } = renderHook(() => useVisitLogFilters(), {
+      wrapper: createWrapper('/?page=2'),
+    });
+
+    expect(result.current.filters.page).toBe(2);
+
+    act(() => {
+      result.current.setPage(4);
+    });
+
+    expect(result.current.filters.page).toBe(4);
+
+    act(() => {
+      result.current.setPage(1);
+    });
+
+    expect(result.current.filters.page).toBe(1);
   });
 });

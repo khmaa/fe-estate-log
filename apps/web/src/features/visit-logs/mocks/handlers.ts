@@ -4,6 +4,7 @@ import type {
   UpdateVisitLogInput,
   VisitLog,
   VisitLogFilters,
+  VisitLogListResponse,
 } from '../types/visitLog';
 import {
   appendVisitLogMock,
@@ -14,8 +15,10 @@ import {
 
 const getVisitLogFilters = (requestUrl: string): VisitLogFilters => {
   const url = new URL(requestUrl);
+  const rawPage = Number(url.searchParams.get('page') ?? '1');
 
   return {
+    page: Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1,
     pinnedOnly: url.searchParams.get('pinned') === 'true',
     query: url.searchParams.get('query') ?? '',
     sort:
@@ -65,6 +68,26 @@ const applyVisitLogFilters = (logs: VisitLog[], filters: VisitLogFilters) => {
   }
 };
 
+const VISIT_LOGS_PAGE_SIZE = 2;
+
+const paginateVisitLogs = (
+  logs: VisitLog[],
+  page: number,
+): VisitLogListResponse => {
+  const totalCount = logs.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / VISIT_LOGS_PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const startIndex = (currentPage - 1) * VISIT_LOGS_PAGE_SIZE;
+
+  return {
+    items: logs.slice(startIndex, startIndex + VISIT_LOGS_PAGE_SIZE),
+    page: currentPage,
+    pageSize: VISIT_LOGS_PAGE_SIZE,
+    totalCount,
+    totalPages,
+  };
+};
+
 const visitLogsHandlers = [
   http.get('/api/visit-logs', async ({ request }) => {
     await new Promise((resolve) => {
@@ -74,8 +97,24 @@ const visitLogsHandlers = [
     const filters = getVisitLogFilters(request.url);
 
     return HttpResponse.json(
-      applyVisitLogFilters(listVisitLogsMock(), filters),
+      paginateVisitLogs(
+        applyVisitLogFilters(listVisitLogsMock(), filters),
+        filters.page,
+      ),
     );
+  }),
+  http.get('/api/visit-logs/:visitLogId', async ({ params }) => {
+    const visitLog = listVisitLogsMock().find(
+      (currentVisitLog) => currentVisitLog.id === params.visitLogId,
+    );
+
+    if (!visitLog) {
+      return new HttpResponse(null, {
+        status: 404,
+      });
+    }
+
+    return HttpResponse.json(visitLog);
   }),
   http.post('/api/visit-logs', async ({ request }) => {
     const payload = (await request.json()) as CreateVisitLogInput;

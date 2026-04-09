@@ -7,7 +7,13 @@ describe('getVisitLogs', () => {
   });
 
   it('returns visit logs when the request succeeds', async () => {
-    const visitLogs = [{ id: 'visit-log-1' }];
+    const visitLogs = {
+      items: [{ id: 'visit-log-1' }],
+      page: 2,
+      pageSize: 2,
+      totalCount: 3,
+      totalPages: 2,
+    };
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => visitLogs,
@@ -17,13 +23,14 @@ describe('getVisitLogs', () => {
 
     await expect(
       getVisitLogs({
+        page: 2,
         pinnedOnly: true,
         query: 'gangnam',
         sort: 'district',
       }),
     ).resolves.toEqual(visitLogs);
     expect(fetchMock).toHaveBeenCalledWith(
-      '/api/visit-logs?query=gangnam&sort=district&pinned=true',
+      '/api/visit-logs?query=gangnam&sort=district&pinned=true&page=2',
     );
   });
 
@@ -37,6 +44,7 @@ describe('getVisitLogs', () => {
 
     await expect(
       getVisitLogs({
+        page: 1,
         pinnedOnly: false,
         query: '',
         sort: 'latest',

@@ -16,9 +16,18 @@ type VisitLog = {
 type VisitLogSort = 'latest' | 'oldest' | 'district';
 
 type VisitLogFilters = {
+  page: number;
   pinnedOnly: boolean;
   query: string;
   sort: VisitLogSort;
+};
+
+type VisitLogListResponse = {
+  items: VisitLog[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
 };
 
 type CreateVisitLogInput = {
@@ -38,6 +47,7 @@ export type {
   UpdateVisitLogInput,
   VisitLog,
   VisitLogFilters,
+  VisitLogListResponse,
   VisitLogSort,
   VisitLogStatus,
 };
