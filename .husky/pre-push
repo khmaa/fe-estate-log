@@ -1,2 +1,15 @@
+echo "Running pre-push checks..."
+
+echo "Checking formatting..."
+pnpm run format:check
+
+echo "Running lint..."
+pnpm run lint
+
+echo "Running workspace tests..."
 pnpm run test:all
+
+echo "Verifying web build..."
 pnpm run build:web
+
+echo "Pre-push checks passed."
