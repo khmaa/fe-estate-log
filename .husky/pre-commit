@@ -1,1 +1,4 @@
-pnpm exec lint-staged
+echo "Running pre-commit checks..."
+echo "Running ESLint + Prettier via lint-staged..."
+pnpm exec lint-staged --verbose
+echo "Pre-commit checks passed."
