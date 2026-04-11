@@ -6,12 +6,15 @@ describe('VisitLogFilters', () => {
   it('forwards search and sort changes', async () => {
     const handleQueryChange = vi.fn();
     const handleSortChange = vi.fn();
+    const handlePageSizeChange = vi.fn();
 
     render(
       <VisitLogFilters
+        pageSize={2}
         query=""
         sort="latest"
         pinnedOnly={false}
+        onPageSizeChange={handlePageSizeChange}
         onQueryChange={handleQueryChange}
         onSortChange={handleSortChange}
         onPinnedOnlyChange={vi.fn()}
@@ -24,9 +27,13 @@ describe('VisitLogFilters', () => {
     fireEvent.change(screen.getByLabelText('Sort by'), {
       target: { value: 'district' },
     });
+    fireEvent.change(screen.getByLabelText('Page size'), {
+      target: { value: '5' },
+    });
 
     expect(handleQueryChange).toHaveBeenCalledWith('gangnam');
     expect(handleSortChange).toHaveBeenCalledWith('district');
+    expect(handlePageSizeChange).toHaveBeenCalledWith(5);
   });
 
   it('toggles pinned-only state from the popover filter', async () => {
@@ -34,9 +41,11 @@ describe('VisitLogFilters', () => {
 
     render(
       <VisitLogFilters
+        pageSize={2}
         query=""
         sort="latest"
         pinnedOnly={false}
+        onPageSizeChange={vi.fn()}
         onQueryChange={vi.fn()}
         onSortChange={vi.fn()}
         onPinnedOnlyChange={handlePinnedOnlyChange}

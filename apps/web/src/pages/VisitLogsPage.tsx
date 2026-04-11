@@ -7,7 +7,7 @@ import { useVisitLogs } from '../features/visit-logs/hooks/useVisitLogs';
 const VisitLogsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { filters, setPage, setPinnedOnly, setQuery, setSort } =
+  const { filters, setPage, setPageSize, setPinnedOnly, setQuery, setSort } =
     useVisitLogFilters();
   const query = useVisitLogs(filters);
 
@@ -32,6 +32,7 @@ const VisitLogsPage = () => {
         page: query.data?.page ?? filters.page,
       }}
       onPageChange={setPage}
+      onPageSizeChange={setPageSize}
       onPinnedOnlyChange={setPinnedOnly}
       onQueryChange={setQuery}
       onSortChange={setSort}

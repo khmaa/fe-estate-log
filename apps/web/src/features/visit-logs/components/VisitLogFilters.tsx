@@ -14,18 +14,22 @@ import { useTranslation } from 'react-i18next';
 import type { VisitLogSort } from '../types/visitLog';
 
 type VisitLogFiltersProps = {
+  onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
   onSortChange: (sort: VisitLogSort) => void;
+  pageSize: number;
   pinnedOnly: boolean;
   query: string;
   sort: VisitLogSort;
 };
 
 const VisitLogFilters = ({
+  onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
   onSortChange,
+  pageSize,
   pinnedOnly,
   query,
   sort,
@@ -36,8 +40,12 @@ const VisitLogFilters = ({
     onSortChange(event.target.value as VisitLogSort);
   };
 
+  const handlePageSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    onPageSizeChange(Number(event.target.value));
+  };
+
   return (
-    <div className="grid gap-4 xl:grid-cols-[1.4fr_0.7fr_auto]">
+    <div className="grid gap-4 xl:grid-cols-[1.4fr_0.7fr_0.6fr_auto]">
       <Field
         htmlFor="visit-log-search"
         label={t('visitLogs.filters.search.label')}
@@ -62,6 +70,22 @@ const VisitLogFilters = ({
           <option value="district">
             {t('visitLogs.filters.sort.district')}
           </option>
+        </Select>
+      </Field>
+
+      <Field
+        htmlFor="visit-log-page-size"
+        label={t('visitLogs.filters.pageSize.label')}
+        helperText={t('visitLogs.filters.pageSize.helper')}
+      >
+        <Select
+          id="visit-log-page-size"
+          value={String(pageSize)}
+          onChange={handlePageSizeChange}
+        >
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
         </Select>
       </Field>
 

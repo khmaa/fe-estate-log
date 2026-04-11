@@ -21,6 +21,10 @@ const getVisitLogs = async (
     searchParams.set('page', String(filters.page));
   }
 
+  if (filters.pageSize !== 2) {
+    searchParams.set('pageSize', String(filters.pageSize));
+  }
+
   const requestPath = searchParams.size
     ? `/api/visit-logs?${searchParams.toString()}`
     : '/api/visit-logs';

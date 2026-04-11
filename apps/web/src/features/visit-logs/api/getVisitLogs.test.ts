@@ -24,13 +24,14 @@ describe('getVisitLogs', () => {
     await expect(
       getVisitLogs({
         page: 2,
+        pageSize: 5,
         pinnedOnly: true,
         query: 'gangnam',
         sort: 'district',
       }),
     ).resolves.toEqual(visitLogs);
     expect(fetchMock).toHaveBeenCalledWith(
-      '/api/visit-logs?query=gangnam&sort=district&pinned=true&page=2',
+      '/api/visit-logs?query=gangnam&sort=district&pinned=true&page=2&pageSize=5',
     );
   });
 
@@ -45,6 +46,7 @@ describe('getVisitLogs', () => {
     await expect(
       getVisitLogs({
         page: 1,
+        pageSize: 2,
         pinnedOnly: false,
         query: '',
         sort: 'latest',

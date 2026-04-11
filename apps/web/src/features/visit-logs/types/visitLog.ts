@@ -17,6 +17,7 @@ type VisitLogSort = 'latest' | 'oldest' | 'district';
 
 type VisitLogFilters = {
   page: number;
+  pageSize: number;
   pinnedOnly: boolean;
   query: string;
   sort: VisitLogSort;

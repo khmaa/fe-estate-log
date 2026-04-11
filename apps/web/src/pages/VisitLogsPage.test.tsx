@@ -9,11 +9,13 @@ vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
   useVisitLogFilters: () => ({
     filters: {
       page: 99,
+      pageSize: 2,
       pinnedOnly: false,
       query: '',
       sort: 'latest',
     },
     setPage,
+    setPageSize: vi.fn(),
     setPinnedOnly: vi.fn(),
     setQuery: vi.fn(),
     setSort: vi.fn(),

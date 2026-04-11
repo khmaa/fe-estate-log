@@ -15,6 +15,7 @@ describe('visitLogsHandlers', () => {
       latestVisitLogs.items.map((visitLog: { id: string }) => visitLog.id),
     ).toEqual(['visit-log-2', 'visit-log-1']);
     expect(latestVisitLogs.totalPages).toBe(2);
+    expect(latestVisitLogs.pageSize).toBe(2);
 
     const invalidSortResponse = await fetch('/api/visit-logs?sort=unknown');
     const invalidSortVisitLogs = await invalidSortResponse.json();
@@ -58,12 +59,30 @@ describe('visitLogsHandlers', () => {
     ).toEqual(['visit-log-3']);
   });
 
+  it('supports page size from the query params', async () => {
+    const response = await fetch('/api/visit-logs?pageSize=5');
+    const visitLogs = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(visitLogs.pageSize).toBe(5);
+    expect(visitLogs.items).toHaveLength(3);
+    expect(visitLogs.totalPages).toBe(1);
+  });
+
   it('falls back to page 1 for invalid page params', async () => {
     const response = await fetch('/api/visit-logs?page=invalid');
     const visitLogs = await response.json();
 
     expect(response.status).toBe(200);
     expect(visitLogs.page).toBe(1);
+  });
+
+  it('falls back to the default page size for invalid pageSize params', async () => {
+    const response = await fetch('/api/visit-logs?pageSize=999');
+    const visitLogs = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(visitLogs.pageSize).toBe(2);
   });
 
   it('returns 404 when requesting a missing visit log detail', async () => {

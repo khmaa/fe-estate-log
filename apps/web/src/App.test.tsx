@@ -39,6 +39,7 @@ describe('App', () => {
       await screen.findByRole('heading', { name: 'Visit logs workspace' }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Search visit logs')).toBeInTheDocument();
+    expect(screen.getByLabelText('Page size')).toHaveValue('2');
     expect(
       screen.getByRole('button', { name: 'Create visit log' }),
     ).toBeInTheDocument();
@@ -298,6 +299,27 @@ describe('App', () => {
       await screen.findByText('연남동 부티크 상가 코너'),
     ).toBeInTheDocument();
     expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
+  });
+
+  it('updates the page size and resets the current page', async () => {
+    renderApp('/visit-logs?page=2');
+
+    expect(
+      await screen.findByText('연남동 부티크 상가 코너'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Page 2 of 2')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('Page size'), {
+      target: { value: '5' },
+    });
+
+    expect(
+      await screen.findByText('삼성동 한강뷰 아파트 재방문'),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Page size')).toHaveValue('5');
+    expect(screen.queryByText('Page 2 of 2')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
+    expect(screen.getByText('성수 복합용도 오피스 층')).toBeInTheDocument();
   });
 
   it('keeps search params when returning from a detail route', async () => {

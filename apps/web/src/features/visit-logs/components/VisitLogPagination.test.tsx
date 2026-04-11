@@ -7,6 +7,7 @@ describe('VisitLogPagination', () => {
     render(
       <VisitLogPagination
         page={1}
+        pageSize={2}
         totalCount={1}
         totalPages={1}
         onPageChange={vi.fn()}
@@ -23,16 +24,50 @@ describe('VisitLogPagination', () => {
     render(
       <VisitLogPagination
         page={2}
+        pageSize={2}
         totalCount={5}
         totalPages={3}
         onPageChange={handlePageChange}
       />,
     );
 
+    expect(
+      screen.getByText('Showing 3-4 of 5 visit logs.'),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
     fireEvent.click(screen.getByRole('button', { name: 'Next' }));
 
     expect(handlePageChange).toHaveBeenNthCalledWith(1, 1);
     expect(handlePageChange).toHaveBeenNthCalledWith(2, 3);
+  });
+
+  it('disables navigation buttons at the pagination boundaries', () => {
+    const handlePageChange = vi.fn();
+
+    const { rerender } = render(
+      <VisitLogPagination
+        page={1}
+        pageSize={2}
+        totalCount={5}
+        totalPages={3}
+        onPageChange={handlePageChange}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next' })).not.toBeDisabled();
+
+    rerender(
+      <VisitLogPagination
+        page={3}
+        pageSize={2}
+        totalCount={5}
+        totalPages={3}
+        onPageChange={handlePageChange}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Previous' })).not.toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
   });
 });

@@ -25,6 +25,7 @@ describe('VisitLogList', () => {
         onOpenDetails={vi.fn()}
         onPageChange={vi.fn()}
         page={1}
+        pageSize={2}
         totalCount={0}
         totalPages={1}
       />,
@@ -44,6 +45,7 @@ describe('VisitLogList', () => {
         onOpenDetails={vi.fn()}
         onPageChange={vi.fn()}
         page={1}
+        pageSize={2}
         totalCount={0}
         totalPages={1}
       />,
@@ -63,6 +65,7 @@ describe('VisitLogList', () => {
         onOpenDetails={vi.fn()}
         onPageChange={vi.fn()}
         page={1}
+        pageSize={2}
         totalCount={1}
         totalPages={1}
       />,
@@ -84,6 +87,7 @@ describe('VisitLogList', () => {
         onOpenDetails={vi.fn()}
         onPageChange={handlePageChange}
         page={1}
+        pageSize={2}
         totalCount={3}
         totalPages={2}
       />,

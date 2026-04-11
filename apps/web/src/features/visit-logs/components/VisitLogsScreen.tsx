@@ -22,6 +22,7 @@ import { VisitLogList } from './VisitLogList';
 type VisitLogsScreenProps = {
   filters: {
     page: number;
+    pageSize: number;
     pinnedOnly: boolean;
     query: string;
     sort: VisitLogSort;
@@ -30,6 +31,7 @@ type VisitLogsScreenProps = {
   logs: VisitLog[];
   onOpenDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
   onSortChange: (sort: VisitLogSort) => void;
@@ -43,6 +45,7 @@ const VisitLogsScreen = ({
   logs,
   onOpenDetails,
   onPageChange,
+  onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
   onSortChange,
@@ -105,9 +108,11 @@ const VisitLogsScreen = ({
           </CardHeader>
           <CardContent className="space-y-6">
             <VisitLogFilters
+              pageSize={filters.pageSize}
               query={filters.query}
               sort={filters.sort}
               pinnedOnly={filters.pinnedOnly}
+              onPageSizeChange={onPageSizeChange}
               onQueryChange={onQueryChange}
               onSortChange={onSortChange}
               onPinnedOnlyChange={onPinnedOnlyChange}
@@ -129,6 +134,7 @@ const VisitLogsScreen = ({
           onOpenDetails={onOpenDetails}
           onPageChange={onPageChange}
           page={filters.page}
+          pageSize={filters.pageSize}
           totalCount={totalCount}
           totalPages={totalPages}
         />
