@@ -64,6 +64,10 @@
         "description": "Focus on high-priority logs you marked for follow-up.",
         "label": "Pinned only"
       },
+      "pageSize": {
+        "helper": "Change how many visit logs are shown per page.",
+        "label": "Page size"
+      },
       "search": {
         "helper": "Search by title, district, or agent name.",
         "label": "Search visit logs",
@@ -126,7 +130,7 @@
       "previous": "Previous",
       "next": "Next",
       "current": "Page {{page}} of {{totalPages}}",
-      "summary": "Showing page {{page}} of {{totalPages}} across {{totalCount}} visit logs."
+      "summary": "Showing {{rangeStart}}-{{rangeEnd}} of {{totalCount}} visit logs."
     },
     "createDialog": {
       "title": "Create a new visit log",

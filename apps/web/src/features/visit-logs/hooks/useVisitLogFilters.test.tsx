@@ -22,6 +22,7 @@ describe('useVisitLogFilters', () => {
 
     expect(result.current.filters).toEqual({
       page: 1,
+      pageSize: 2,
       pinnedOnly: true,
       query: 'gangnam',
       sort: 'district',
@@ -35,6 +36,7 @@ describe('useVisitLogFilters', () => {
 
     expect(result.current.filters.sort).toBe('latest');
     expect(result.current.filters.page).toBe(1);
+    expect(result.current.filters.pageSize).toBe(2);
   });
 
   it('updates and clears query string filters through the setter helpers', () => {
@@ -75,6 +77,7 @@ describe('useVisitLogFilters', () => {
 
     expect(result.current.filters).toEqual({
       page: 1,
+      pageSize: 2,
       pinnedOnly: false,
       query: '',
       sort: 'latest',
@@ -98,6 +101,28 @@ describe('useVisitLogFilters', () => {
       result.current.setPage(1);
     });
 
+    expect(result.current.filters.page).toBe(1);
+  });
+
+  it('updates page size and resets the page back to 1', () => {
+    const { result } = renderHook(() => useVisitLogFilters(), {
+      wrapper: createWrapper('/?page=3&pageSize=5'),
+    });
+
+    expect(result.current.filters.pageSize).toBe(5);
+
+    act(() => {
+      result.current.setPageSize(10);
+    });
+
+    expect(result.current.filters.pageSize).toBe(10);
+    expect(result.current.filters.page).toBe(1);
+
+    act(() => {
+      result.current.setPageSize(2);
+    });
+
+    expect(result.current.filters.pageSize).toBe(2);
     expect(result.current.filters.page).toBe(1);
   });
 });

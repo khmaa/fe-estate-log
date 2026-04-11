@@ -34,12 +34,14 @@ const renderScreen = (
   logs = visitLogs,
   filters = {
     page: 1,
+    pageSize: 2,
     pinnedOnly: false,
     query: '',
     sort: 'latest' as const,
   },
   onOpenDetails = vi.fn(),
   onPageChange = vi.fn(),
+  onPageSizeChange = vi.fn(),
 ) =>
   render(
     <AppProviders>
@@ -48,6 +50,7 @@ const renderScreen = (
         isLoading={false}
         filters={filters}
         onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
         onPinnedOnlyChange={() => {}}
         onQueryChange={() => {}}
         onSortChange={() => {}}
@@ -62,6 +65,7 @@ describe('VisitLogsScreen', () => {
   it('renders the logs provided by the query layer', () => {
     renderScreen(visitLogs, {
       page: 1,
+      pageSize: 2,
       pinnedOnly: false,
       query: 'yeonnam',
       sort: 'latest',
@@ -95,11 +99,13 @@ describe('VisitLogsScreen', () => {
           isLoading={false}
           filters={{
             page: 1,
+            pageSize: 2,
             pinnedOnly: false,
             query: '',
             sort: 'latest',
           }}
           onPageChange={handlePageChange}
+          onPageSizeChange={() => {}}
           onPinnedOnlyChange={() => {}}
           onQueryChange={() => {}}
           onSortChange={() => {}}

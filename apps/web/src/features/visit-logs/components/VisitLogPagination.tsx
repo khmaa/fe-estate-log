@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 type VisitLogPaginationProps = {
   onPageChange: (page: number) => void;
+  pageSize: number;
   page: number;
   totalCount: number;
   totalPages: number;
@@ -10,6 +11,7 @@ type VisitLogPaginationProps = {
 
 const VisitLogPagination = ({
   onPageChange,
+  pageSize,
   page,
   totalCount,
   totalPages,
@@ -20,11 +22,17 @@ const VisitLogPagination = ({
     return null;
   }
 
+  const rangeStart = totalCount === 0 ? 0 : (page - 1) * pageSize + 1;
+  const rangeEnd = Math.min(page * pageSize, totalCount);
+
   return (
     <div className="flex flex-col gap-4 rounded-[24px] border border-border bg-surface px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-muted-foreground">
         {t('visitLogs.pagination.summary', {
           page,
+          rangeEnd,
+          rangeStart,
+          pageSize,
           totalCount,
           totalPages,
         })}

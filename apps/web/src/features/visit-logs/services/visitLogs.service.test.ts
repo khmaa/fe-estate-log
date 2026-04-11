@@ -32,6 +32,7 @@ describe('visitLogs.service', () => {
   it('loads visit logs through the api layer with the current filters', async () => {
     const filters: VisitLogFilters = {
       page: 1,
+      pageSize: 10,
       pinnedOnly: true,
       query: 'gangnam',
       sort: 'oldest',

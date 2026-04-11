@@ -7,6 +7,7 @@ describe('VisitLogPagination', () => {
     render(
       <VisitLogPagination
         page={1}
+        pageSize={2}
         totalCount={1}
         totalPages={1}
         onPageChange={vi.fn()}
@@ -23,12 +24,16 @@ describe('VisitLogPagination', () => {
     render(
       <VisitLogPagination
         page={2}
+        pageSize={2}
         totalCount={5}
         totalPages={3}
         onPageChange={handlePageChange}
       />,
     );
 
+    expect(
+      screen.getByText('Showing 3-4 of 5 visit logs.'),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
     fireEvent.click(screen.getByRole('button', { name: 'Next' }));
 

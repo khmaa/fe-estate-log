@@ -48,6 +48,7 @@ describe('useVisitLogs', () => {
     };
     const filters = {
       page: 2,
+      pageSize: 5,
       pinnedOnly: true,
       query: 'gangnam',
       sort: 'district' as const,

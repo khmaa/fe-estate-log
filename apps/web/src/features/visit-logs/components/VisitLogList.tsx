@@ -11,6 +11,7 @@ type VisitLogListProps = {
   onOpenDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
   page: number;
+  pageSize: number;
   totalCount: number;
   totalPages: number;
 };
@@ -22,6 +23,7 @@ const VisitLogList = ({
   onOpenDetails,
   onPageChange,
   page,
+  pageSize,
   totalCount,
   totalPages,
 }: VisitLogListProps) => {
@@ -60,6 +62,7 @@ const VisitLogList = ({
       ))}
       <VisitLogPagination
         page={page}
+        pageSize={pageSize}
         totalCount={totalCount}
         totalPages={totalPages}
         onPageChange={onPageChange}

@@ -16,9 +16,11 @@ import {
 const getVisitLogFilters = (requestUrl: string): VisitLogFilters => {
   const url = new URL(requestUrl);
   const rawPage = Number(url.searchParams.get('page') ?? '1');
+  const rawPageSize = Number(url.searchParams.get('pageSize') ?? '2');
 
   return {
     page: Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1,
+    pageSize: rawPageSize === 5 || rawPageSize === 10 ? rawPageSize : 2,
     pinnedOnly: url.searchParams.get('pinned') === 'true',
     query: url.searchParams.get('query') ?? '',
     sort:
@@ -68,21 +70,20 @@ const applyVisitLogFilters = (logs: VisitLog[], filters: VisitLogFilters) => {
   }
 };
 
-const VISIT_LOGS_PAGE_SIZE = 2;
-
 const paginateVisitLogs = (
   logs: VisitLog[],
   page: number,
+  pageSize: number,
 ): VisitLogListResponse => {
   const totalCount = logs.length;
-  const totalPages = Math.max(1, Math.ceil(totalCount / VISIT_LOGS_PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const currentPage = Math.min(page, totalPages);
-  const startIndex = (currentPage - 1) * VISIT_LOGS_PAGE_SIZE;
+  const startIndex = (currentPage - 1) * pageSize;
 
   return {
-    items: logs.slice(startIndex, startIndex + VISIT_LOGS_PAGE_SIZE),
+    items: logs.slice(startIndex, startIndex + pageSize),
     page: currentPage,
-    pageSize: VISIT_LOGS_PAGE_SIZE,
+    pageSize,
     totalCount,
     totalPages,
   };
@@ -100,6 +101,7 @@ const visitLogsHandlers = [
       paginateVisitLogs(
         applyVisitLogFilters(listVisitLogsMock(), filters),
         filters.page,
+        filters.pageSize,
       ),
     );
   }),

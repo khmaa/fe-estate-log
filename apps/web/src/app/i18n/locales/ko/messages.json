@@ -64,6 +64,10 @@
         "description": "후속 확인이 필요한 고정 기록만 빠르게 확인합니다.",
         "label": "고정된 기록만 보기"
       },
+      "pageSize": {
+        "helper": "페이지마다 표시할 임장 기록 수를 조정합니다.",
+        "label": "페이지 크기"
+      },
       "search": {
         "helper": "제목, 지역, 중개사 이름으로 검색합니다.",
         "label": "임장 기록 검색",
@@ -126,7 +130,7 @@
       "previous": "이전",
       "next": "다음",
       "current": "{{totalPages}}페이지 중 {{page}}페이지",
-      "summary": "전체 {{totalCount}}개의 임장 기록 중 {{page}} / {{totalPages}}페이지를 보고 있습니다."
+      "summary": "전체 {{totalCount}}개 중 {{rangeStart}}-{{rangeEnd}}개를 보고 있습니다."
     },
     "createDialog": {
       "title": "새 임장 기록 만들기",
