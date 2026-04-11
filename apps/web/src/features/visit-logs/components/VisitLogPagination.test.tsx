@@ -40,4 +40,34 @@ describe('VisitLogPagination', () => {
     expect(handlePageChange).toHaveBeenNthCalledWith(1, 1);
     expect(handlePageChange).toHaveBeenNthCalledWith(2, 3);
   });
+
+  it('disables navigation buttons at the pagination boundaries', () => {
+    const handlePageChange = vi.fn();
+
+    const { rerender } = render(
+      <VisitLogPagination
+        page={1}
+        pageSize={2}
+        totalCount={5}
+        totalPages={3}
+        onPageChange={handlePageChange}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next' })).not.toBeDisabled();
+
+    rerender(
+      <VisitLogPagination
+        page={3}
+        pageSize={2}
+        totalCount={5}
+        totalPages={3}
+        onPageChange={handlePageChange}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Previous' })).not.toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled();
+  });
 });

@@ -31,7 +31,7 @@ describe('useVisitLogFilters', () => {
 
   it('falls back to the default sort for invalid query strings', () => {
     const { result } = renderHook(() => useVisitLogFilters(), {
-      wrapper: createWrapper('/?sort=invalid'),
+      wrapper: createWrapper('/?sort=invalid&pageSize=999'),
     });
 
     expect(result.current.filters.sort).toBe('latest');
