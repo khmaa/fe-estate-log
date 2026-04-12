@@ -1,7 +1,8 @@
-import { EmptyState, EmptyStateAction, Spinner } from '@shared-ui/core';
+import { EmptyState, EmptyStateAction } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
 import { VisitLogCard } from './VisitLogCard';
+import { VisitLogListSkeleton } from './VisitLogListSkeleton';
 import { VisitLogPagination } from './VisitLogPagination';
 
 type VisitLogListProps = {
@@ -30,14 +31,7 @@ const VisitLogList = ({
   const { t } = useTranslation();
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-72 items-center justify-center rounded-[32px] border border-border bg-surface p-10 shadow-soft">
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-          <Spinner size="sm" />
-          {t('visitLogs.list.loading')}
-        </div>
-      </div>
-    );
+    return <VisitLogListSkeleton />;
   }
 
   if (logs.length === 0) {
