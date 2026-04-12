@@ -31,7 +31,8 @@ describe('VisitLogList', () => {
       />,
     );
 
-    expect(screen.getByText('Loading visit logs')).toBeInTheDocument();
+    expect(screen.getByTestId('visit-log-list-skeleton')).toBeInTheDocument();
+    expect(screen.getAllByTestId('visit-log-card-skeleton')).toHaveLength(2);
   });
 
   it('renders an empty state and forwards the action', () => {

@@ -103,6 +103,8 @@ export { RadioGroup } from './components/RadioGroup';
 export type { RadioGroupProps, RadioOption } from './components/RadioGroup';
 export { Select } from './components/Select';
 export type { SelectProps } from './components/Select';
+export { Skeleton } from './components/Skeleton';
+export type { SkeletonProps } from './components/Skeleton';
 export { Spinner } from './components/Spinner';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner';
 export { Switch } from './components/Switch';
