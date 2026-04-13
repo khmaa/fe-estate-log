@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
   EmptyState,
-  Spinner,
 } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
@@ -14,6 +13,7 @@ import {
   getVisitLogPropertyTypeLabel,
   getVisitLogStatusLabel,
 } from '../utils/visitLogLabels';
+import { VisitLogDetailSkeleton } from './VisitLogDetailSkeleton';
 
 const statusVariantMap = {
   completed: 'success',
@@ -30,6 +30,8 @@ const formatVisitedAt = (visitedAt: string) => {
 };
 
 type VisitLogDetailScreenProps = {
+  errorType: 'not-found' | 'unknown' | null;
+  isError: boolean;
   isLoading: boolean;
   log: VisitLog | null;
   onBack: () => void;
@@ -38,6 +40,8 @@ type VisitLogDetailScreenProps = {
 };
 
 const VisitLogDetailScreen = ({
+  errorType,
+  isError,
   isLoading,
   log,
   onBack,
@@ -47,15 +51,23 @@ const VisitLogDetailScreen = ({
   const { t } = useTranslation();
 
   if (isLoading) {
+    return <VisitLogDetailSkeleton />;
+  }
+
+  if (isError && errorType === 'unknown') {
     return (
       <main className="min-h-screen px-6 py-16">
         <section className="mx-auto max-w-4xl">
-          <div className="flex min-h-72 items-center justify-center rounded-[32px] border border-border bg-surface p-10 shadow-soft">
-            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <Spinner size="sm" />
-              {t('visitLogs.detail.loading')}
-            </div>
-          </div>
+          <EmptyState
+            badge={t('visitLogs.detail.error.badge')}
+            title={t('visitLogs.detail.error.title')}
+            description={t('visitLogs.detail.error.description')}
+            action={
+              <Button onClick={onBack}>
+                {t('visitLogs.detail.actions.back')}
+              </Button>
+            }
+          />
         </section>
       </main>
     );

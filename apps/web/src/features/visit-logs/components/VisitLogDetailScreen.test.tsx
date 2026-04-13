@@ -20,6 +20,8 @@ describe('VisitLogDetailScreen', () => {
   it('renders a loading state before the visit log is ready', () => {
     render(
       <VisitLogDetailScreen
+        errorType={null}
+        isError={false}
         log={null}
         isLoading={true}
         onBack={vi.fn()}
@@ -28,12 +30,14 @@ describe('VisitLogDetailScreen', () => {
       />,
     );
 
-    expect(screen.getByText('Loading visit log details')).toBeInTheDocument();
+    expect(screen.getByTestId('visit-log-detail-skeleton')).toBeInTheDocument();
   });
 
   it('renders a visit log detail view', () => {
     render(
       <VisitLogDetailScreen
+        errorType={null}
+        isError={false}
         log={visitLog}
         isLoading={false}
         onBack={vi.fn()}
@@ -54,6 +58,8 @@ describe('VisitLogDetailScreen', () => {
   it('renders an empty state when the visit log is missing', () => {
     render(
       <VisitLogDetailScreen
+        errorType="not-found"
+        isError={true}
         log={null}
         isLoading={false}
         onBack={vi.fn()}
@@ -68,6 +74,24 @@ describe('VisitLogDetailScreen', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders an error state when the detail request fails', () => {
+    render(
+      <VisitLogDetailScreen
+        errorType="unknown"
+        isError={true}
+        log={null}
+        isLoading={false}
+        onBack={vi.fn()}
+        onDelete={vi.fn()}
+        onEdit={vi.fn()}
+      />,
+    );
+
+    expect(
+      screen.getByText('Failed to load the visit log'),
+    ).toBeInTheDocument();
+  });
+
   it('forwards action button clicks', () => {
     const onBack = vi.fn();
     const onEdit = vi.fn();
@@ -75,6 +99,8 @@ describe('VisitLogDetailScreen', () => {
 
     render(
       <VisitLogDetailScreen
+        errorType={null}
+        isError={false}
         log={visitLog}
         isLoading={false}
         onBack={onBack}

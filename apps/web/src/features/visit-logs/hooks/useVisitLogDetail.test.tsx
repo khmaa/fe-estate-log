@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type React from 'react';
 import { describe, expect, it, vi } from 'vitest';
+import { VisitLogDetailError } from '../api/getVisitLogDetail';
 import type { VisitLog } from '../types/visitLog';
 import { useVisitLogDetail } from './useVisitLogDetail';
 
@@ -46,13 +47,15 @@ describe('useVisitLogDetail', () => {
     });
 
     expect(result.current.log?.id).toBe('visit-log-1');
+    expect(result.current.errorType).toBeNull();
+    expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
   });
 
-  it('returns null when the visit log id is missing or the query fails', async () => {
+  it('returns a not-found state when the detail query returns 404', async () => {
     const queryClient = new QueryClient();
     vi.mocked(loadVisitLogDetail).mockRejectedValue(
-      new Error('Failed to load the visit log detail.'),
+      new VisitLogDetailError('Failed to load the visit log detail.', 404),
     );
 
     const { result, rerender } = renderHook(
@@ -72,5 +75,24 @@ describe('useVisitLogDetail', () => {
     });
 
     expect(result.current.log).toBeNull();
+    expect(result.current.errorType).toBe('not-found');
+    expect(result.current.isError).toBe(true);
+  });
+
+  it('returns an unknown error state for non-404 failures', async () => {
+    const queryClient = new QueryClient();
+    vi.mocked(loadVisitLogDetail).mockRejectedValue(new Error('Network error'));
+
+    const { result } = renderHook(() => useVisitLogDetail('visit-log-1'), {
+      wrapper: createWrapper(queryClient),
+    });
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.log).toBeNull();
+    expect(result.current.errorType).toBe('unknown');
+    expect(result.current.isError).toBe(true);
   });
 });
