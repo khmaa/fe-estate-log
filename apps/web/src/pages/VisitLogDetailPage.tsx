@@ -13,7 +13,7 @@ const VisitLogDetailPage = () => {
   const { showToast } = useToast();
   const { t } = useTranslation();
   const { visitLogId } = useParams();
-  const { isLoading, log } = useVisitLogDetail(visitLogId);
+  const { errorType, isError, isLoading, log } = useVisitLogDetail(visitLogId);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const returnPath = `/visit-logs${location.search}`;
@@ -44,6 +44,8 @@ const VisitLogDetailPage = () => {
   return (
     <>
       <VisitLogDetailScreen
+        errorType={errorType}
+        isError={isError}
         log={log}
         isLoading={isLoading}
         onBack={handleBack}

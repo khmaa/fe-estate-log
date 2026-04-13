@@ -33,6 +33,11 @@
         "delete": "Delete",
         "edit": "Edit"
       },
+      "error": {
+        "badge": "Visit log detail",
+        "description": "The visit log detail could not be loaded due to a temporary request failure. Go back to the list and try again.",
+        "title": "Failed to load the visit log"
+      },
       "empty": {
         "badge": "Visit log",
         "description": "The selected visit log could not be found in the current workspace data.",
@@ -44,7 +49,6 @@
         "price": "Price",
         "visited": "Visited"
       },
-      "loading": "Loading visit log details",
       "pinned": "Pinned",
       "toasts": {
         "deleted": {
