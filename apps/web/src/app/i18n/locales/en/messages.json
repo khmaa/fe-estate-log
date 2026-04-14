@@ -122,7 +122,12 @@
       "review": "Review note"
     },
     "list": {
-      "loading": "Loading visit logs",
+      "error": {
+        "action": "Retry request",
+        "badge": "Visit logs request",
+        "description": "The current visit log list could not be loaded. Retry the request or return later.",
+        "title": "Failed to load visit logs"
+      },
       "empty": {
         "badge": "No results",
         "title": "Nothing matched your filters",

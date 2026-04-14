@@ -42,17 +42,21 @@ const renderScreen = (
   onOpenDetails = vi.fn(),
   onPageChange = vi.fn(),
   onPageSizeChange = vi.fn(),
+  onRetry = vi.fn(),
+  isError = false,
 ) =>
   render(
     <AppProviders>
       <VisitLogsScreen
         logs={logs}
+        isError={isError}
         isLoading={false}
         filters={filters}
         onPageChange={onPageChange}
         onPageSizeChange={onPageSizeChange}
         onPinnedOnlyChange={() => {}}
         onQueryChange={() => {}}
+        onRetry={onRetry}
         onSortChange={() => {}}
         onOpenDetails={onOpenDetails}
         totalCount={logs.length}
@@ -96,6 +100,7 @@ describe('VisitLogsScreen', () => {
       <AppProviders>
         <VisitLogsScreen
           logs={visitLogs}
+          isError={false}
           isLoading={false}
           filters={{
             page: 1,
@@ -108,6 +113,7 @@ describe('VisitLogsScreen', () => {
           onPageSizeChange={() => {}}
           onPinnedOnlyChange={() => {}}
           onQueryChange={() => {}}
+          onRetry={() => {}}
           onSortChange={() => {}}
           onOpenDetails={vi.fn()}
           totalCount={3}
@@ -129,5 +135,15 @@ describe('VisitLogsScreen', () => {
     expect(
       screen.getByRole('heading', { name: 'Create a new visit log' }),
     ).toBeInTheDocument();
+  });
+
+  it('forwards retry actions from the list request error state', () => {
+    const handleRetry = vi.fn();
+
+    renderScreen([], undefined, vi.fn(), vi.fn(), vi.fn(), handleRetry, true);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Retry request' }));
+
+    expect(handleRetry).toHaveBeenCalled();
   });
 });

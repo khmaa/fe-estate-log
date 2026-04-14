@@ -6,11 +6,13 @@ import { VisitLogListSkeleton } from './VisitLogListSkeleton';
 import { VisitLogPagination } from './VisitLogPagination';
 
 type VisitLogListProps = {
+  isError: boolean;
   isLoading: boolean;
   logs: VisitLog[];
   onCreateFirstLog: () => void;
   onOpenDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
+  onRetry: () => void;
   page: number;
   pageSize: number;
   totalCount: number;
@@ -18,11 +20,13 @@ type VisitLogListProps = {
 };
 
 const VisitLogList = ({
+  isError,
   isLoading,
   logs,
   onCreateFirstLog,
   onOpenDetails,
   onPageChange,
+  onRetry,
   page,
   pageSize,
   totalCount,
@@ -32,6 +36,21 @@ const VisitLogList = ({
 
   if (isLoading) {
     return <VisitLogListSkeleton />;
+  }
+
+  if (isError) {
+    return (
+      <EmptyState
+        badge={t('visitLogs.list.error.badge')}
+        title={t('visitLogs.list.error.title')}
+        description={t('visitLogs.list.error.description')}
+        action={
+          <EmptyStateAction onClick={onRetry}>
+            {t('visitLogs.list.error.action')}
+          </EmptyStateAction>
+        }
+      />
+    );
   }
 
   if (logs.length === 0) {
