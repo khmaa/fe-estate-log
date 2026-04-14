@@ -4,6 +4,8 @@ import { describe, expect, it, vi } from 'vitest';
 import { VisitLogsPage } from './VisitLogsPage';
 
 const setPage = vi.fn();
+const refetch = vi.fn();
+let lastVisitLogsScreenProps: { onRetry: () => void } | null = null;
 
 vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
   useVisitLogFilters: () => ({
@@ -31,12 +33,17 @@ vi.mock('../features/visit-logs/hooks/useVisitLogs', () => ({
       totalCount: 3,
       totalPages: 2,
     },
+    isError: false,
     isLoading: false,
+    refetch,
   }),
 }));
 
 vi.mock('../features/visit-logs/components/VisitLogsScreen', () => ({
-  VisitLogsScreen: () => null,
+  VisitLogsScreen: (props: { onRetry: () => void }) => {
+    lastVisitLogsScreenProps = props;
+    return null;
+  },
 }));
 
 describe('VisitLogsPage', () => {
@@ -50,5 +57,29 @@ describe('VisitLogsPage', () => {
     await waitFor(() => {
       expect(setPage).toHaveBeenCalledWith(2);
     });
+  });
+
+  it('passes a retry handler that triggers the visit logs refetch', async () => {
+    lastVisitLogsScreenProps = null;
+
+    render(
+      <MemoryRouter initialEntries={['/visit-logs']}>
+        <VisitLogsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(lastVisitLogsScreenProps).not.toBeNull();
+    });
+
+    if (!lastVisitLogsScreenProps) {
+      throw new Error('VisitLogsScreen props were not captured.');
+    }
+
+    const props = lastVisitLogsScreenProps as { onRetry: () => void };
+
+    props.onRetry();
+
+    expect(refetch).toHaveBeenCalled();
   });
 });

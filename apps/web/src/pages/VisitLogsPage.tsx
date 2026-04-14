@@ -26,6 +26,7 @@ const VisitLogsPage = () => {
       logs={query.data?.items ?? []}
       totalCount={query.data?.totalCount ?? 0}
       totalPages={query.data?.totalPages ?? 1}
+      isError={query.isError}
       isLoading={query.isLoading}
       filters={{
         ...filters,
@@ -35,6 +36,9 @@ const VisitLogsPage = () => {
       onPageSizeChange={setPageSize}
       onPinnedOnlyChange={setPinnedOnly}
       onQueryChange={setQuery}
+      onRetry={() => {
+        void query.refetch();
+      }}
       onSortChange={setSort}
       onOpenDetails={handleOpenDetails}
     />

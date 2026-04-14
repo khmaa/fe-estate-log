@@ -27,6 +27,7 @@ type VisitLogsScreenProps = {
     query: string;
     sort: VisitLogSort;
   };
+  isError: boolean;
   isLoading: boolean;
   logs: VisitLog[];
   onOpenDetails: (visitLogId: string) => void;
@@ -34,6 +35,7 @@ type VisitLogsScreenProps = {
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
+  onRetry: () => void;
   onSortChange: (sort: VisitLogSort) => void;
   totalCount: number;
   totalPages: number;
@@ -41,6 +43,7 @@ type VisitLogsScreenProps = {
 
 const VisitLogsScreen = ({
   filters,
+  isError,
   isLoading,
   logs,
   onOpenDetails,
@@ -48,6 +51,7 @@ const VisitLogsScreen = ({
   onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
+  onRetry,
   onSortChange,
   totalCount,
   totalPages,
@@ -128,6 +132,7 @@ const VisitLogsScreen = ({
         </Alert>
 
         <VisitLogList
+          isError={isError}
           logs={logs}
           isLoading={isLoading}
           onCreateFirstLog={handleCreateClick}
@@ -135,6 +140,7 @@ const VisitLogsScreen = ({
           onPageChange={onPageChange}
           page={filters.page}
           pageSize={filters.pageSize}
+          onRetry={onRetry}
           totalCount={totalCount}
           totalPages={totalPages}
         />
