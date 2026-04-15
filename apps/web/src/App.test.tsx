@@ -234,7 +234,7 @@ describe('App', () => {
     expect(await screen.findByText('Visit log updated')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'The latest edits were synced through the feature mutation flow.',
+        '"삼성동 한강뷰 아파트 수정 메모" was updated and synced to the detail view.',
       ),
     ).toBeInTheDocument();
     expect(
@@ -267,7 +267,7 @@ describe('App', () => {
     expect(await screen.findByText('Visit log deleted')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'The selected visit log was removed through the feature mutation flow.',
+        '"삼성동 한강뷰 아파트 재방문" was removed from the current visit log workspace.',
       ),
     ).toBeInTheDocument();
   });

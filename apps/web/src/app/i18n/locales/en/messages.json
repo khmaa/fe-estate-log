@@ -52,11 +52,11 @@
       "pinned": "Pinned",
       "toasts": {
         "deleted": {
-          "description": "The selected visit log was removed through the feature mutation flow.",
+          "description": "\"{{title}}\" was removed from the current visit log workspace.",
           "title": "Visit log deleted"
         },
         "updated": {
-          "description": "The latest edits were synced through the feature mutation flow.",
+          "description": "\"{{title}}\" was updated and synced to the detail view.",
           "title": "Visit log updated"
         }
       }

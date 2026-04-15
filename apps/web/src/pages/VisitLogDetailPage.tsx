@@ -22,23 +22,27 @@ const VisitLogDetailPage = () => {
     navigate(returnPath);
   };
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = (updatedVisitLog: NonNullable<typeof log>) => {
     setIsEditDialogOpen(false);
     showToast({
       title: t('visitLogs.detail.toasts.updated.title'),
-      description: t('visitLogs.detail.toasts.updated.description'),
+      description: t('visitLogs.detail.toasts.updated.description', {
+        title: updatedVisitLog.title,
+      }),
       variant: 'success',
     });
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = (deletedVisitLog: NonNullable<typeof log>) => {
     setIsDeleteDialogOpen(false);
     showToast({
       title: t('visitLogs.detail.toasts.deleted.title'),
-      description: t('visitLogs.detail.toasts.deleted.description'),
+      description: t('visitLogs.detail.toasts.deleted.description', {
+        title: deletedVisitLog.title,
+      }),
       variant: 'success',
     });
-    navigate(returnPath);
+    navigate(returnPath, { replace: true });
   };
 
   return (
@@ -49,8 +53,14 @@ const VisitLogDetailPage = () => {
         log={log}
         isLoading={isLoading}
         onBack={handleBack}
-        onEdit={() => setIsEditDialogOpen(true)}
-        onDelete={() => setIsDeleteDialogOpen(true)}
+        onEdit={() => {
+          setIsDeleteDialogOpen(false);
+          setIsEditDialogOpen(true);
+        }}
+        onDelete={() => {
+          setIsEditDialogOpen(false);
+          setIsDeleteDialogOpen(true);
+        }}
       />
 
       <VisitLogEditDialog

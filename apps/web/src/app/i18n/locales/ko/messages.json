@@ -52,11 +52,11 @@
       "pinned": "고정됨",
       "toasts": {
         "deleted": {
-          "description": "선택한 임장 기록이 feature mutation 흐름을 통해 삭제되었습니다.",
+          "description": "\"{{title}}\" 기록이 현재 임장 워크스페이스에서 삭제되었습니다.",
           "title": "임장 기록이 삭제되었습니다"
         },
         "updated": {
-          "description": "최신 수정 내용이 feature mutation 흐름을 통해 반영되었습니다.",
+          "description": "\"{{title}}\" 기록의 수정 내용이 상세 화면에 바로 반영되었습니다.",
           "title": "임장 기록이 수정되었습니다"
         }
       }

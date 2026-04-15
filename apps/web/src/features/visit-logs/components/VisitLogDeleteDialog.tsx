@@ -15,7 +15,7 @@ import type { VisitLog } from '../types/visitLog';
 
 type VisitLogDeleteDialogProps = {
   log: VisitLog | null;
-  onDeleted: (visitLogId: string) => void;
+  onDeleted: (visitLog: VisitLog) => void;
   onOpenChange: (open: boolean) => void;
   open: boolean;
 };
@@ -38,7 +38,7 @@ const VisitLogDeleteDialog = ({
 
   const handleConfirm = async (visitLog: VisitLog) => {
     await mutation.mutateAsync(visitLog.id);
-    onDeleted(visitLog.id);
+    onDeleted(visitLog);
     handleOpenChange(false);
   };
 
