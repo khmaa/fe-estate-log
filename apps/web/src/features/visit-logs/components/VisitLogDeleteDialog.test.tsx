@@ -50,7 +50,12 @@ describe('VisitLogDeleteDialog', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
     await waitFor(() => {
-      expect(onDeleted).toHaveBeenCalledWith('visit-log-1');
+      expect(onDeleted).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 'visit-log-1',
+          title: '삼성동 한강뷰 아파트 재방문',
+        }),
+      );
     });
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
