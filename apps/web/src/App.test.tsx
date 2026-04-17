@@ -210,7 +210,7 @@ describe('App', () => {
         name: '삼성동 한강뷰 아파트 재방문',
       }),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Edit' }));
 
     expect(
       await screen.findByRole('heading', { name: 'Edit visit log' }),
@@ -256,7 +256,7 @@ describe('App', () => {
         name: '삼성동 한강뷰 아파트 재방문',
       }),
     ).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Delete' }));
 
     expect(
       await screen.findByRole('heading', { name: 'Delete visit log' }),
