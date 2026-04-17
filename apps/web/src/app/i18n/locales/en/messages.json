@@ -20,6 +20,16 @@
     "description": "The route you requested is not available in the current web workspace. Use the primary navigation or go back to the visit logs page.",
     "title": "Page not found"
   },
+  "routeError": {
+    "actions": {
+      "showcase": "Open showcase",
+      "visitLogs": "Go to visit logs"
+    },
+    "badge": "Route Error",
+    "description": "The current route failed before the page could render normally. Return to a stable page and try again.",
+    "responseDescription": "The route returned {{status}} {{statusText}} before the page could render normally. Return to a stable page and try again.",
+    "title": "Route failed to render"
+  },
   "visitLogs": {
     "badges": {
       "featureFirst": "Feature-first",

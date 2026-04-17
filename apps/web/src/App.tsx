@@ -1,12 +1,11 @@
-import { BrowserRouter } from 'react-router-dom';
-import { AppRoutes } from './app/AppRoutes';
+import { useMemo } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { createAppRouter } from './app/AppRoutes';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  );
+  const router = useMemo(() => createAppRouter(), []);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

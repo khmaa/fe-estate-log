@@ -20,6 +20,16 @@
     "description": "요청한 경로는 현재 웹 워크스페이스에 없습니다. 상단 네비게이션을 사용하거나 임장 기록 페이지로 돌아가세요.",
     "title": "페이지를 찾을 수 없습니다"
   },
+  "routeError": {
+    "actions": {
+      "showcase": "쇼케이스 열기",
+      "visitLogs": "임장 기록으로 이동"
+    },
+    "badge": "라우트 오류",
+    "description": "현재 라우트가 페이지를 정상적으로 렌더링하기 전에 실패했습니다. 안정적인 페이지로 돌아가 다시 시도해 주세요.",
+    "responseDescription": "현재 라우트가 페이지를 정상적으로 렌더링하기 전에 {{status}} {{statusText}} 응답으로 실패했습니다. 안정적인 페이지로 돌아가 다시 시도해 주세요.",
+    "title": "라우트를 렌더링하지 못했습니다"
+  },
   "visitLogs": {
     "badges": {
       "featureFirst": "기능 중심 구조",
