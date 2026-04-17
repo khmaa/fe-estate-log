@@ -9,6 +9,9 @@
     "nav": {
       "showcase": "Showcase",
       "visitLogs": "Visit Logs"
+    },
+    "routeLoading": {
+      "label": "Loading route content"
     }
   },
   "notFound": {

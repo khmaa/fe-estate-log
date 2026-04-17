@@ -9,6 +9,9 @@
     "nav": {
       "showcase": "쇼케이스",
       "visitLogs": "임장 기록"
+    },
+    "routeLoading": {
+      "label": "라우트 콘텐츠를 불러오는 중"
     }
   },
   "notFound": {
