@@ -22,13 +22,9 @@ const prefetchVisitLogDetail = (
 
 const useVisitLogDetail = (visitLogId: string | undefined) => {
   const query = useQuery({
-    ...(visitLogId
-      ? getVisitLogDetailQueryOptions(visitLogId)
-      : {
-          queryKey: getVisitLogDetailQueryKey(visitLogId),
-          queryFn: () => loadVisitLogDetail(visitLogId as string),
-          retry: false,
-        }),
+    queryKey: getVisitLogDetailQueryKey(visitLogId),
+    queryFn: () => loadVisitLogDetail(visitLogId as string),
+    retry: false,
     enabled: Boolean(visitLogId),
   });
 
