@@ -40,6 +40,7 @@ const renderScreen = (
     sort: 'latest' as const,
   },
   onOpenDetails = vi.fn(),
+  onPrefetchDetails = vi.fn(),
   onPageChange = vi.fn(),
   onPageSizeChange = vi.fn(),
   onRetry = vi.fn(),
@@ -55,6 +56,7 @@ const renderScreen = (
         onPageChange={onPageChange}
         onPageSizeChange={onPageSizeChange}
         onPinnedOnlyChange={() => {}}
+        onPrefetchDetails={onPrefetchDetails}
         onQueryChange={() => {}}
         onRetry={onRetry}
         onSortChange={() => {}}
@@ -112,6 +114,7 @@ describe('VisitLogsScreen', () => {
           onPageChange={handlePageChange}
           onPageSizeChange={() => {}}
           onPinnedOnlyChange={() => {}}
+          onPrefetchDetails={() => {}}
           onQueryChange={() => {}}
           onRetry={() => {}}
           onSortChange={() => {}}
@@ -140,10 +143,31 @@ describe('VisitLogsScreen', () => {
   it('forwards retry actions from the list request error state', () => {
     const handleRetry = vi.fn();
 
-    renderScreen([], undefined, vi.fn(), vi.fn(), vi.fn(), handleRetry, true);
+    renderScreen(
+      [],
+      undefined,
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      handleRetry,
+      true,
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Retry request' }));
 
     expect(handleRetry).toHaveBeenCalled();
+  });
+
+  it('forwards detail prefetch interactions from the card actions', async () => {
+    const handlePrefetchDetails = vi.fn();
+
+    renderScreen(visitLogs, undefined, vi.fn(), handlePrefetchDetails);
+
+    fireEvent.mouseEnter(
+      screen.getAllByRole('button', { name: 'Review note' })[0],
+    );
+
+    expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
   });
 });

@@ -28,6 +28,7 @@ const statusVariantMap = {
 type VisitLogCardProps = {
   log: VisitLog;
   onOpenDetails: (visitLogId: string) => void;
+  onPrefetchDetails: (visitLogId: string) => void;
 };
 
 const formatVisitedAt = (visitedAt: string) => {
@@ -38,8 +39,15 @@ const formatVisitedAt = (visitedAt: string) => {
   }).format(new Date(visitedAt));
 };
 
-const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
+const VisitLogCard = ({
+  log,
+  onOpenDetails,
+  onPrefetchDetails,
+}: VisitLogCardProps) => {
   const { t } = useTranslation();
+  const handlePrefetchDetails = () => {
+    onPrefetchDetails(log.id);
+  };
 
   return (
     <Card className="overflow-hidden">
@@ -68,7 +76,11 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
               <DropdownMenuLabel>
                 {t('visitLogs.card.menuLabel')}
               </DropdownMenuLabel>
-              <DropdownMenuItem onSelect={() => onOpenDetails(log.id)}>
+              <DropdownMenuItem
+                onSelect={() => onOpenDetails(log.id)}
+                onFocus={handlePrefetchDetails}
+                onPointerMove={handlePrefetchDetails}
+              >
                 {t('visitLogs.card.details')}
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -108,7 +120,12 @@ const VisitLogCard = ({ log, onOpenDetails }: VisitLogCardProps) => {
           <p className="text-muted-foreground">
             {t('visitLogs.card.handledBy', { name: log.agentName })}
           </p>
-          <Button variant="secondary" onClick={() => onOpenDetails(log.id)}>
+          <Button
+            variant="secondary"
+            onClick={() => onOpenDetails(log.id)}
+            onFocus={handlePrefetchDetails}
+            onMouseEnter={handlePrefetchDetails}
+          >
             {t('visitLogs.card.review')}
           </Button>
         </div>

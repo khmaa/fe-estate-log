@@ -4,7 +4,11 @@ import type React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { VisitLogDetailError } from '../api/getVisitLogDetail';
 import type { VisitLog } from '../types/visitLog';
-import { useVisitLogDetail } from './useVisitLogDetail';
+import {
+  getVisitLogDetailQueryKey,
+  prefetchVisitLogDetail,
+  useVisitLogDetail,
+} from './useVisitLogDetail';
 
 vi.mock('../services/visitLogDetail.service', () => ({
   loadVisitLogDetail: vi.fn(),
@@ -94,5 +98,16 @@ describe('useVisitLogDetail', () => {
     expect(result.current.log).toBeNull();
     expect(result.current.errorType).toBe('unknown');
     expect(result.current.isError).toBe(true);
+  });
+
+  it('prefetches the visit log detail into the query cache', async () => {
+    const queryClient = new QueryClient();
+    vi.mocked(loadVisitLogDetail).mockResolvedValue(visitLogs[0] as VisitLog);
+
+    await prefetchVisitLogDetail(queryClient, 'visit-log-1');
+
+    expect(
+      queryClient.getQueryData(getVisitLogDetailQueryKey('visit-log-1')),
+    ).toEqual(visitLogs[0]);
   });
 });
