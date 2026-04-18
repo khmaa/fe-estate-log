@@ -5,7 +5,24 @@ import { VisitLogsPage } from './VisitLogsPage';
 
 const setPage = vi.fn();
 const refetch = vi.fn();
-let lastVisitLogsScreenProps: { onRetry: () => void } | null = null;
+const prefetchQuery = vi.fn();
+let lastVisitLogsScreenProps: {
+  onPrefetchDetails: (visitLogId: string) => void;
+  onRetry: () => void;
+} | null = null;
+
+vi.mock('@tanstack/react-query', async () => {
+  const actual = await vi.importActual<typeof import('@tanstack/react-query')>(
+    '@tanstack/react-query',
+  );
+
+  return {
+    ...actual,
+    useQueryClient: () => ({
+      prefetchQuery,
+    }),
+  };
+});
 
 vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
   useVisitLogFilters: () => ({
@@ -40,7 +57,10 @@ vi.mock('../features/visit-logs/hooks/useVisitLogs', () => ({
 }));
 
 vi.mock('../features/visit-logs/components/VisitLogsScreen', () => ({
-  VisitLogsScreen: (props: { onRetry: () => void }) => {
+  VisitLogsScreen: (props: {
+    onPrefetchDetails: (visitLogId: string) => void;
+    onRetry: () => void;
+  }) => {
     lastVisitLogsScreenProps = props;
     return null;
   },
@@ -76,10 +96,41 @@ describe('VisitLogsPage', () => {
       throw new Error('VisitLogsScreen props were not captured.');
     }
 
-    const props = lastVisitLogsScreenProps as { onRetry: () => void };
+    const props = lastVisitLogsScreenProps as {
+      onPrefetchDetails: (visitLogId: string) => void;
+      onRetry: () => void;
+    };
 
     props.onRetry();
 
     expect(refetch).toHaveBeenCalled();
+  });
+
+  it('passes a detail prefetch handler that warms the detail query cache', async () => {
+    lastVisitLogsScreenProps = null;
+    prefetchQuery.mockClear();
+
+    render(
+      <MemoryRouter initialEntries={['/visit-logs']}>
+        <VisitLogsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(lastVisitLogsScreenProps).not.toBeNull();
+    });
+
+    if (!lastVisitLogsScreenProps) {
+      throw new Error('VisitLogsScreen props were not captured.');
+    }
+
+    const props = lastVisitLogsScreenProps as {
+      onPrefetchDetails: (visitLogId: string) => void;
+      onRetry: () => void;
+    };
+
+    props.onPrefetchDetails('visit-log-1');
+
+    expect(prefetchQuery).toHaveBeenCalled();
   });
 });

@@ -18,7 +18,13 @@ const visitLog = {
 
 describe('VisitLogCard', () => {
   it('renders visit log details and pinned badge', () => {
-    render(<VisitLogCard log={visitLog} onOpenDetails={vi.fn()} />);
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onOpenDetails={vi.fn()}
+        onPrefetchDetails={vi.fn()}
+      />,
+    );
 
     expect(
       screen.getByText('Samsung-dong river-view apartment'),
@@ -31,7 +37,13 @@ describe('VisitLogCard', () => {
   it('opens details from the card action button', () => {
     const handleOpenDetails = vi.fn();
 
-    render(<VisitLogCard log={visitLog} onOpenDetails={handleOpenDetails} />);
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onOpenDetails={handleOpenDetails}
+        onPrefetchDetails={vi.fn()}
+      />,
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Review note' }));
 
@@ -41,7 +53,13 @@ describe('VisitLogCard', () => {
   it('opens details from the dropdown action', async () => {
     const handleOpenDetails = vi.fn();
 
-    render(<VisitLogCard log={visitLog} onOpenDetails={handleOpenDetails} />);
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onOpenDetails={handleOpenDetails}
+        onPrefetchDetails={vi.fn()}
+      />,
+    );
 
     fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
     fireEvent.click(
@@ -49,5 +67,26 @@ describe('VisitLogCard', () => {
     );
 
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
+  });
+
+  it('prefetches detail data from hover and focus interactions', async () => {
+    const handlePrefetchDetails = vi.fn();
+
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onOpenDetails={vi.fn()}
+        onPrefetchDetails={handlePrefetchDetails}
+      />,
+    );
+
+    fireEvent.mouseEnter(screen.getByRole('button', { name: 'Review note' }));
+    fireEvent.focus(screen.getByRole('button', { name: 'Review note' }));
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.focus(
+      await screen.findByRole('menuitem', { name: 'Open details' }),
+    );
+
+    expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
   });
 });

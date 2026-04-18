@@ -11,6 +11,7 @@ type VisitLogListProps = {
   logs: VisitLog[];
   onCreateFirstLog: () => void;
   onOpenDetails: (visitLogId: string) => void;
+  onPrefetchDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
   onRetry: () => void;
   page: number;
@@ -25,6 +26,7 @@ const VisitLogList = ({
   logs,
   onCreateFirstLog,
   onOpenDetails,
+  onPrefetchDetails,
   onPageChange,
   onRetry,
   page,
@@ -71,7 +73,12 @@ const VisitLogList = ({
   return (
     <div className="grid gap-6">
       {logs.map((log) => (
-        <VisitLogCard key={log.id} log={log} onOpenDetails={onOpenDetails} />
+        <VisitLogCard
+          key={log.id}
+          log={log}
+          onOpenDetails={onOpenDetails}
+          onPrefetchDetails={onPrefetchDetails}
+        />
       ))}
       <VisitLogPagination
         page={page}

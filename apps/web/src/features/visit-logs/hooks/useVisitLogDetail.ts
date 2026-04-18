@@ -1,15 +1,35 @@
-import { useQuery } from '@tanstack/react-query';
+import { type QueryClient, useQuery } from '@tanstack/react-query';
 import { VisitLogDetailError } from '../api/getVisitLogDetail';
 import { loadVisitLogDetail } from '../services/visitLogDetail.service';
 
 type VisitLogDetailErrorType = 'not-found' | 'unknown' | null;
 
+const getVisitLogDetailQueryKey = (visitLogId: string | undefined) =>
+  ['visit-log-detail', visitLogId] as const;
+
+const getVisitLogDetailQueryOptions = (visitLogId: string) => ({
+  queryKey: getVisitLogDetailQueryKey(visitLogId),
+  queryFn: () => loadVisitLogDetail(visitLogId),
+  retry: false,
+});
+
+const prefetchVisitLogDetail = (
+  queryClient: QueryClient,
+  visitLogId: string,
+) => {
+  return queryClient.prefetchQuery(getVisitLogDetailQueryOptions(visitLogId));
+};
+
 const useVisitLogDetail = (visitLogId: string | undefined) => {
   const query = useQuery({
-    queryKey: ['visit-log-detail', visitLogId],
-    queryFn: () => loadVisitLogDetail(visitLogId as string),
+    ...(visitLogId
+      ? getVisitLogDetailQueryOptions(visitLogId)
+      : {
+          queryKey: getVisitLogDetailQueryKey(visitLogId),
+          queryFn: () => loadVisitLogDetail(visitLogId as string),
+          retry: false,
+        }),
     enabled: Boolean(visitLogId),
-    retry: false,
   });
 
   const isNotFound =
@@ -29,5 +49,10 @@ const useVisitLogDetail = (visitLogId: string | undefined) => {
   };
 };
 
-export { useVisitLogDetail };
+export {
+  getVisitLogDetailQueryKey,
+  getVisitLogDetailQueryOptions,
+  prefetchVisitLogDetail,
+  useVisitLogDetail,
+};
 export type { VisitLogDetailErrorType };

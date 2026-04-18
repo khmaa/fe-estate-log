@@ -31,6 +31,7 @@ type VisitLogsScreenProps = {
   isLoading: boolean;
   logs: VisitLog[];
   onOpenDetails: (visitLogId: string) => void;
+  onPrefetchDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
@@ -47,6 +48,7 @@ const VisitLogsScreen = ({
   isLoading,
   logs,
   onOpenDetails,
+  onPrefetchDetails,
   onPageChange,
   onPageSizeChange,
   onPinnedOnlyChange,
@@ -137,6 +139,7 @@ const VisitLogsScreen = ({
           isLoading={isLoading}
           onCreateFirstLog={handleCreateClick}
           onOpenDetails={onOpenDetails}
+          onPrefetchDetails={onPrefetchDetails}
           onPageChange={onPageChange}
           page={filters.page}
           pageSize={filters.pageSize}

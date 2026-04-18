@@ -1,10 +1,13 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { VisitLogsScreen } from '../features/visit-logs/components/VisitLogsScreen';
+import { prefetchVisitLogDetail } from '../features/visit-logs/hooks/useVisitLogDetail';
 import { useVisitLogFilters } from '../features/visit-logs/hooks/useVisitLogFilters';
 import { useVisitLogs } from '../features/visit-logs/hooks/useVisitLogs';
 
 const VisitLogsPage = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
   const { filters, setPage, setPageSize, setPinnedOnly, setQuery, setSort } =
@@ -21,6 +24,10 @@ const VisitLogsPage = () => {
     navigate(`/visit-logs/${visitLogId}${location.search}`);
   };
 
+  const handlePrefetchDetails = (visitLogId: string) => {
+    void prefetchVisitLogDetail(queryClient, visitLogId);
+  };
+
   return (
     <VisitLogsScreen
       logs={query.data?.items ?? []}
@@ -32,6 +39,7 @@ const VisitLogsPage = () => {
         ...filters,
         page: query.data?.page ?? filters.page,
       }}
+      onPrefetchDetails={handlePrefetchDetails}
       onPageChange={setPage}
       onPageSizeChange={setPageSize}
       onPinnedOnlyChange={setPinnedOnly}
