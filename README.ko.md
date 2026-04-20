@@ -76,6 +76,17 @@ pnpm -r --if-present test:run
 `web`과 `shared-ui`는 테스트 실행 시 커버리지 요약이 콘솔에 기본 출력되도록 설정되어 있습니다.
 GitHub Actions에서 생성한 커버리지 결과는 Codecov로 업로드되도록 구성해 두었고, 이를 통해 저장소에서 커버리지 배지와 PR 커버리지 체크를 확인할 수 있습니다.
 
+## 커버리지 정책
+
+`apps/web`과 `libs/shared-ui`의 커버리지 리포트는 Codecov로 업로드됩니다.
+저장소 루트의 `codecov.yml`에는 현재 다음 기준이 정의되어 있습니다.
+
+- 전체 프로젝트 커버리지 목표: `auto`
+- PR patch 커버리지 목표: `90%`
+- PR patch 커버리지 허용 오차: `3%`
+
+또한 Codecov에서 `web`과 `shared-ui`를 별도 component로 나눠서 각 워크스페이스 영역의 커버리지를 더 명확하게 볼 수 있게 했습니다.
+
 ## Storybook
 
 `libs/shared-ui`에는 공용 컴포넌트를 독립적으로 확인하기 위한 Storybook이 설정되어 있습니다.

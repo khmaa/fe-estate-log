@@ -1,0 +1,26 @@
+codecov:
+  require_ci_to_pass: yes
+
+coverage:
+  precision: 2
+  round: down
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: 90%
+        threshold: 3%
+
+component_management:
+  individual_components:
+    - component_id: web
+      name: web
+      paths:
+        - 'apps/web/**'
+    - component_id: shared_ui
+      name: shared-ui
+      paths:
+        - 'libs/shared-ui/**'
