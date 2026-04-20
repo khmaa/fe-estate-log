@@ -76,6 +76,17 @@ pnpm -r --if-present test:run
 Both `web` and `shared-ui` are configured to print coverage summaries in the console by default.
 Coverage is uploaded from GitHub Actions to Codecov so the repository can show a coverage badge and pull request coverage checks.
 
+## Coverage Policy
+
+Coverage reports from `apps/web` and `libs/shared-ui` are uploaded to Codecov.
+The repository uses a repository-level `codecov.yml` policy with the following defaults:
+
+- project coverage target: `auto`
+- patch coverage target: `90%`
+- patch coverage threshold: `3%`
+
+Codecov also groups coverage into `web` and `shared-ui` components so each workspace area can be reviewed more clearly.
+
 ## Storybook
 
 Storybook is configured for `libs/shared-ui` to preview shared components in isolation.
