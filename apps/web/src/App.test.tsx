@@ -120,6 +120,20 @@ describe('App', () => {
     );
   });
 
+  it('switches the showcase page copy to Korean', async () => {
+    renderApp('/showcase');
+
+    fireEvent.click(screen.getByRole('button', { name: 'KO' }));
+
+    expect(
+      await screen.findByRole('heading', { name: '공용 UI 쇼케이스' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('쇼케이스 미리보기 모드')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '성공 토스트 보기' }),
+    ).toBeInTheDocument();
+  });
+
   it('renders the not found page on an unknown route', async () => {
     renderApp('/missing-route');
 
