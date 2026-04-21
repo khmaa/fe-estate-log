@@ -42,6 +42,7 @@ import {
   useToast,
 } from '@shared-ui/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const contactOptions = [
   { label: 'Email', value: 'email', description: 'Best for async updates.' },
@@ -59,6 +60,7 @@ const ShowcaseContent = () => {
   const [contactMethod, setContactMethod] = useState('email');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const { showToast } = useToast();
+  const { t } = useTranslation();
 
   return (
     <main className="min-h-screen px-6 py-16">
@@ -66,64 +68,63 @@ const ShowcaseContent = () => {
         <Card className="overflow-hidden">
           <CardHeader className="gap-4">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge>Shared UI</Badge>
-              <Badge variant="secondary">Day 14 Showcase</Badge>
-              <Badge variant="success">17 Components</Badge>
+              <Badge>{t('showcase.badges.sharedUi')}</Badge>
+              <Badge variant="secondary">{t('showcase.badges.preview')}</Badge>
+              <Badge variant="success">{t('showcase.badges.components')}</Badge>
             </div>
-            <CardTitle>Shared UI Showcase</CardTitle>
+            <CardTitle>{t('showcase.hero.title')}</CardTitle>
             <CardDescription className="max-w-3xl">
-              Token-based primitives for forms, feedback, overlays, and layout
-              patterns. This page groups the current component set into a single
-              preview surface for the web app.
+              {t('showcase.hero.description')}
             </CardDescription>
           </CardHeader>
         </Card>
 
         <Banner
-          title="Showcase preview mode"
-          description="Use this page to review component combinations before wiring them into real product screens."
+          title={t('showcase.banner.title')}
+          description={t('showcase.banner.description')}
           variant="info"
-          action={<Button variant="secondary">View Storybook</Button>}
+          action={
+            <Button variant="secondary">{t('showcase.banner.action')}</Button>
+          }
         />
 
         <section className="grid gap-8 xl:grid-cols-2">
           <Card>
             <CardHeader>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Form Controls
+                {t('showcase.sections.form.eyebrow')}
               </p>
-              <CardTitle>Text and field primitives</CardTitle>
+              <CardTitle>{t('showcase.sections.form.title')}</CardTitle>
               <CardDescription>
-                Input, textarea, select, and field composition on top of the
-                shared token system.
+                {t('showcase.sections.form.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Field
                 htmlFor="showcase-email"
-                label="Email address"
-                helperText="We use this email for async design system updates."
+                label={t('showcase.form.email.label')}
+                helperText={t('showcase.form.email.helper')}
               >
                 <Input
                   id="showcase-email"
                   type="email"
-                  placeholder="hello@example.com"
+                  placeholder={t('showcase.form.email.placeholder')}
                 />
               </Field>
               <Field
                 htmlFor="showcase-message"
-                label="Message"
-                helperText="Describe the workflow you want to prototype next."
+                label={t('showcase.form.message.label')}
+                helperText={t('showcase.form.message.helper')}
               >
                 <Textarea
                   id="showcase-message"
-                  placeholder="Share more context about the screen or form you want to build."
+                  placeholder={t('showcase.form.message.placeholder')}
                 />
               </Field>
               <Field
                 htmlFor="showcase-property-type"
-                label="Property type"
-                helperText="Native select stays close to platform behavior."
+                label={t('showcase.form.propertyType.label')}
+                helperText={t('showcase.form.propertyType.helper')}
               >
                 <Select id="showcase-property-type" defaultValue="apartment">
                   {propertyOptions.map((option) => (
@@ -139,23 +140,22 @@ const ShowcaseContent = () => {
           <Card>
             <CardHeader>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Selection Controls
+                {t('showcase.sections.selection.eyebrow')}
               </p>
-              <CardTitle>Choice and preference inputs</CardTitle>
+              <CardTitle>{t('showcase.sections.selection.title')}</CardTitle>
               <CardDescription>
-                Checkbox, radio, and switch patterns for product settings and
-                communication preferences.
+                {t('showcase.sections.selection.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <CheckboxField
                 id="showcase-updates"
-                label="Email me component release notes"
-                helperText="You can unsubscribe whenever the design system stabilizes."
+                label={t('showcase.selection.checkbox.label')}
+                helperText={t('showcase.selection.checkbox.helper')}
               />
               <RadioGroup
-                label="Preferred contact method"
-                helperText="Radio groups work well when all options should stay visible."
+                label={t('showcase.selection.radio.label')}
+                helperText={t('showcase.selection.radio.helper')}
                 name="preferred-contact-method"
                 value={contactMethod}
                 onValueChange={setContactMethod}
@@ -164,10 +164,10 @@ const ShowcaseContent = () => {
               <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-foreground">
-                    Release notifications
+                    {t('showcase.selection.switch.title')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Toggle digest emails for new shared-ui updates.
+                    {t('showcase.selection.switch.description')}
                   </p>
                 </div>
                 <Switch
@@ -175,7 +175,7 @@ const ShowcaseContent = () => {
                   onChange={(event) =>
                     setNotificationsEnabled(event.currentTarget.checked)
                   }
-                  aria-label="Enable release notifications"
+                  aria-label={t('showcase.selection.switch.ariaLabel')}
                 />
               </div>
             </CardContent>
@@ -186,44 +186,49 @@ const ShowcaseContent = () => {
           <Card>
             <CardHeader>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Feedback
+                {t('showcase.sections.feedback.eyebrow')}
               </p>
-              <CardTitle>Alerts, banners, and status labels</CardTitle>
+              <CardTitle>{t('showcase.sections.feedback.title')}</CardTitle>
               <CardDescription>
-                Short-lived and persistent feedback patterns using the same
-                semantic color tokens.
+                {t('showcase.sections.feedback.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Alert variant="success">
-                <AlertTitle>Changes published</AlertTitle>
+                <AlertTitle>{t('showcase.feedback.success.title')}</AlertTitle>
                 <AlertDescription>
-                  Shared UI feedback components now share the same semantic
-                  token palette across Storybook and the web app.
+                  {t('showcase.feedback.success.description')}
                 </AlertDescription>
               </Alert>
               <Alert variant="error">
-                <AlertTitle>Validation error</AlertTitle>
+                <AlertTitle>{t('showcase.feedback.error.title')}</AlertTitle>
                 <AlertDescription>
-                  At least one required field is missing. Use error messaging
-                  close to the input and a summary at the top when needed.
+                  {t('showcase.feedback.error.description')}
                 </AlertDescription>
               </Alert>
               <div className="flex flex-wrap gap-3">
-                <Badge>Draft</Badge>
-                <Badge variant="secondary">In Review</Badge>
-                <Badge variant="success">Published</Badge>
-                <Badge variant="warning">Needs Attention</Badge>
-                <Badge variant="error">Blocked</Badge>
+                <Badge>{t('showcase.feedback.badges.draft')}</Badge>
+                <Badge variant="secondary">
+                  {t('showcase.feedback.badges.inReview')}
+                </Badge>
+                <Badge variant="success">
+                  {t('showcase.feedback.badges.published')}
+                </Badge>
+                <Badge variant="warning">
+                  {t('showcase.feedback.badges.needsAttention')}
+                </Badge>
+                <Badge variant="error">
+                  {t('showcase.feedback.badges.blocked')}
+                </Badge>
               </div>
               <div className="flex flex-wrap items-center gap-4 rounded-ui border border-border bg-background px-4 py-4">
-                <Button loading>Saving changes</Button>
+                <Button loading>{t('showcase.feedback.loading.saving')}</Button>
                 <Button variant="secondary" loading>
-                  Publishing
+                  {t('showcase.feedback.loading.publishing')}
                 </Button>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Spinner size="sm" />
-                  Background sync in progress
+                  {t('showcase.feedback.loading.backgroundSync')}
                 </div>
               </div>
             </CardContent>
@@ -232,93 +237,109 @@ const ShowcaseContent = () => {
           <Card>
             <CardHeader>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Overlay & Toast
+                {t('showcase.sections.overlay.eyebrow')}
               </p>
-              <CardTitle>Layered interaction patterns</CardTitle>
+              <CardTitle>{t('showcase.sections.overlay.title')}</CardTitle>
               <CardDescription>
-                Dialog and toast now share the app-level showcase surface rather
-                than living only in isolated Storybook stories.
+                {t('showcase.sections.overlay.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button>Open dialog preview</Button>
+                  <Button>{t('showcase.overlay.dialog.trigger')}</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Create a new visit log</DialogTitle>
+                    <DialogTitle>
+                      {t('showcase.overlay.dialog.title')}
+                    </DialogTitle>
                     <DialogDescription>
-                      Review the shared modal structure before you wire it into
-                      a real workflow.
+                      {t('showcase.overlay.dialog.description')}
                     </DialogDescription>
                   </DialogHeader>
                   <DialogBody>
                     <Field
                       htmlFor="dialog-title"
-                      label="Title"
-                      helperText="Keep the modal body focused on one short task."
+                      label={t('showcase.overlay.dialog.field.label')}
+                      helperText={t('showcase.overlay.dialog.field.helper')}
                     >
                       <Input
                         id="dialog-title"
-                        placeholder="e.g. Gangnam apartment revisit"
+                        placeholder={t(
+                          'showcase.overlay.dialog.field.placeholder',
+                        )}
                       />
                     </Field>
                   </DialogBody>
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button variant="ghost">Cancel</Button>
+                      <Button variant="ghost">
+                        {t('showcase.overlay.dialog.cancel')}
+                      </Button>
                     </DialogClose>
-                    <Button variant="secondary">Save draft</Button>
-                    <Button>Create</Button>
+                    <Button variant="secondary">
+                      {t('showcase.overlay.dialog.saveDraft')}
+                    </Button>
+                    <Button>{t('showcase.overlay.dialog.create')}</Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
 
               <div className="rounded-ui border border-border bg-background px-4 py-4">
                 <p className="text-sm font-semibold text-foreground">
-                  Toast preview
+                  {t('showcase.overlay.toast.title')}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Use toasts for transient success or failure signals after an
-                  action completes.
+                  {t('showcase.overlay.toast.description')}
                 </p>
                 <div className="mt-4">
                   <Button
                     onClick={() =>
                       showToast({
-                        title: 'Preview saved',
-                        description:
-                          'Your showcase preferences were saved for the current session.',
+                        title: t('showcase.overlay.toast.toastTitle'),
+                        description: t(
+                          'showcase.overlay.toast.toastDescription',
+                        ),
                         variant: 'success',
                       })
                     }
                   >
-                    Show success toast
+                    {t('showcase.overlay.toast.action')}
                   </Button>
                 </div>
               </div>
 
               <div className="rounded-ui border border-border bg-background px-4 py-4">
                 <p className="text-sm font-semibold text-foreground">
-                  Dropdown menu preview
+                  {t('showcase.overlay.menu.title')}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Use menus for grouped actions rather than value selection.
+                  {t('showcase.overlay.menu.description')}
                 </p>
                 <div className="mt-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="secondary">Open actions menu</Button>
+                      <Button variant="secondary">
+                        {t('showcase.overlay.menu.trigger')}
+                      </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Visit log actions</DropdownMenuLabel>
-                      <DropdownMenuItem>Edit draft</DropdownMenuItem>
-                      <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                      <DropdownMenuLabel>
+                        {t('showcase.overlay.menu.label')}
+                      </DropdownMenuLabel>
+                      <DropdownMenuItem>
+                        {t('showcase.overlay.menu.items.editDraft')}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        {t('showcase.overlay.menu.items.duplicate')}
+                      </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>Archive</DropdownMenuItem>
+                      <DropdownMenuItem>
+                        {t('showcase.overlay.menu.items.archive')}
+                      </DropdownMenuItem>
                       <DropdownMenuItem className="text-danger focus:bg-danger-soft/50">
-                        Delete
+                        {t('showcase.overlay.menu.items.delete')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -327,36 +348,38 @@ const ShowcaseContent = () => {
 
               <div className="rounded-ui border border-border bg-background px-4 py-4">
                 <p className="text-sm font-semibold text-foreground">
-                  Popover preview
+                  {t('showcase.overlay.popover.title')}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Use popovers for contextual panels that need richer content
-                  than a simple menu.
+                  {t('showcase.overlay.popover.description')}
                 </p>
                 <div className="mt-4">
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="secondary">Open filter popover</Button>
+                      <Button variant="secondary">
+                        {t('showcase.overlay.popover.trigger')}
+                      </Button>
                     </PopoverTrigger>
                     <PopoverContent align="end">
                       <div className="space-y-4">
                         <div className="space-y-1">
                           <p className="text-sm font-semibold text-foreground">
-                            Quick filters
+                            {t('showcase.overlay.popover.panelTitle')}
                           </p>
                           <p className="text-sm leading-6 text-muted-foreground">
-                            Keep lightweight settings near the trigger instead
-                            of opening a full dialog.
+                            {t('showcase.overlay.popover.panelDescription')}
                           </p>
                         </div>
                         <div className="rounded-ui border border-border bg-background px-4 py-3 text-sm text-muted-foreground">
-                          Apartments, under 1B KRW, and 10 minutes from transit
+                          {t('showcase.overlay.popover.previewValue')}
                         </div>
                         <div className="flex justify-end gap-3">
                           <PopoverClose asChild>
-                            <Button variant="ghost">Close</Button>
+                            <Button variant="ghost">
+                              {t('showcase.overlay.popover.close')}
+                            </Button>
                           </PopoverClose>
-                          <Button>Apply filters</Button>
+                          <Button>{t('showcase.overlay.popover.apply')}</Button>
                         </div>
                       </div>
                     </PopoverContent>
@@ -370,20 +393,19 @@ const ShowcaseContent = () => {
         <Card>
           <CardHeader>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-              Empty States
+              {t('showcase.sections.empty.eyebrow')}
             </p>
-            <CardTitle>No-data product states</CardTitle>
+            <CardTitle>{t('showcase.sections.empty.title')}</CardTitle>
             <CardDescription>
-              Empty states explain why a surface is blank and suggest the next
-              action instead of leaving the user with an empty shell.
+              {t('showcase.sections.empty.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <EmptyState
-              badge="No Saved Visits"
-              title="No visit logs yet"
-              description="Start by creating the first property visit note. This is where your shared-ui primitives begin to feel like a product."
-              action={<Button>Add first visit log</Button>}
+              badge={t('showcase.empty.badge')}
+              title={t('showcase.empty.title')}
+              description={t('showcase.empty.description')}
+              action={<Button>{t('showcase.empty.action')}</Button>}
             />
           </CardContent>
         </Card>
