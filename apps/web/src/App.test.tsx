@@ -132,6 +132,8 @@ describe('App', () => {
     expect(
       screen.getByRole('button', { name: '성공 토스트 보기' }),
     ).toBeInTheDocument();
+    expect(screen.getByText('이메일')).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '아파트' })).toBeInTheDocument();
   });
 
   it('renders the not found page on an unknown route', async () => {

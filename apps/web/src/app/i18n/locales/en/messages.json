@@ -88,7 +88,12 @@
       },
       "propertyType": {
         "label": "Property type",
-        "helper": "Native select stays close to platform behavior."
+        "helper": "Native select stays close to platform behavior.",
+        "options": {
+          "apartment": "Apartment",
+          "office": "Office",
+          "retail": "Retail"
+        }
       }
     },
     "selection": {
@@ -98,7 +103,21 @@
       },
       "radio": {
         "label": "Preferred contact method",
-        "helper": "Radio groups work well when all options should stay visible."
+        "helper": "Radio groups work well when all options should stay visible.",
+        "options": {
+          "email": {
+            "label": "Email",
+            "description": "Best for async updates."
+          },
+          "phone": {
+            "label": "Phone",
+            "description": "For urgent follow-ups."
+          },
+          "chat": {
+            "label": "Chat",
+            "description": "Fast product feedback."
+          }
+        }
       },
       "switch": {
         "title": "Release notifications",

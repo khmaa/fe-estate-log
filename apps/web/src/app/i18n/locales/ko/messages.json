@@ -88,7 +88,12 @@
       },
       "propertyType": {
         "label": "매물 유형",
-        "helper": "native select는 플랫폼 기본 동작과 가깝게 유지됩니다."
+        "helper": "native select는 플랫폼 기본 동작과 가깝게 유지됩니다.",
+        "options": {
+          "apartment": "아파트",
+          "office": "오피스",
+          "retail": "상가"
+        }
       }
     },
     "selection": {
@@ -98,7 +103,21 @@
       },
       "radio": {
         "label": "선호 연락 방식",
-        "helper": "모든 선택지를 계속 보여줘야 할 때 radio group이 잘 맞습니다."
+        "helper": "모든 선택지를 계속 보여줘야 할 때 radio group이 잘 맞습니다.",
+        "options": {
+          "email": {
+            "label": "이메일",
+            "description": "비동기 업데이트를 받을 때 적합합니다."
+          },
+          "phone": {
+            "label": "전화",
+            "description": "긴급한 후속 연락이 필요할 때 적합합니다."
+          },
+          "chat": {
+            "label": "채팅",
+            "description": "빠른 제품 피드백을 주고받기 좋습니다."
+          }
+        }
       },
       "switch": {
         "title": "릴리스 알림",
