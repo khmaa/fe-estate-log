@@ -44,16 +44,37 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const contactOptions = [
-  { label: 'Email', value: 'email', description: 'Best for async updates.' },
-  { label: 'Phone', value: 'phone', description: 'For urgent follow-ups.' },
-  { label: 'Chat', value: 'chat', description: 'Fast product feedback.' },
+const getContactOptions = (t: (key: string) => string) => [
+  {
+    label: t('showcase.selection.radio.options.email.label'),
+    value: 'email',
+    description: t('showcase.selection.radio.options.email.description'),
+  },
+  {
+    label: t('showcase.selection.radio.options.phone.label'),
+    value: 'phone',
+    description: t('showcase.selection.radio.options.phone.description'),
+  },
+  {
+    label: t('showcase.selection.radio.options.chat.label'),
+    value: 'chat',
+    description: t('showcase.selection.radio.options.chat.description'),
+  },
 ];
 
-const propertyOptions = [
-  { label: 'Apartment', value: 'apartment' },
-  { label: 'Office', value: 'office' },
-  { label: 'Retail', value: 'retail' },
+const getPropertyOptions = (t: (key: string) => string) => [
+  {
+    label: t('showcase.form.propertyType.options.apartment'),
+    value: 'apartment',
+  },
+  {
+    label: t('showcase.form.propertyType.options.office'),
+    value: 'office',
+  },
+  {
+    label: t('showcase.form.propertyType.options.retail'),
+    value: 'retail',
+  },
 ];
 
 const ShowcaseContent = () => {
@@ -61,6 +82,8 @@ const ShowcaseContent = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const { showToast } = useToast();
   const { t } = useTranslation();
+  const contactOptions = getContactOptions(t);
+  const propertyOptions = getPropertyOptions(t);
 
   return (
     <main className="min-h-screen px-6 py-16">
