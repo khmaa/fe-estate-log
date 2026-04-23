@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { detectLanguage, persistLanguage } from './i18n';
+import { resources } from './i18n/resources';
 
 describe('i18n helpers', () => {
   it('prefers a stored language when it is supported', () => {
@@ -36,5 +37,16 @@ describe('i18n helpers', () => {
     persistLanguage('ko', { setItem });
 
     expect(setItem).toHaveBeenCalledWith('fe-estate-log-language', 'ko');
+  });
+
+  it('merges split locale files into the default translation namespace', () => {
+    expect(resources.en.translation.app.nav.visitLogs).toBe('Visit Logs');
+    expect(resources.en.translation.notFound.title).toBe('Page not found');
+    expect(resources.en.translation.showcase.hero.title).toBe(
+      'Shared UI Showcase',
+    );
+    expect(resources.en.translation.visitLogs.page.title).toBe(
+      'Visit logs workspace',
+    );
   });
 });

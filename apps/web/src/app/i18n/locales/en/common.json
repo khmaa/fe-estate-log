@@ -1,0 +1,17 @@
+{
+  "app": {
+    "brandDescription": "Route-based app shell for the web workspace.",
+    "language": {
+      "en": "EN",
+      "ko": "KO",
+      "label": "Language"
+    },
+    "nav": {
+      "showcase": "Showcase",
+      "visitLogs": "Visit Logs"
+    },
+    "routeLoading": {
+      "label": "Loading route content"
+    }
+  }
+}
