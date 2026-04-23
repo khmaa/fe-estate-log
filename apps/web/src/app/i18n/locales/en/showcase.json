@@ -1,0 +1,167 @@
+{
+  "showcase": {
+    "badges": {
+      "components": "17 Components",
+      "preview": "Component Preview",
+      "sharedUi": "Shared UI"
+    },
+    "hero": {
+      "title": "Shared UI Showcase",
+      "description": "Token-based primitives for forms, feedback, overlays, and layout patterns. This page groups the current component set into a single preview surface for the web app."
+    },
+    "banner": {
+      "title": "Showcase preview mode",
+      "description": "Use this page to review component combinations before wiring them into real product screens.",
+      "action": "View Storybook"
+    },
+    "sections": {
+      "form": {
+        "eyebrow": "Form Controls",
+        "title": "Text and field primitives",
+        "description": "Input, textarea, select, and field composition on top of the shared token system."
+      },
+      "selection": {
+        "eyebrow": "Selection Controls",
+        "title": "Choice and preference inputs",
+        "description": "Checkbox, radio, and switch patterns for product settings and communication preferences."
+      },
+      "feedback": {
+        "eyebrow": "Feedback",
+        "title": "Alerts, banners, and status labels",
+        "description": "Short-lived and persistent feedback patterns using the same semantic color tokens."
+      },
+      "overlay": {
+        "eyebrow": "Overlay & Toast",
+        "title": "Layered interaction patterns",
+        "description": "Dialog, toast, menu, and popover previews now share the app-level showcase surface rather than living only in isolated stories."
+      },
+      "empty": {
+        "eyebrow": "Empty States",
+        "title": "No-data product states",
+        "description": "Empty states explain why a surface is blank and suggest the next action instead of leaving the user with an empty shell."
+      }
+    },
+    "form": {
+      "email": {
+        "label": "Email address",
+        "helper": "We use this email for async design system updates.",
+        "placeholder": "hello@example.com"
+      },
+      "message": {
+        "label": "Message",
+        "helper": "Describe the workflow you want to prototype next.",
+        "placeholder": "Share more context about the screen or form you want to build."
+      },
+      "propertyType": {
+        "label": "Property type",
+        "helper": "Native select stays close to platform behavior.",
+        "options": {
+          "apartment": "Apartment",
+          "office": "Office",
+          "retail": "Retail"
+        }
+      }
+    },
+    "selection": {
+      "checkbox": {
+        "label": "Email me component release notes",
+        "helper": "You can unsubscribe whenever the design system stabilizes."
+      },
+      "radio": {
+        "label": "Preferred contact method",
+        "helper": "Radio groups work well when all options should stay visible.",
+        "options": {
+          "email": {
+            "label": "Email",
+            "description": "Best for async updates."
+          },
+          "phone": {
+            "label": "Phone",
+            "description": "For urgent follow-ups."
+          },
+          "chat": {
+            "label": "Chat",
+            "description": "Fast product feedback."
+          }
+        }
+      },
+      "switch": {
+        "title": "Release notifications",
+        "description": "Toggle digest emails for new shared-ui updates.",
+        "ariaLabel": "Enable release notifications"
+      }
+    },
+    "feedback": {
+      "success": {
+        "title": "Changes published",
+        "description": "Shared UI feedback components now share the same semantic token palette across Storybook and the web app."
+      },
+      "error": {
+        "title": "Validation error",
+        "description": "At least one required field is missing. Use error messaging close to the input and a summary at the top when needed."
+      },
+      "badges": {
+        "draft": "Draft",
+        "inReview": "In Review",
+        "published": "Published",
+        "needsAttention": "Needs Attention",
+        "blocked": "Blocked"
+      },
+      "loading": {
+        "saving": "Saving changes",
+        "publishing": "Publishing",
+        "backgroundSync": "Background sync in progress"
+      }
+    },
+    "overlay": {
+      "dialog": {
+        "trigger": "Open dialog preview",
+        "title": "Create a new visit log",
+        "description": "Review the shared modal structure before you wire it into a real workflow.",
+        "field": {
+          "label": "Title",
+          "helper": "Keep the modal body focused on one short task.",
+          "placeholder": "e.g. Gangnam apartment revisit"
+        },
+        "cancel": "Cancel",
+        "saveDraft": "Save draft",
+        "create": "Create"
+      },
+      "toast": {
+        "title": "Toast preview",
+        "description": "Use toasts for transient success or failure signals after an action completes.",
+        "action": "Show success toast",
+        "toastTitle": "Preview saved",
+        "toastDescription": "Your showcase preferences were saved for the current session."
+      },
+      "menu": {
+        "title": "Dropdown menu preview",
+        "description": "Use menus for grouped actions rather than value selection.",
+        "trigger": "Open actions menu",
+        "label": "Visit log actions",
+        "items": {
+          "editDraft": "Edit draft",
+          "duplicate": "Duplicate",
+          "archive": "Archive",
+          "delete": "Delete"
+        }
+      },
+      "popover": {
+        "title": "Popover preview",
+        "description": "Use popovers for contextual panels that need richer content than a simple menu.",
+        "trigger": "Open filter popover",
+        "panelTitle": "Quick filters",
+        "panelDescription": "Keep lightweight settings near the trigger instead of opening a full dialog.",
+        "previewValue": "Apartments, under 1B KRW, and 10 minutes from transit",
+        "close": "Close",
+        "apply": "Apply filters"
+      }
+    },
+    "empty": {
+      "badge": "No Saved Visits",
+      "title": "No visit logs yet",
+      "description": "Start by creating the first property visit note. This is where your shared-ui primitives begin to feel like a product.",
+      "action": "Add first visit log"
+    }
+  }
+}

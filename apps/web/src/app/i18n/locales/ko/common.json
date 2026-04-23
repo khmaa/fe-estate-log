@@ -1,0 +1,17 @@
+{
+  "app": {
+    "brandDescription": "웹 워크스페이스를 위한 라우트 기반 앱 셸입니다.",
+    "language": {
+      "en": "EN",
+      "ko": "KO",
+      "label": "언어"
+    },
+    "nav": {
+      "showcase": "쇼케이스",
+      "visitLogs": "임장 기록"
+    },
+    "routeLoading": {
+      "label": "라우트 콘텐츠를 불러오는 중"
+    }
+  }
+}
