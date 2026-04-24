@@ -124,6 +124,30 @@ describe('visitLogQueryCache', () => {
     });
   });
 
+  it('keeps create cache updates count-only when the sort is not latest on the first page', () => {
+    const createdVisitLog: VisitLog = {
+      ...visitLogB,
+      id: 'visit-log-3',
+      title: 'Newest visit log',
+      visitedAt: '2026-04-21T10:00:00.000Z',
+    };
+
+    expect(
+      applyCreatedVisitLogToList(
+        baseResponse,
+        {
+          ...baseFilters,
+          sort: 'oldest',
+        },
+        createdVisitLog,
+      ),
+    ).toEqual({
+      ...baseResponse,
+      totalCount: 3,
+      totalPages: 2,
+    });
+  });
+
   it('keeps the current list unchanged when a created visit log does not match filters', () => {
     const createdVisitLog: VisitLog = {
       ...visitLogB,
@@ -199,6 +223,28 @@ describe('visitLogQueryCache', () => {
         {
           ...baseFilters,
           sort: 'district',
+        },
+        updatedVisitLog,
+      ),
+    ).toEqual({
+      ...baseResponse,
+      items: [updatedVisitLog, visitLogB],
+    });
+  });
+
+  it('replaces and sorts a fully updated visit log for oldest ordering', () => {
+    const updatedVisitLog: VisitLog = {
+      ...visitLogA,
+      visitedAt: '2026-04-18T10:00:00.000Z',
+      title: 'Older updated title',
+    };
+
+    expect(
+      applyUpdatedVisitLogToList(
+        baseResponse,
+        {
+          ...baseFilters,
+          sort: 'oldest',
         },
         updatedVisitLog,
       ),
