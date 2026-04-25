@@ -117,4 +117,22 @@ describe('VisitLogDetailScreen', () => {
     expect(onEdit).toHaveBeenCalled();
     expect(onDelete).toHaveBeenCalled();
   });
+
+  it('disables edit and delete actions when detail interactions are locked', () => {
+    render(
+      <VisitLogDetailScreen
+        errorType={null}
+        isActionDisabled={true}
+        isError={false}
+        log={visitLog}
+        isLoading={false}
+        onBack={vi.fn()}
+        onDelete={vi.fn()}
+        onEdit={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+  });
 });

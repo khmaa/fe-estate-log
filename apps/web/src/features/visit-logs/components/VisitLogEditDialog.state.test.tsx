@@ -101,5 +101,31 @@ describe('VisitLogEditDialog state handling', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
+  });
+
+  it('does not close the dialog from the cancel action while the mutation is pending', () => {
+    const mutation = updateMutationState({ isPending: true });
+    const onOpenChange = vi.fn();
+
+    vi.mocked(useUpdateVisitLog).mockReturnValue(
+      mutation as ReturnType<typeof useUpdateVisitLog>,
+    );
+
+    render(
+      <AppProviders>
+        <VisitLogEditDialog
+          log={visitLog}
+          open
+          onOpenChange={onOpenChange}
+          onUpdated={vi.fn()}
+        />
+      </AppProviders>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    expect(onOpenChange).not.toHaveBeenCalled();
+    expect(mutation.reset).not.toHaveBeenCalled();
   });
 });

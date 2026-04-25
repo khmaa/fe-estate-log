@@ -77,5 +77,30 @@ describe('VisitLogCreateDialog state handling', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Create draft' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
+  });
+
+  it('does not close the dialog from the cancel action while the mutation is pending', () => {
+    const mutation = createMutationState({ isPending: true });
+    const onOpenChange = vi.fn();
+
+    vi.mocked(useCreateVisitLog).mockReturnValue(
+      mutation as ReturnType<typeof useCreateVisitLog>,
+    );
+
+    render(
+      <AppProviders>
+        <VisitLogCreateDialog
+          open
+          onCreated={vi.fn()}
+          onOpenChange={onOpenChange}
+        />
+      </AppProviders>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    expect(onOpenChange).not.toHaveBeenCalled();
+    expect(mutation.reset).not.toHaveBeenCalled();
   });
 });
