@@ -46,6 +46,10 @@ const VisitLogEditDialog = ({
   const { t } = useTranslation();
 
   const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen && mutation.isPending) {
+      return;
+    }
+
     if (!nextOpen) {
       setForm(toFormState(log));
       mutation.reset();
@@ -176,7 +180,9 @@ const VisitLogEditDialog = ({
         </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="ghost">{t('visitLogs.editDialog.cancel')}</Button>
+            <Button variant="ghost" disabled={mutation.isPending}>
+              {t('visitLogs.editDialog.cancel')}
+            </Button>
           </DialogClose>
           <Button
             disabled={isUpdateDisabled}

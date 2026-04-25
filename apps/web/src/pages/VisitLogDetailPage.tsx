@@ -17,6 +17,7 @@ const VisitLogDetailPage = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const returnPath = `/visit-logs${location.search}`;
+  const isActionDisabled = isEditDialogOpen || isDeleteDialogOpen;
 
   const handleBack = () => {
     navigate(returnPath);
@@ -49,6 +50,7 @@ const VisitLogDetailPage = () => {
     <>
       <VisitLogDetailScreen
         errorType={errorType}
+        isActionDisabled={isActionDisabled}
         isError={isError}
         log={log}
         isLoading={isLoading}

@@ -31,6 +31,7 @@ const formatVisitedAt = (visitedAt: string) => {
 
 type VisitLogDetailScreenProps = {
   errorType: 'not-found' | 'unknown' | null;
+  isActionDisabled?: boolean;
   isError: boolean;
   isLoading: boolean;
   log: VisitLog | null;
@@ -41,6 +42,7 @@ type VisitLogDetailScreenProps = {
 
 const VisitLogDetailScreen = ({
   errorType,
+  isActionDisabled = false,
   isError,
   isLoading,
   log,
@@ -100,12 +102,17 @@ const VisitLogDetailScreen = ({
             {t('visitLogs.detail.actions.back')}
           </Button>
           <div className="flex flex-wrap gap-3">
-            <Button variant="secondary" onClick={onEdit}>
+            <Button
+              variant="secondary"
+              disabled={isActionDisabled}
+              onClick={onEdit}
+            >
               {t('visitLogs.detail.actions.edit')}
             </Button>
             <Button
               variant="ghost"
               className="text-danger hover:bg-danger-soft/50"
+              disabled={isActionDisabled}
               onClick={onDelete}
             >
               {t('visitLogs.detail.actions.delete')}

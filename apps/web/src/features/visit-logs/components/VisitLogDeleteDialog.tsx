@@ -30,6 +30,10 @@ const VisitLogDeleteDialog = ({
   const { t } = useTranslation();
 
   const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen && mutation.isPending) {
+      return;
+    }
+
     if (!nextOpen) {
       mutation.reset();
     }
@@ -68,7 +72,7 @@ const VisitLogDeleteDialog = ({
         </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="ghost">
+            <Button variant="ghost" disabled={mutation.isPending}>
               {t('visitLogs.deleteDialog.cancel')}
             </Button>
           </DialogClose>
