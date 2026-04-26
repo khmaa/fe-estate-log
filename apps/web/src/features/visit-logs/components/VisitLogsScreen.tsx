@@ -27,6 +27,7 @@ type VisitLogsScreenProps = {
     query: string;
     sort: VisitLogSort;
   };
+  hasActiveFilters: boolean;
   isError: boolean;
   isLoading: boolean;
   logs: VisitLog[];
@@ -36,6 +37,7 @@ type VisitLogsScreenProps = {
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
+  onResetFilters: () => void;
   onRetry: () => void;
   onSortChange: (sort: VisitLogSort) => void;
   totalCount: number;
@@ -44,6 +46,7 @@ type VisitLogsScreenProps = {
 
 const VisitLogsScreen = ({
   filters,
+  hasActiveFilters,
   isError,
   isLoading,
   logs,
@@ -53,6 +56,7 @@ const VisitLogsScreen = ({
   onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
+  onResetFilters,
   onRetry,
   onSortChange,
   totalCount,
@@ -114,12 +118,14 @@ const VisitLogsScreen = ({
           </CardHeader>
           <CardContent className="space-y-6">
             <VisitLogFilters
+              hasActiveFilters={hasActiveFilters}
               pageSize={filters.pageSize}
               query={filters.query}
               sort={filters.sort}
               pinnedOnly={filters.pinnedOnly}
               onPageSizeChange={onPageSizeChange}
               onQueryChange={onQueryChange}
+              onResetFilters={onResetFilters}
               onSortChange={onSortChange}
               onPinnedOnlyChange={onPinnedOnlyChange}
             />

@@ -14,9 +14,11 @@ import { useTranslation } from 'react-i18next';
 import type { VisitLogSort } from '../types/visitLog';
 
 type VisitLogFiltersProps = {
+  hasActiveFilters: boolean;
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
+  onResetFilters: () => void;
   onSortChange: (sort: VisitLogSort) => void;
   pageSize: number;
   pinnedOnly: boolean;
@@ -25,9 +27,11 @@ type VisitLogFiltersProps = {
 };
 
 const VisitLogFilters = ({
+  hasActiveFilters,
   onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
+  onResetFilters,
   onSortChange,
   pageSize,
   pinnedOnly,
@@ -90,6 +94,11 @@ const VisitLogFilters = ({
       </Field>
 
       <div className="flex items-end gap-3">
+        {hasActiveFilters ? (
+          <Button variant="ghost" onClick={onResetFilters}>
+            {t('visitLogs.filters.reset')}
+          </Button>
+        ) : null}
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="secondary">

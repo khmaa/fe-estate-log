@@ -10,8 +10,16 @@ const VisitLogsPage = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
-  const { filters, setPage, setPageSize, setPinnedOnly, setQuery, setSort } =
-    useVisitLogFilters();
+  const {
+    filters,
+    hasActiveFilters,
+    resetFilters,
+    setPage,
+    setPageSize,
+    setPinnedOnly,
+    setQuery,
+    setSort,
+  } = useVisitLogFilters();
   const query = useVisitLogs(filters);
 
   useEffect(() => {
@@ -33,6 +41,7 @@ const VisitLogsPage = () => {
       logs={query.data?.items ?? []}
       totalCount={query.data?.totalCount ?? 0}
       totalPages={query.data?.totalPages ?? 1}
+      hasActiveFilters={hasActiveFilters}
       isError={query.isError}
       isLoading={query.isLoading}
       filters={{
@@ -44,6 +53,7 @@ const VisitLogsPage = () => {
       onPageSizeChange={setPageSize}
       onPinnedOnlyChange={setPinnedOnly}
       onQueryChange={setQuery}
+      onResetFilters={resetFilters}
       onRetry={() => {
         void query.refetch();
       }}

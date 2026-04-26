@@ -43,6 +43,7 @@
     "filters": {
       "advanced": "Advanced filters",
       "close": "Close",
+      "reset": "Reset filters",
       "pinned": {
         "description": "Focus on high-priority logs you marked for follow-up.",
         "label": "Pinned only"

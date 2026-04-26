@@ -125,4 +125,27 @@ describe('useVisitLogFilters', () => {
     expect(result.current.filters.pageSize).toBe(2);
     expect(result.current.filters.page).toBe(1);
   });
+
+  it('reports active filters and clears the query string back to defaults', () => {
+    const { result } = renderHook(() => useVisitLogFilters(), {
+      wrapper: createWrapper(
+        '/?query=gangnam&sort=district&pinned=true&page=2&pageSize=5',
+      ),
+    });
+
+    expect(result.current.hasActiveFilters).toBe(true);
+
+    act(() => {
+      result.current.resetFilters();
+    });
+
+    expect(result.current.hasActiveFilters).toBe(false);
+    expect(result.current.filters).toEqual({
+      page: 1,
+      pageSize: 2,
+      pinnedOnly: false,
+      query: '',
+      sort: 'latest',
+    });
+  });
 });

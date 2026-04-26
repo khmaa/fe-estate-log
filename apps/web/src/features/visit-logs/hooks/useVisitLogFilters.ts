@@ -4,6 +4,13 @@ import type { VisitLogSort } from '../types/visitLog';
 
 const validSorts: VisitLogSort[] = ['latest', 'oldest', 'district'];
 const validPageSizes = [2, 5, 10] as const;
+const defaultVisitLogFilters = {
+  page: 1,
+  pageSize: 2,
+  pinnedOnly: false,
+  query: '',
+  sort: 'latest' as const,
+};
 
 const getVisitLogSort = (rawSort: string | null): VisitLogSort => {
   if (rawSort && validSorts.includes(rawSort as VisitLogSort)) {
@@ -31,7 +38,10 @@ const useVisitLogFilters = () => {
 
   const filters = useMemo(
     () => ({
-      page: Math.max(1, Number(searchParams.get('page') ?? '1') || 1),
+      page: Math.max(
+        defaultVisitLogFilters.page,
+        Number(searchParams.get('page') ?? '1') || defaultVisitLogFilters.page,
+      ),
       pageSize: getVisitLogPageSize(searchParams.get('pageSize')),
       pinnedOnly: searchParams.get('pinned') === 'true',
       query: searchParams.get('query') ?? '',
@@ -39,6 +49,13 @@ const useVisitLogFilters = () => {
     }),
     [searchParams],
   );
+
+  const hasActiveFilters =
+    filters.page !== defaultVisitLogFilters.page ||
+    filters.pageSize !== defaultVisitLogFilters.pageSize ||
+    filters.pinnedOnly !== defaultVisitLogFilters.pinnedOnly ||
+    filters.query !== defaultVisitLogFilters.query ||
+    filters.sort !== defaultVisitLogFilters.sort;
 
   const updateSearchParams = (updates: {
     page?: number;
@@ -104,6 +121,9 @@ const useVisitLogFilters = () => {
 
   return {
     filters,
+    hasActiveFilters,
+    resetFilters: () =>
+      setSearchParams(new URLSearchParams(), { replace: true }),
     setPage: (page: number) => updateSearchParams({ page }),
     setPageSize: (pageSize: number) => updateSearchParams({ pageSize }),
     setPinnedOnly: (pinnedOnly: boolean) => updateSearchParams({ pinnedOnly }),

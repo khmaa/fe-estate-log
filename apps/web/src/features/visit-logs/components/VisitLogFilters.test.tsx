@@ -10,12 +10,14 @@ describe('VisitLogFilters', () => {
 
     render(
       <VisitLogFilters
+        hasActiveFilters={false}
         pageSize={2}
         query=""
         sort="latest"
         pinnedOnly={false}
         onPageSizeChange={handlePageSizeChange}
         onQueryChange={handleQueryChange}
+        onResetFilters={vi.fn()}
         onSortChange={handleSortChange}
         onPinnedOnlyChange={vi.fn()}
       />,
@@ -41,12 +43,14 @@ describe('VisitLogFilters', () => {
 
     render(
       <VisitLogFilters
+        hasActiveFilters={false}
         pageSize={2}
         query=""
         sort="latest"
         pinnedOnly={false}
         onPageSizeChange={vi.fn()}
         onQueryChange={vi.fn()}
+        onResetFilters={vi.fn()}
         onSortChange={vi.fn()}
         onPinnedOnlyChange={handlePinnedOnlyChange}
       />,
@@ -60,5 +64,28 @@ describe('VisitLogFilters', () => {
     );
 
     expect(handlePinnedOnlyChange).toHaveBeenCalledWith(true);
+  });
+
+  it('shows and forwards the reset action when filters are active', () => {
+    const handleResetFilters = vi.fn();
+
+    render(
+      <VisitLogFilters
+        hasActiveFilters
+        pageSize={5}
+        query="gangnam"
+        sort="district"
+        pinnedOnly
+        onPageSizeChange={vi.fn()}
+        onQueryChange={vi.fn()}
+        onResetFilters={handleResetFilters}
+        onSortChange={vi.fn()}
+        onPinnedOnlyChange={vi.fn()}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset filters' }));
+
+    expect(handleResetFilters).toHaveBeenCalled();
   });
 });
