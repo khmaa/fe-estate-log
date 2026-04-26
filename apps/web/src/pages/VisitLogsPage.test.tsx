@@ -7,9 +7,12 @@ const setPage = vi.fn();
 const refetch = vi.fn();
 const prefetchQuery = vi.fn();
 let lastVisitLogsScreenProps: {
+  hasActiveFilters: boolean;
   onPrefetchDetails: (visitLogId: string) => void;
+  onResetFilters: () => void;
   onRetry: () => void;
 } | null = null;
+const resetFilters = vi.fn();
 
 vi.mock('@tanstack/react-query', async () => {
   const actual = await vi.importActual<typeof import('@tanstack/react-query')>(
@@ -33,6 +36,8 @@ vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
       query: '',
       sort: 'latest',
     },
+    hasActiveFilters: true,
+    resetFilters,
     setPage,
     setPageSize: vi.fn(),
     setPinnedOnly: vi.fn(),
@@ -58,7 +63,9 @@ vi.mock('../features/visit-logs/hooks/useVisitLogs', () => ({
 
 vi.mock('../features/visit-logs/components/VisitLogsScreen', () => ({
   VisitLogsScreen: (props: {
+    hasActiveFilters: boolean;
     onPrefetchDetails: (visitLogId: string) => void;
+    onResetFilters: () => void;
     onRetry: () => void;
   }) => {
     lastVisitLogsScreenProps = props;
@@ -97,7 +104,9 @@ describe('VisitLogsPage', () => {
     }
 
     const props = lastVisitLogsScreenProps as {
+      hasActiveFilters: boolean;
       onPrefetchDetails: (visitLogId: string) => void;
+      onResetFilters: () => void;
       onRetry: () => void;
     };
 
@@ -125,12 +134,46 @@ describe('VisitLogsPage', () => {
     }
 
     const props = lastVisitLogsScreenProps as {
+      hasActiveFilters: boolean;
       onPrefetchDetails: (visitLogId: string) => void;
+      onResetFilters: () => void;
       onRetry: () => void;
     };
 
     props.onPrefetchDetails('visit-log-1');
 
     expect(prefetchQuery).toHaveBeenCalled();
+  });
+
+  it('passes a reset handler and active filter state through to the screen', async () => {
+    lastVisitLogsScreenProps = null;
+    resetFilters.mockClear();
+
+    render(
+      <MemoryRouter initialEntries={['/visit-logs']}>
+        <VisitLogsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(lastVisitLogsScreenProps).not.toBeNull();
+    });
+
+    if (!lastVisitLogsScreenProps) {
+      throw new Error('VisitLogsScreen props were not captured.');
+    }
+
+    const props = lastVisitLogsScreenProps as {
+      hasActiveFilters: boolean;
+      onPrefetchDetails: (visitLogId: string) => void;
+      onResetFilters: () => void;
+      onRetry: () => void;
+    };
+
+    expect(props.hasActiveFilters).toBe(true);
+
+    props.onResetFilters();
+
+    expect(resetFilters).toHaveBeenCalled();
   });
 });

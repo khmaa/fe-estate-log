@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { AppProviders } from '../../../app/AppProviders';
+import type { VisitLogSort } from '../types/visitLog';
 import { VisitLogsScreen } from './VisitLogsScreen';
 
 const visitLogs = [
@@ -32,7 +33,13 @@ const visitLogs = [
 
 const renderScreen = (
   logs = visitLogs,
-  filters = {
+  filters: {
+    page: number;
+    pageSize: number;
+    pinnedOnly: boolean;
+    query: string;
+    sort: VisitLogSort;
+  } = {
     page: 1,
     pageSize: 2,
     pinnedOnly: false,
@@ -43,13 +50,16 @@ const renderScreen = (
   onPrefetchDetails = vi.fn(),
   onPageChange = vi.fn(),
   onPageSizeChange = vi.fn(),
+  onResetFilters = vi.fn(),
   onRetry = vi.fn(),
   isError = false,
+  hasActiveFilters = false,
 ) =>
   render(
     <AppProviders>
       <VisitLogsScreen
         logs={logs}
+        hasActiveFilters={hasActiveFilters}
         isError={isError}
         isLoading={false}
         filters={filters}
@@ -58,6 +68,7 @@ const renderScreen = (
         onPinnedOnlyChange={() => {}}
         onPrefetchDetails={onPrefetchDetails}
         onQueryChange={() => {}}
+        onResetFilters={onResetFilters}
         onRetry={onRetry}
         onSortChange={() => {}}
         onOpenDetails={onOpenDetails}
@@ -102,6 +113,7 @@ describe('VisitLogsScreen', () => {
       <AppProviders>
         <VisitLogsScreen
           logs={visitLogs}
+          hasActiveFilters={false}
           isError={false}
           isLoading={false}
           filters={{
@@ -116,6 +128,7 @@ describe('VisitLogsScreen', () => {
           onPinnedOnlyChange={() => {}}
           onPrefetchDetails={() => {}}
           onQueryChange={() => {}}
+          onResetFilters={() => {}}
           onRetry={() => {}}
           onSortChange={() => {}}
           onOpenDetails={vi.fn()}
@@ -150,6 +163,7 @@ describe('VisitLogsScreen', () => {
       vi.fn(),
       vi.fn(),
       vi.fn(),
+      vi.fn(),
       handleRetry,
       true,
     );
@@ -169,5 +183,32 @@ describe('VisitLogsScreen', () => {
     );
 
     expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
+  });
+
+  it('forwards reset filter actions from the filter controls', () => {
+    const handleResetFilters = vi.fn();
+
+    renderScreen(
+      visitLogs,
+      {
+        page: 2,
+        pageSize: 5,
+        pinnedOnly: true,
+        query: 'gangnam',
+        sort: 'district' as const,
+      },
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      handleResetFilters,
+      vi.fn(),
+      false,
+      true,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset filters' }));
+
+    expect(handleResetFilters).toHaveBeenCalled();
   });
 });

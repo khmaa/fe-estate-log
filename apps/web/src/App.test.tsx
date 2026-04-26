@@ -108,6 +108,23 @@ describe('App', () => {
     expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
   });
 
+  it('resets visit log filters back to the default url state', async () => {
+    renderApp(
+      '/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true&page=2&pageSize=5',
+    );
+
+    expect(
+      await screen.findByRole('button', { name: 'Reset filters' }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset filters' }));
+
+    expect(screen.getByLabelText('Search visit logs')).toHaveValue('');
+    expect(screen.getByLabelText('Sort by')).toHaveValue('latest');
+    expect(screen.getByLabelText('Page size')).toHaveValue('2');
+    expect(window.location.search).toBe('');
+  });
+
   it('renders the showcase page on the showcase route', async () => {
     renderApp('/showcase');
 

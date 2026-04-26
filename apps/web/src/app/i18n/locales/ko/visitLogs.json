@@ -43,6 +43,7 @@
     "filters": {
       "advanced": "고급 필터",
       "close": "닫기",
+      "reset": "필터 초기화",
       "pinned": {
         "description": "후속 확인이 필요한 고정 기록만 빠르게 확인합니다.",
         "label": "고정된 기록만 보기"
