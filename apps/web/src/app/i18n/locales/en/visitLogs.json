@@ -42,6 +42,17 @@
     },
     "filters": {
       "advanced": "Advanced filters",
+      "active": {
+        "page": "Page: {{page}}",
+        "pageSize": "Page size: {{pageSize}}",
+        "pinned": "Pinned only",
+        "query": "Search: {{query}}",
+        "sort": {
+          "district": "Sort: District",
+          "oldest": "Sort: Oldest visit"
+        },
+        "title": "Active filters"
+      },
       "close": "Close",
       "reset": "Reset filters",
       "pinned": {

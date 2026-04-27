@@ -96,6 +96,34 @@ describe('VisitLogsScreen', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders active filter badges only for non-default filter state', () => {
+    renderScreen(
+      visitLogs,
+      {
+        page: 2,
+        pageSize: 5,
+        pinnedOnly: true,
+        query: 'gangnam',
+        sort: 'district',
+      },
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      false,
+      true,
+    );
+
+    expect(screen.getByText('Active filters')).toBeInTheDocument();
+    expect(screen.getByText('Search: gangnam')).toBeInTheDocument();
+    expect(screen.getByText('Sort: District')).toBeInTheDocument();
+    expect(screen.getByText('Pinned only')).toBeInTheDocument();
+    expect(screen.getByText('Page size: 5')).toBeInTheDocument();
+    expect(screen.getByText('Page: 2')).toBeInTheDocument();
+  });
+
   it('forwards detail navigation from the card actions', async () => {
     const handleOpenDetails = vi.fn();
 

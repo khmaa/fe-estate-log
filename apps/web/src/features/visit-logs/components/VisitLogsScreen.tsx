@@ -65,6 +65,23 @@ const VisitLogsScreen = ({
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { showToast } = useToast();
   const { t } = useTranslation();
+  const activeFilterBadges = [
+    filters.query
+      ? t('visitLogs.filters.active.query', { query: filters.query })
+      : null,
+    filters.sort !== 'latest'
+      ? t(`visitLogs.filters.active.sort.${filters.sort}`)
+      : null,
+    filters.pinnedOnly ? t('visitLogs.filters.active.pinned') : null,
+    filters.pageSize !== 2
+      ? t('visitLogs.filters.active.pageSize', {
+          pageSize: filters.pageSize,
+        })
+      : null,
+    filters.page > 1
+      ? t('visitLogs.filters.active.page', { page: filters.page })
+      : null,
+  ].filter((badge): badge is string => Boolean(badge));
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -129,6 +146,20 @@ const VisitLogsScreen = ({
               onSortChange={onSortChange}
               onPinnedOnlyChange={onPinnedOnlyChange}
             />
+            {hasActiveFilters ? (
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-foreground">
+                  {t('visitLogs.filters.active.title')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {activeFilterBadges.map((badge) => (
+                    <Badge key={badge} variant="secondary">
+                      {badge}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
 
