@@ -105,6 +105,11 @@ describe('App', () => {
         name: 'Pinned only',
       }),
     ).toBeChecked();
+    expect(screen.getByText('Active filters')).toBeInTheDocument();
+    expect(screen.getByText('Search: 강남')).toBeInTheDocument();
+    expect(screen.getByText('Sort: District')).toBeInTheDocument();
+    expect(screen.getAllByText('Pinned only').length).toBeGreaterThan(1);
+    expect(screen.getByText('Page: 2')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
   });
 

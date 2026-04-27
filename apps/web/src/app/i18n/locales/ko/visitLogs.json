@@ -42,6 +42,17 @@
     },
     "filters": {
       "advanced": "고급 필터",
+      "active": {
+        "page": "페이지: {{page}}",
+        "pageSize": "페이지 크기: {{pageSize}}",
+        "pinned": "고정된 기록만 보기",
+        "query": "검색: {{query}}",
+        "sort": {
+          "district": "정렬: 지역순",
+          "oldest": "정렬: 오래된 방문순"
+        },
+        "title": "적용 중인 필터"
+      },
       "close": "닫기",
       "reset": "필터 초기화",
       "pinned": {
