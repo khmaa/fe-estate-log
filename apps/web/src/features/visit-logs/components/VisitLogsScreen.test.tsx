@@ -50,6 +50,11 @@ const renderScreen = (
   onPrefetchDetails = vi.fn(),
   onPageChange = vi.fn(),
   onPageSizeChange = vi.fn(),
+  onClearQuery = vi.fn(),
+  onClearSort = vi.fn(),
+  onClearPinnedOnly = vi.fn(),
+  onClearPageSize = vi.fn(),
+  onClearPage = vi.fn(),
   onResetFilters = vi.fn(),
   onRetry = vi.fn(),
   isError = false,
@@ -63,6 +68,11 @@ const renderScreen = (
         isError={isError}
         isLoading={false}
         filters={filters}
+        onClearPage={onClearPage}
+        onClearPageSize={onClearPageSize}
+        onClearPinnedOnly={onClearPinnedOnly}
+        onClearQuery={onClearQuery}
+        onClearSort={onClearSort}
         onPageChange={onPageChange}
         onPageSizeChange={onPageSizeChange}
         onPinnedOnlyChange={() => {}}
@@ -112,16 +122,31 @@ describe('VisitLogsScreen', () => {
       vi.fn(),
       vi.fn(),
       vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
       false,
       true,
     );
 
     expect(screen.getByText('Active filters')).toBeInTheDocument();
-    expect(screen.getByText('Search: gangnam')).toBeInTheDocument();
-    expect(screen.getByText('Sort: District')).toBeInTheDocument();
-    expect(screen.getByText('Pinned only')).toBeInTheDocument();
-    expect(screen.getByText('Page size: 5')).toBeInTheDocument();
-    expect(screen.getByText('Page: 2')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Search: gangnam' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Page size: 5' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+    ).toBeInTheDocument();
   });
 
   it('forwards detail navigation from the card actions', async () => {
@@ -151,6 +176,11 @@ describe('VisitLogsScreen', () => {
             query: '',
             sort: 'latest',
           }}
+          onClearPage={() => {}}
+          onClearPageSize={() => {}}
+          onClearPinnedOnly={() => {}}
+          onClearQuery={() => {}}
+          onClearSort={() => {}}
           onPageChange={handlePageChange}
           onPageSizeChange={() => {}}
           onPinnedOnlyChange={() => {}}
@@ -187,6 +217,11 @@ describe('VisitLogsScreen', () => {
     renderScreen(
       [],
       undefined,
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
       vi.fn(),
       vi.fn(),
       vi.fn(),
@@ -229,6 +264,11 @@ describe('VisitLogsScreen', () => {
       vi.fn(),
       vi.fn(),
       vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
       handleResetFilters,
       vi.fn(),
       false,
@@ -238,5 +278,59 @@ describe('VisitLogsScreen', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Reset filters' }));
 
     expect(handleResetFilters).toHaveBeenCalled();
+  });
+
+  it('forwards individual active filter clear actions', () => {
+    const handleClearQuery = vi.fn();
+    const handleClearSort = vi.fn();
+    const handleClearPinnedOnly = vi.fn();
+    const handleClearPageSize = vi.fn();
+    const handleClearPage = vi.fn();
+
+    renderScreen(
+      visitLogs,
+      {
+        page: 2,
+        pageSize: 5,
+        pinnedOnly: true,
+        query: 'gangnam',
+        sort: 'district' as const,
+      },
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      handleClearQuery,
+      handleClearSort,
+      handleClearPinnedOnly,
+      handleClearPageSize,
+      handleClearPage,
+      vi.fn(),
+      vi.fn(),
+      false,
+      true,
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove filter Search: gangnam' }),
+    );
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+    );
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+    );
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove filter Page size: 5' }),
+    );
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+    );
+
+    expect(handleClearQuery).toHaveBeenCalled();
+    expect(handleClearSort).toHaveBeenCalled();
+    expect(handleClearPinnedOnly).toHaveBeenCalled();
+    expect(handleClearPageSize).toHaveBeenCalled();
+    expect(handleClearPage).toHaveBeenCalled();
   });
 });

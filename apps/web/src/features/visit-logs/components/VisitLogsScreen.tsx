@@ -37,6 +37,11 @@ type VisitLogsScreenProps = {
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
+  onClearPage: () => void;
+  onClearPageSize: () => void;
+  onClearPinnedOnly: () => void;
+  onClearQuery: () => void;
+  onClearSort: () => void;
   onResetFilters: () => void;
   onRetry: () => void;
   onSortChange: (sort: VisitLogSort) => void;
@@ -56,6 +61,11 @@ const VisitLogsScreen = ({
   onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
+  onClearPage,
+  onClearPageSize,
+  onClearPinnedOnly,
+  onClearQuery,
+  onClearSort,
   onResetFilters,
   onRetry,
   onSortChange,
@@ -67,21 +77,46 @@ const VisitLogsScreen = ({
   const { t } = useTranslation();
   const activeFilterBadges = [
     filters.query
-      ? t('visitLogs.filters.active.query', { query: filters.query })
+      ? {
+          key: 'query',
+          label: t('visitLogs.filters.active.query', { query: filters.query }),
+          onClear: onClearQuery,
+        }
       : null,
     filters.sort !== 'latest'
-      ? t(`visitLogs.filters.active.sort.${filters.sort}`)
+      ? {
+          key: 'sort',
+          label: t(`visitLogs.filters.active.sort.${filters.sort}`),
+          onClear: onClearSort,
+        }
       : null,
-    filters.pinnedOnly ? t('visitLogs.filters.active.pinned') : null,
+    filters.pinnedOnly
+      ? {
+          key: 'pinned',
+          label: t('visitLogs.filters.active.pinned'),
+          onClear: onClearPinnedOnly,
+        }
+      : null,
     filters.pageSize !== 2
-      ? t('visitLogs.filters.active.pageSize', {
-          pageSize: filters.pageSize,
-        })
+      ? {
+          key: 'pageSize',
+          label: t('visitLogs.filters.active.pageSize', {
+            pageSize: filters.pageSize,
+          }),
+          onClear: onClearPageSize,
+        }
       : null,
     filters.page > 1
-      ? t('visitLogs.filters.active.page', { page: filters.page })
+      ? {
+          key: 'page',
+          label: t('visitLogs.filters.active.page', { page: filters.page }),
+          onClear: onClearPage,
+        }
       : null,
-  ].filter((badge): badge is string => Boolean(badge));
+  ].filter(
+    (badge): badge is { key: string; label: string; onClear: () => void } =>
+      Boolean(badge),
+  );
 
   const handleCreateClick = () => {
     setIsCreateDialogOpen(true);
@@ -153,9 +188,17 @@ const VisitLogsScreen = ({
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {activeFilterBadges.map((badge) => (
-                    <Badge key={badge} variant="secondary">
-                      {badge}
-                    </Badge>
+                    <button
+                      key={badge.key}
+                      type="button"
+                      onClick={badge.onClear}
+                      className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                      aria-label={t('visitLogs.filters.active.remove', {
+                        label: badge.label,
+                      })}
+                    >
+                      <Badge variant="secondary">{badge.label} ×</Badge>
+                    </button>
                   ))}
                 </div>
               </div>

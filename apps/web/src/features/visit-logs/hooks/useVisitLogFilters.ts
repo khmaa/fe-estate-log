@@ -124,6 +124,14 @@ const useVisitLogFilters = () => {
     hasActiveFilters,
     resetFilters: () =>
       setSearchParams(new URLSearchParams(), { replace: true }),
+    clearPage: () => updateSearchParams({ page: defaultVisitLogFilters.page }),
+    clearPageSize: () =>
+      updateSearchParams({ pageSize: defaultVisitLogFilters.pageSize }),
+    clearPinnedOnly: () =>
+      updateSearchParams({ pinnedOnly: defaultVisitLogFilters.pinnedOnly }),
+    clearQuery: () =>
+      updateSearchParams({ query: defaultVisitLogFilters.query }),
+    clearSort: () => updateSearchParams({ sort: defaultVisitLogFilters.sort }),
     setPage: (page: number) => updateSearchParams({ page }),
     setPageSize: (pageSize: number) => updateSearchParams({ pageSize }),
     setPinnedOnly: (pinnedOnly: boolean) => updateSearchParams({ pinnedOnly }),

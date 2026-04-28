@@ -106,10 +106,18 @@ describe('App', () => {
       }),
     ).toBeChecked();
     expect(screen.getByText('Active filters')).toBeInTheDocument();
-    expect(screen.getByText('Search: 강남')).toBeInTheDocument();
-    expect(screen.getByText('Sort: District')).toBeInTheDocument();
-    expect(screen.getAllByText('Pinned only').length).toBeGreaterThan(1);
-    expect(screen.getByText('Page: 2')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Search: 강남' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+    ).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
   });
 
