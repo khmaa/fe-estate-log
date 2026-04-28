@@ -11,6 +11,11 @@ const VisitLogsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const {
+    clearPage,
+    clearPageSize,
+    clearPinnedOnly,
+    clearQuery,
+    clearSort,
     filters,
     hasActiveFilters,
     resetFilters,
@@ -48,6 +53,11 @@ const VisitLogsPage = () => {
         ...filters,
         page: query.data?.page ?? filters.page,
       }}
+      onClearPage={clearPage}
+      onClearPageSize={clearPageSize}
+      onClearPinnedOnly={clearPinnedOnly}
+      onClearQuery={clearQuery}
+      onClearSort={clearSort}
       onPrefetchDetails={handlePrefetchDetails}
       onPageChange={setPage}
       onPageSizeChange={setPageSize}

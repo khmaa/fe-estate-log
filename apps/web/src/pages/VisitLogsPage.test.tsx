@@ -6,8 +6,18 @@ import { VisitLogsPage } from './VisitLogsPage';
 const setPage = vi.fn();
 const refetch = vi.fn();
 const prefetchQuery = vi.fn();
+const clearPage = vi.fn();
+const clearPageSize = vi.fn();
+const clearPinnedOnly = vi.fn();
+const clearQuery = vi.fn();
+const clearSort = vi.fn();
 let lastVisitLogsScreenProps: {
   hasActiveFilters: boolean;
+  onClearPage: () => void;
+  onClearPageSize: () => void;
+  onClearPinnedOnly: () => void;
+  onClearQuery: () => void;
+  onClearSort: () => void;
   onPrefetchDetails: (visitLogId: string) => void;
   onResetFilters: () => void;
   onRetry: () => void;
@@ -37,6 +47,11 @@ vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
       sort: 'latest',
     },
     hasActiveFilters: true,
+    clearPage,
+    clearPageSize,
+    clearPinnedOnly,
+    clearQuery,
+    clearSort,
     resetFilters,
     setPage,
     setPageSize: vi.fn(),
@@ -64,6 +79,11 @@ vi.mock('../features/visit-logs/hooks/useVisitLogs', () => ({
 vi.mock('../features/visit-logs/components/VisitLogsScreen', () => ({
   VisitLogsScreen: (props: {
     hasActiveFilters: boolean;
+    onClearPage: () => void;
+    onClearPageSize: () => void;
+    onClearPinnedOnly: () => void;
+    onClearQuery: () => void;
+    onClearSort: () => void;
     onPrefetchDetails: (visitLogId: string) => void;
     onResetFilters: () => void;
     onRetry: () => void;
@@ -105,6 +125,11 @@ describe('VisitLogsPage', () => {
 
     const props = lastVisitLogsScreenProps as {
       hasActiveFilters: boolean;
+      onClearPage: () => void;
+      onClearPageSize: () => void;
+      onClearPinnedOnly: () => void;
+      onClearQuery: () => void;
+      onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
       onResetFilters: () => void;
       onRetry: () => void;
@@ -135,6 +160,11 @@ describe('VisitLogsPage', () => {
 
     const props = lastVisitLogsScreenProps as {
       hasActiveFilters: boolean;
+      onClearPage: () => void;
+      onClearPageSize: () => void;
+      onClearPinnedOnly: () => void;
+      onClearQuery: () => void;
+      onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
       onResetFilters: () => void;
       onRetry: () => void;
@@ -165,6 +195,11 @@ describe('VisitLogsPage', () => {
 
     const props = lastVisitLogsScreenProps as {
       hasActiveFilters: boolean;
+      onClearPage: () => void;
+      onClearPageSize: () => void;
+      onClearPinnedOnly: () => void;
+      onClearQuery: () => void;
+      onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
       onResetFilters: () => void;
       onRetry: () => void;
@@ -175,5 +210,40 @@ describe('VisitLogsPage', () => {
     props.onResetFilters();
 
     expect(resetFilters).toHaveBeenCalled();
+  });
+
+  it('passes individual filter clear handlers through to the screen', async () => {
+    lastVisitLogsScreenProps = null;
+    clearQuery.mockClear();
+
+    render(
+      <MemoryRouter initialEntries={['/visit-logs']}>
+        <VisitLogsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(lastVisitLogsScreenProps).not.toBeNull();
+    });
+
+    if (!lastVisitLogsScreenProps) {
+      throw new Error('VisitLogsScreen props were not captured.');
+    }
+
+    const props = lastVisitLogsScreenProps as {
+      hasActiveFilters: boolean;
+      onClearPage: () => void;
+      onClearPageSize: () => void;
+      onClearPinnedOnly: () => void;
+      onClearQuery: () => void;
+      onClearSort: () => void;
+      onPrefetchDetails: (visitLogId: string) => void;
+      onResetFilters: () => void;
+      onRetry: () => void;
+    };
+
+    props.onClearQuery();
+
+    expect(clearQuery).toHaveBeenCalled();
   });
 });

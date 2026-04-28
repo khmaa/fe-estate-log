@@ -47,6 +47,7 @@
         "pageSize": "페이지 크기: {{pageSize}}",
         "pinned": "고정된 기록만 보기",
         "query": "검색: {{query}}",
+        "remove": "{{label}} 필터 제거",
         "sort": {
           "district": "정렬: 지역순",
           "oldest": "정렬: 오래된 방문순"
