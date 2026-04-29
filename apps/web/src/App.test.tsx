@@ -107,18 +107,39 @@ describe('App', () => {
     ).toBeChecked();
     expect(screen.getByText('Active filters')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Search: 강남' }),
+      screen.getByRole('button', { name: 'Clear Search: 강남 filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+      screen.getByRole('button', { name: 'Clear Sort: District filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+      screen.getByRole('button', { name: 'Clear Pinned only filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+      screen.getByRole('button', { name: 'Clear Page: 2 filter' }),
     ).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
+  });
+
+  it('switches active filter remove labels to Korean', async () => {
+    renderApp(
+      '/visit-logs?query=%EA%B0%95%EB%82%A8&sort=district&pinned=true&page=2',
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'KO' }));
+
+    expect(
+      await screen.findByRole('button', { name: '검색: 강남 적용 해제' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '정렬: 지역순 적용 해제' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '고정된 기록만 보기 적용 해제' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '페이지: 2 적용 해제' }),
+    ).toBeInTheDocument();
   });
 
   it('resets visit log filters back to the default url state', async () => {

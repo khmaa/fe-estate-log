@@ -80,6 +80,11 @@ const VisitLogsScreen = ({
       ? {
           key: 'query',
           label: t('visitLogs.filters.active.query', { query: filters.query }),
+          removeLabel: t('visitLogs.filters.active.remove', {
+            label: t('visitLogs.filters.active.query', {
+              query: filters.query,
+            }),
+          }),
           onClear: onClearQuery,
         }
       : null,
@@ -87,6 +92,9 @@ const VisitLogsScreen = ({
       ? {
           key: 'sort',
           label: t(`visitLogs.filters.active.sort.${filters.sort}`),
+          removeLabel: t('visitLogs.filters.active.remove', {
+            label: t(`visitLogs.filters.active.sort.${filters.sort}`),
+          }),
           onClear: onClearSort,
         }
       : null,
@@ -94,6 +102,9 @@ const VisitLogsScreen = ({
       ? {
           key: 'pinned',
           label: t('visitLogs.filters.active.pinned'),
+          removeLabel: t('visitLogs.filters.active.remove', {
+            label: t('visitLogs.filters.active.pinned'),
+          }),
           onClear: onClearPinnedOnly,
         }
       : null,
@@ -103,6 +114,11 @@ const VisitLogsScreen = ({
           label: t('visitLogs.filters.active.pageSize', {
             pageSize: filters.pageSize,
           }),
+          removeLabel: t('visitLogs.filters.active.remove', {
+            label: t('visitLogs.filters.active.pageSize', {
+              pageSize: filters.pageSize,
+            }),
+          }),
           onClear: onClearPageSize,
         }
       : null,
@@ -110,12 +126,21 @@ const VisitLogsScreen = ({
       ? {
           key: 'page',
           label: t('visitLogs.filters.active.page', { page: filters.page }),
+          removeLabel: t('visitLogs.filters.active.remove', {
+            label: t('visitLogs.filters.active.page', { page: filters.page }),
+          }),
           onClear: onClearPage,
         }
       : null,
   ].filter(
-    (badge): badge is { key: string; label: string; onClear: () => void } =>
-      Boolean(badge),
+    (
+      badge,
+    ): badge is {
+      key: string;
+      label: string;
+      removeLabel: string;
+      onClear: () => void;
+    } => Boolean(badge),
   );
 
   const handleCreateClick = () => {
@@ -193,11 +218,15 @@ const VisitLogsScreen = ({
                       type="button"
                       onClick={badge.onClear}
                       className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-                      aria-label={t('visitLogs.filters.active.remove', {
-                        label: badge.label,
-                      })}
+                      aria-label={badge.removeLabel}
+                      title={badge.removeLabel}
                     >
-                      <Badge variant="secondary">{badge.label} ×</Badge>
+                      <Badge variant="secondary">
+                        <span>{badge.label}</span>
+                        <span aria-hidden="true" className="ml-1">
+                          ×
+                        </span>
+                      </Badge>
                     </button>
                   ))}
                 </div>
