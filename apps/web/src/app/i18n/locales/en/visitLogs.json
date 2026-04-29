@@ -47,7 +47,7 @@
         "pageSize": "Page size: {{pageSize}}",
         "pinned": "Pinned only",
         "query": "Search: {{query}}",
-        "remove": "Remove filter {{label}}",
+        "remove": "Clear {{label}} filter",
         "sort": {
           "district": "Sort: District",
           "oldest": "Sort: Oldest visit"

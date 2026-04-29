@@ -133,19 +133,19 @@ describe('VisitLogsScreen', () => {
 
     expect(screen.getByText('Active filters')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Search: gangnam' }),
+      screen.getByRole('button', { name: 'Clear Search: gangnam filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+      screen.getByRole('button', { name: 'Clear Sort: District filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+      screen.getByRole('button', { name: 'Clear Pinned only filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Page size: 5' }),
+      screen.getByRole('button', { name: 'Clear Page size: 5 filter' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+      screen.getByRole('button', { name: 'Clear Page: 2 filter' }),
     ).toBeInTheDocument();
   });
 
@@ -312,19 +312,19 @@ describe('VisitLogsScreen', () => {
     );
 
     fireEvent.click(
-      screen.getByRole('button', { name: 'Remove filter Search: gangnam' }),
+      screen.getByRole('button', { name: 'Clear Search: gangnam filter' }),
     );
     fireEvent.click(
-      screen.getByRole('button', { name: 'Remove filter Sort: District' }),
+      screen.getByRole('button', { name: 'Clear Sort: District filter' }),
     );
     fireEvent.click(
-      screen.getByRole('button', { name: 'Remove filter Pinned only' }),
+      screen.getByRole('button', { name: 'Clear Pinned only filter' }),
     );
     fireEvent.click(
-      screen.getByRole('button', { name: 'Remove filter Page size: 5' }),
+      screen.getByRole('button', { name: 'Clear Page size: 5 filter' }),
     );
     fireEvent.click(
-      screen.getByRole('button', { name: 'Remove filter Page: 2' }),
+      screen.getByRole('button', { name: 'Clear Page: 2 filter' }),
     );
 
     expect(handleClearQuery).toHaveBeenCalled();
