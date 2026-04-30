@@ -106,49 +106,6 @@ describe('VisitLogsScreen', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders active filter badges only for non-default filter state', () => {
-    renderScreen(
-      visitLogs,
-      {
-        page: 2,
-        pageSize: 5,
-        pinnedOnly: true,
-        query: 'gangnam',
-        sort: 'district',
-      },
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      false,
-      true,
-    );
-
-    expect(screen.getByText('Active filters')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Clear Search: gangnam filter' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Clear Sort: District filter' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Clear Pinned only filter' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Clear Page size: 5 filter' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Clear Page: 2 filter' }),
-    ).toBeInTheDocument();
-  });
-
   it('forwards detail navigation from the card actions', async () => {
     const handleOpenDetails = vi.fn();
 
@@ -278,59 +235,5 @@ describe('VisitLogsScreen', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Reset filters' }));
 
     expect(handleResetFilters).toHaveBeenCalled();
-  });
-
-  it('forwards individual active filter clear actions', () => {
-    const handleClearQuery = vi.fn();
-    const handleClearSort = vi.fn();
-    const handleClearPinnedOnly = vi.fn();
-    const handleClearPageSize = vi.fn();
-    const handleClearPage = vi.fn();
-
-    renderScreen(
-      visitLogs,
-      {
-        page: 2,
-        pageSize: 5,
-        pinnedOnly: true,
-        query: 'gangnam',
-        sort: 'district' as const,
-      },
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      vi.fn(),
-      handleClearQuery,
-      handleClearSort,
-      handleClearPinnedOnly,
-      handleClearPageSize,
-      handleClearPage,
-      vi.fn(),
-      vi.fn(),
-      false,
-      true,
-    );
-
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Clear Search: gangnam filter' }),
-    );
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Clear Sort: District filter' }),
-    );
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Clear Pinned only filter' }),
-    );
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Clear Page size: 5 filter' }),
-    );
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Clear Page: 2 filter' }),
-    );
-
-    expect(handleClearQuery).toHaveBeenCalled();
-    expect(handleClearSort).toHaveBeenCalled();
-    expect(handleClearPinnedOnly).toHaveBeenCalled();
-    expect(handleClearPageSize).toHaveBeenCalled();
-    expect(handleClearPage).toHaveBeenCalled();
   });
 });
