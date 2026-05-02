@@ -1,4 +1,9 @@
 import type { VisitLogFilters } from '../types/visitLog';
+import {
+  isDefaultVisitLogPage,
+  isDefaultVisitLogPageSize,
+  isDefaultVisitLogSort,
+} from './visitLogFilters';
 
 type VisitLogActiveFilterKey =
   | 'page'
@@ -51,7 +56,7 @@ const getVisitLogActiveFilters = (
           onClear: onClearQuery,
         }
       : null,
-    filters.sort !== 'latest'
+    !isDefaultVisitLogSort(filters.sort)
       ? {
           key: 'sort' as const,
           label: t(`visitLogs.filters.active.sort.${filters.sort}`),
@@ -71,7 +76,7 @@ const getVisitLogActiveFilters = (
           onClear: onClearPinnedOnly,
         }
       : null,
-    filters.pageSize !== 2
+    !isDefaultVisitLogPageSize(filters.pageSize)
       ? {
           key: 'pageSize' as const,
           label: t('visitLogs.filters.active.pageSize', {
@@ -85,7 +90,7 @@ const getVisitLogActiveFilters = (
           onClear: onClearPageSize,
         }
       : null,
-    filters.page > 1
+    !isDefaultVisitLogPage(filters.page)
       ? {
           key: 'page' as const,
           label: t('visitLogs.filters.active.page', { page: filters.page }),

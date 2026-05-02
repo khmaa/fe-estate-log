@@ -1,4 +1,9 @@
 import type { VisitLogFilters, VisitLogListResponse } from '../types/visitLog';
+import {
+  isDefaultVisitLogPage,
+  isDefaultVisitLogPageSize,
+  isDefaultVisitLogSort,
+} from '../utils/visitLogFilters';
 
 const getVisitLogs = async (
   filters: VisitLogFilters,
@@ -9,7 +14,7 @@ const getVisitLogs = async (
     searchParams.set('query', filters.query.trim());
   }
 
-  if (filters.sort !== 'latest') {
+  if (!isDefaultVisitLogSort(filters.sort)) {
     searchParams.set('sort', filters.sort);
   }
 
@@ -17,11 +22,11 @@ const getVisitLogs = async (
     searchParams.set('pinned', 'true');
   }
 
-  if (filters.page > 1) {
+  if (!isDefaultVisitLogPage(filters.page)) {
     searchParams.set('page', String(filters.page));
   }
 
-  if (filters.pageSize !== 2) {
+  if (!isDefaultVisitLogPageSize(filters.pageSize)) {
     searchParams.set('pageSize', String(filters.pageSize));
   }
 
