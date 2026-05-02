@@ -1,37 +1,15 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { VisitLogSort } from '../types/visitLog';
-
-const validSorts: VisitLogSort[] = ['latest', 'oldest', 'district'];
-const validPageSizes = [2, 5, 10] as const;
-const defaultVisitLogFilters = {
-  page: 1,
-  pageSize: 2,
-  pinnedOnly: false,
-  query: '',
-  sort: 'latest' as const,
-};
-
-const getVisitLogSort = (rawSort: string | null): VisitLogSort => {
-  if (rawSort && validSorts.includes(rawSort as VisitLogSort)) {
-    return rawSort as VisitLogSort;
-  }
-
-  return 'latest';
-};
-
-const getVisitLogPageSize = (rawPageSize: string | null) => {
-  const parsedPageSize = Number(rawPageSize ?? '2');
-
-  if (
-    Number.isFinite(parsedPageSize) &&
-    validPageSizes.includes(parsedPageSize as (typeof validPageSizes)[number])
-  ) {
-    return parsedPageSize as (typeof validPageSizes)[number];
-  }
-
-  return 2;
-};
+import {
+  defaultVisitLogFilters,
+  getVisitLogPageSize,
+  getVisitLogSort,
+  hasActiveVisitLogFilters,
+  isDefaultVisitLogPage,
+  isDefaultVisitLogPageSize,
+  isDefaultVisitLogSort,
+} from '../utils/visitLogFilters';
 
 const useVisitLogFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,12 +28,7 @@ const useVisitLogFilters = () => {
     [searchParams],
   );
 
-  const hasActiveFilters =
-    filters.page !== defaultVisitLogFilters.page ||
-    filters.pageSize !== defaultVisitLogFilters.pageSize ||
-    filters.pinnedOnly !== defaultVisitLogFilters.pinnedOnly ||
-    filters.query !== defaultVisitLogFilters.query ||
-    filters.sort !== defaultVisitLogFilters.sort;
+  const hasActiveFilters = hasActiveVisitLogFilters(filters);
 
   const updateSearchParams = (updates: {
     page?: number;
@@ -79,7 +52,7 @@ const useVisitLogFilters = () => {
     }
 
     if (updates.sort !== undefined) {
-      if (updates.sort === 'latest') {
+      if (isDefaultVisitLogSort(updates.sort)) {
         nextSearchParams.delete('sort');
       } else {
         nextSearchParams.set('sort', updates.sort);
@@ -99,7 +72,7 @@ const useVisitLogFilters = () => {
     }
 
     if (updates.page !== undefined) {
-      if (updates.page <= 1) {
+      if (isDefaultVisitLogPage(updates.page)) {
         nextSearchParams.delete('page');
       } else {
         nextSearchParams.set('page', String(updates.page));
@@ -107,7 +80,7 @@ const useVisitLogFilters = () => {
     }
 
     if (updates.pageSize !== undefined) {
-      if (updates.pageSize === 2) {
+      if (isDefaultVisitLogPageSize(updates.pageSize)) {
         nextSearchParams.delete('pageSize');
       } else {
         nextSearchParams.set('pageSize', String(updates.pageSize));

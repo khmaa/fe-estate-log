@@ -5,6 +5,10 @@ import type {
   VisitLogFilters,
   VisitLogListResponse,
 } from '../types/visitLog';
+import {
+  defaultVisitLogFilters,
+  isDefaultVisitLogSort,
+} from './visitLogFilters';
 
 const visitLogsQueryPrefix = ['visit-logs'] as const;
 
@@ -76,7 +80,10 @@ const applyCreatedVisitLogToList = (
 
   const nextMeta = normalizePaginationMeta(current, current.totalCount + 1);
 
-  if (filters.page !== 1 || filters.sort !== 'latest') {
+  if (
+    filters.page !== defaultVisitLogFilters.page ||
+    !isDefaultVisitLogSort(filters.sort)
+  ) {
     return {
       ...current,
       ...nextMeta,
