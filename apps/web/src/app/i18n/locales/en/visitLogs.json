@@ -54,6 +54,13 @@
         },
         "title": "Active filters"
       },
+      "quick": {
+        "all": "All",
+        "district": "District",
+        "latest": "Latest",
+        "oldest": "Oldest",
+        "pinned": "Pinned"
+      },
       "close": "Close",
       "reset": "Reset filters",
       "pinned": {

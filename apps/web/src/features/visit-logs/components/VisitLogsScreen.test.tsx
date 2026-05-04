@@ -50,6 +50,8 @@ const renderScreen = (
   onPrefetchDetails = vi.fn(),
   onPageChange = vi.fn(),
   onPageSizeChange = vi.fn(),
+  onQuickShowAll = vi.fn(),
+  onQuickShowPinned = vi.fn(),
   onClearQuery = vi.fn(),
   onClearSort = vi.fn(),
   onClearPinnedOnly = vi.fn(),
@@ -76,6 +78,8 @@ const renderScreen = (
         onPageChange={onPageChange}
         onPageSizeChange={onPageSizeChange}
         onPinnedOnlyChange={() => {}}
+        onQuickShowAll={onQuickShowAll}
+        onQuickShowPinned={onQuickShowPinned}
         onPrefetchDetails={onPrefetchDetails}
         onQueryChange={() => {}}
         onResetFilters={onResetFilters}
@@ -141,6 +145,8 @@ describe('VisitLogsScreen', () => {
           onPageChange={handlePageChange}
           onPageSizeChange={() => {}}
           onPinnedOnlyChange={() => {}}
+          onQuickShowAll={() => {}}
+          onQuickShowPinned={() => {}}
           onPrefetchDetails={() => {}}
           onQueryChange={() => {}}
           onResetFilters={() => {}}
@@ -184,8 +190,11 @@ describe('VisitLogsScreen', () => {
       vi.fn(),
       vi.fn(),
       vi.fn(),
+      vi.fn(),
+      vi.fn(),
       handleRetry,
       true,
+      false,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Retry request' }));
@@ -205,6 +214,28 @@ describe('VisitLogsScreen', () => {
     expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
   });
 
+  it('forwards quick filter actions from the filter controls', () => {
+    const handleQuickShowAll = vi.fn();
+    const handleQuickShowPinned = vi.fn();
+
+    renderScreen(
+      visitLogs,
+      undefined,
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      vi.fn(),
+      handleQuickShowAll,
+      handleQuickShowPinned,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'All' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Pinned' }));
+
+    expect(handleQuickShowAll).toHaveBeenCalled();
+    expect(handleQuickShowPinned).toHaveBeenCalled();
+  });
+
   it('forwards reset filter actions from the filter controls', () => {
     const handleResetFilters = vi.fn();
 
@@ -217,6 +248,8 @@ describe('VisitLogsScreen', () => {
         query: 'gangnam',
         sort: 'district' as const,
       },
+      vi.fn(),
+      vi.fn(),
       vi.fn(),
       vi.fn(),
       vi.fn(),

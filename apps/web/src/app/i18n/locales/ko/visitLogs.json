@@ -54,6 +54,13 @@
         },
         "title": "적용 중인 필터"
       },
+      "quick": {
+        "all": "전체",
+        "district": "지역순",
+        "latest": "최신순",
+        "oldest": "오래된순",
+        "pinned": "고정"
+      },
       "close": "닫기",
       "reset": "필터 초기화",
       "pinned": {
