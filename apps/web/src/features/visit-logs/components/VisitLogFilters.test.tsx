@@ -64,13 +64,15 @@ describe('VisitLogFilters', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'All' }));
     fireEvent.click(screen.getByRole('button', { name: 'Pinned' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Latest' }));
     fireEvent.click(screen.getByRole('button', { name: 'Oldest' }));
     fireEvent.click(screen.getByRole('button', { name: 'District' }));
 
     expect(handleQuickShowAll).toHaveBeenCalled();
     expect(handleQuickShowPinned).toHaveBeenCalled();
-    expect(handleSortChange).toHaveBeenNthCalledWith(1, 'oldest');
-    expect(handleSortChange).toHaveBeenNthCalledWith(2, 'district');
+    expect(handleSortChange).toHaveBeenNthCalledWith(1, 'latest');
+    expect(handleSortChange).toHaveBeenNthCalledWith(2, 'oldest');
+    expect(handleSortChange).toHaveBeenNthCalledWith(3, 'district');
   });
 
   it('toggles pinned-only state from the popover filter', async () => {
