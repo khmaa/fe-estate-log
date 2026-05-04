@@ -2,29 +2,19 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { VisitLogSort } from '../types/visitLog';
 import {
+  buildVisitLogSearchParams,
+  parseVisitLogFilters,
+} from '../utils/visitLogFilterSearchParams';
+import {
   defaultVisitLogFilters,
-  getVisitLogPageSize,
-  getVisitLogSort,
   hasActiveVisitLogFilters,
-  isDefaultVisitLogPage,
-  isDefaultVisitLogPageSize,
-  isDefaultVisitLogSort,
 } from '../utils/visitLogFilters';
 
 const useVisitLogFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters = useMemo(
-    () => ({
-      page: Math.max(
-        defaultVisitLogFilters.page,
-        Number(searchParams.get('page') ?? '1') || defaultVisitLogFilters.page,
-      ),
-      pageSize: getVisitLogPageSize(searchParams.get('pageSize')),
-      pinnedOnly: searchParams.get('pinned') === 'true',
-      query: searchParams.get('query') ?? '',
-      sort: getVisitLogSort(searchParams.get('sort')),
-    }),
+    () => parseVisitLogFilters(searchParams),
     [searchParams],
   );
 
@@ -37,59 +27,9 @@ const useVisitLogFilters = () => {
     query?: string;
     sort?: VisitLogSort;
   }) => {
-    const nextSearchParams = new URLSearchParams(searchParams);
-
-    if (updates.query !== undefined) {
-      const normalizedQuery = updates.query.trim();
-
-      if (normalizedQuery) {
-        nextSearchParams.set('query', normalizedQuery);
-      } else {
-        nextSearchParams.delete('query');
-      }
-
-      nextSearchParams.delete('page');
-    }
-
-    if (updates.sort !== undefined) {
-      if (isDefaultVisitLogSort(updates.sort)) {
-        nextSearchParams.delete('sort');
-      } else {
-        nextSearchParams.set('sort', updates.sort);
-      }
-
-      nextSearchParams.delete('page');
-    }
-
-    if (updates.pinnedOnly !== undefined) {
-      if (updates.pinnedOnly) {
-        nextSearchParams.set('pinned', 'true');
-      } else {
-        nextSearchParams.delete('pinned');
-      }
-
-      nextSearchParams.delete('page');
-    }
-
-    if (updates.page !== undefined) {
-      if (isDefaultVisitLogPage(updates.page)) {
-        nextSearchParams.delete('page');
-      } else {
-        nextSearchParams.set('page', String(updates.page));
-      }
-    }
-
-    if (updates.pageSize !== undefined) {
-      if (isDefaultVisitLogPageSize(updates.pageSize)) {
-        nextSearchParams.delete('pageSize');
-      } else {
-        nextSearchParams.set('pageSize', String(updates.pageSize));
-      }
-
-      nextSearchParams.delete('page');
-    }
-
-    setSearchParams(nextSearchParams, { replace: true });
+    setSearchParams(buildVisitLogSearchParams(searchParams, updates), {
+      replace: true,
+    });
   };
 
   return {
