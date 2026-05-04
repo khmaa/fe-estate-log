@@ -63,6 +63,11 @@ const VisitLogsPage = () => {
       onPageSizeChange={setPageSize}
       onPinnedOnlyChange={setPinnedOnly}
       onQueryChange={setQuery}
+      onQuickShowAll={() => {
+        setPinnedOnly(false);
+        setSort('latest');
+      }}
+      onQuickShowPinned={() => setPinnedOnly(true)}
       onResetFilters={resetFilters}
       onRetry={() => {
         void query.refetch();

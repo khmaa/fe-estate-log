@@ -38,6 +38,8 @@ type VisitLogsScreenProps = {
   onPageSizeChange: (pageSize: number) => void;
   onPinnedOnlyChange: (checked: boolean) => void;
   onQueryChange: (value: string) => void;
+  onQuickShowAll: () => void;
+  onQuickShowPinned: () => void;
   onClearPage: () => void;
   onClearPageSize: () => void;
   onClearPinnedOnly: () => void;
@@ -62,6 +64,8 @@ const VisitLogsScreen = ({
   onPageSizeChange,
   onPinnedOnlyChange,
   onQueryChange,
+  onQuickShowAll,
+  onQuickShowPinned,
   onClearPage,
   onClearPageSize,
   onClearPinnedOnly,
@@ -136,6 +140,8 @@ const VisitLogsScreen = ({
               pinnedOnly={filters.pinnedOnly}
               onPageSizeChange={onPageSizeChange}
               onQueryChange={onQueryChange}
+              onQuickShowAll={onQuickShowAll}
+              onQuickShowPinned={onQuickShowPinned}
               onResetFilters={onResetFilters}
               onSortChange={onSortChange}
               onPinnedOnlyChange={onPinnedOnlyChange}

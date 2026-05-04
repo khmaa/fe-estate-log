@@ -19,10 +19,14 @@ let lastVisitLogsScreenProps: {
   onClearQuery: () => void;
   onClearSort: () => void;
   onPrefetchDetails: (visitLogId: string) => void;
+  onQuickShowAll: () => void;
+  onQuickShowPinned: () => void;
   onResetFilters: () => void;
   onRetry: () => void;
 } | null = null;
 const resetFilters = vi.fn();
+const setPinnedOnly = vi.fn();
+const setSort = vi.fn();
 
 vi.mock('@tanstack/react-query', async () => {
   const actual = await vi.importActual<typeof import('@tanstack/react-query')>(
@@ -55,9 +59,9 @@ vi.mock('../features/visit-logs/hooks/useVisitLogFilters', () => ({
     resetFilters,
     setPage,
     setPageSize: vi.fn(),
-    setPinnedOnly: vi.fn(),
+    setPinnedOnly,
     setQuery: vi.fn(),
-    setSort: vi.fn(),
+    setSort,
   }),
 }));
 
@@ -85,6 +89,8 @@ vi.mock('../features/visit-logs/components/VisitLogsScreen', () => ({
     onClearQuery: () => void;
     onClearSort: () => void;
     onPrefetchDetails: (visitLogId: string) => void;
+    onQuickShowAll: () => void;
+    onQuickShowPinned: () => void;
     onResetFilters: () => void;
     onRetry: () => void;
   }) => {
@@ -131,6 +137,8 @@ describe('VisitLogsPage', () => {
       onClearQuery: () => void;
       onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
+      onQuickShowAll: () => void;
+      onQuickShowPinned: () => void;
       onResetFilters: () => void;
       onRetry: () => void;
     };
@@ -201,6 +209,8 @@ describe('VisitLogsPage', () => {
       onClearQuery: () => void;
       onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
+      onQuickShowAll: () => void;
+      onQuickShowPinned: () => void;
       onResetFilters: () => void;
       onRetry: () => void;
     };
@@ -238,6 +248,8 @@ describe('VisitLogsPage', () => {
       onClearQuery: () => void;
       onClearSort: () => void;
       onPrefetchDetails: (visitLogId: string) => void;
+      onQuickShowAll: () => void;
+      onQuickShowPinned: () => void;
       onResetFilters: () => void;
       onRetry: () => void;
     };
@@ -245,5 +257,46 @@ describe('VisitLogsPage', () => {
     props.onClearQuery();
 
     expect(clearQuery).toHaveBeenCalled();
+  });
+
+  it('wires quick filter actions to the visit logs screen', async () => {
+    lastVisitLogsScreenProps = null;
+    setPinnedOnly.mockClear();
+    setSort.mockClear();
+
+    render(
+      <MemoryRouter initialEntries={['/visit-logs']}>
+        <VisitLogsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(lastVisitLogsScreenProps).not.toBeNull();
+    });
+
+    if (!lastVisitLogsScreenProps) {
+      throw new Error('VisitLogsScreen props were not captured.');
+    }
+
+    const props = lastVisitLogsScreenProps as {
+      hasActiveFilters: boolean;
+      onClearPage: () => void;
+      onClearPageSize: () => void;
+      onClearPinnedOnly: () => void;
+      onClearQuery: () => void;
+      onClearSort: () => void;
+      onPrefetchDetails: (visitLogId: string) => void;
+      onQuickShowAll: () => void;
+      onQuickShowPinned: () => void;
+      onResetFilters: () => void;
+      onRetry: () => void;
+    };
+
+    props.onQuickShowAll();
+    props.onQuickShowPinned();
+
+    expect(setPinnedOnly).toHaveBeenNthCalledWith(1, false);
+    expect(setSort).toHaveBeenCalledWith('latest');
+    expect(setPinnedOnly).toHaveBeenNthCalledWith(2, true);
   });
 });
