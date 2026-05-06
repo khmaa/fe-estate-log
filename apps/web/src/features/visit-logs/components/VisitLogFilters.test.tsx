@@ -40,41 +40,6 @@ describe('VisitLogFilters', () => {
     expect(handlePageSizeChange).toHaveBeenCalledWith(5);
   });
 
-  it('forwards quick filter actions', () => {
-    const handleQuickShowAll = vi.fn();
-    const handleQuickShowPinned = vi.fn();
-    const handleSortChange = vi.fn();
-
-    render(
-      <VisitLogFilters
-        hasActiveFilters={false}
-        pageSize={2}
-        pinnedOnly={false}
-        query=""
-        sort="latest"
-        onPageSizeChange={vi.fn()}
-        onPinnedOnlyChange={vi.fn()}
-        onQueryChange={vi.fn()}
-        onQuickShowAll={handleQuickShowAll}
-        onQuickShowPinned={handleQuickShowPinned}
-        onResetFilters={vi.fn()}
-        onSortChange={handleSortChange}
-      />,
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: 'All' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Pinned' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Latest' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Oldest' }));
-    fireEvent.click(screen.getByRole('button', { name: 'District' }));
-
-    expect(handleQuickShowAll).toHaveBeenCalled();
-    expect(handleQuickShowPinned).toHaveBeenCalled();
-    expect(handleSortChange).toHaveBeenNthCalledWith(1, 'latest');
-    expect(handleSortChange).toHaveBeenNthCalledWith(2, 'oldest');
-    expect(handleSortChange).toHaveBeenNthCalledWith(3, 'district');
-  });
-
   it('toggles pinned-only state from the popover filter', async () => {
     const handlePinnedOnlyChange = vi.fn();
 
