@@ -49,8 +49,7 @@
         "query": "Search: {{query}}",
         "remove": "Clear {{label}} filter",
         "sort": {
-          "district": "Sort: District",
-          "oldest": "Sort: Oldest visit"
+          "label": "Sort: {{sort}}"
         },
         "title": "Active filters"
       },

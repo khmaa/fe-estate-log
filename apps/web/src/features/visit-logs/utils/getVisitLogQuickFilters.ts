@@ -1,4 +1,5 @@
 import type { VisitLogSort } from '../types/visitLog';
+import { getVisitLogQuickSortLabel } from './visitLogLabels';
 
 type VisitLogQuickFilterKey =
   | 'all'
@@ -47,19 +48,19 @@ const getVisitLogQuickFilters = ({
   },
   {
     key: 'latest',
-    label: t('visitLogs.filters.quick.latest'),
+    label: getVisitLogQuickSortLabel(t, 'latest'),
     active: sort === 'latest',
     onClick: () => onSortChange('latest'),
   },
   {
     key: 'oldest',
-    label: t('visitLogs.filters.quick.oldest'),
+    label: getVisitLogQuickSortLabel(t, 'oldest'),
     active: sort === 'oldest',
     onClick: () => onSortChange('oldest'),
   },
   {
     key: 'district',
-    label: t('visitLogs.filters.quick.district'),
+    label: getVisitLogQuickSortLabel(t, 'district'),
     active: sort === 'district',
     onClick: () => onSortChange('district'),
   },

@@ -4,6 +4,7 @@ import {
   isDefaultVisitLogPageSize,
   isDefaultVisitLogSort,
 } from './visitLogFilters';
+import { getVisitLogActiveSortLabel } from './visitLogLabels';
 
 type VisitLogActiveFilterKey =
   | 'page'
@@ -59,9 +60,9 @@ const getVisitLogActiveFilters = (
     !isDefaultVisitLogSort(filters.sort)
       ? {
           key: 'sort' as const,
-          label: t(`visitLogs.filters.active.sort.${filters.sort}`),
+          label: getVisitLogActiveSortLabel(t, filters.sort),
           removeLabel: t('visitLogs.filters.active.remove', {
-            label: t(`visitLogs.filters.active.sort.${filters.sort}`),
+            label: getVisitLogActiveSortLabel(t, filters.sort),
           }),
           onClear: onClearSort,
         }
