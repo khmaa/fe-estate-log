@@ -12,9 +12,11 @@ const dictionary = {
     `Search: ${query}`,
   'visitLogs.filters.active.remove': ({ label }: { label: string }) =>
     `Clear ${label} filter`,
-  'visitLogs.filters.active.sort.district': () => 'Sort: District',
-  'visitLogs.filters.active.sort.latest': () => 'Sort: Latest',
-  'visitLogs.filters.active.sort.oldest': () => 'Sort: Oldest',
+  'visitLogs.filters.active.sort.label': ({ sort }: { sort: string }) =>
+    `Sort: ${sort}`,
+  'visitLogs.filters.sort.district': () => 'District',
+  'visitLogs.filters.sort.latest': () => 'Latest visit',
+  'visitLogs.filters.sort.oldest': () => 'Oldest visit',
 } as const;
 
 const t: VisitLogFilterTranslator = (key, options) => {

@@ -12,6 +12,7 @@ import {
 import type { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { VisitLogSort } from '../types/visitLog';
+import { getVisitLogSortLabel } from '../utils/visitLogLabels';
 import { VisitLogQuickFilters } from './VisitLogQuickFilters';
 
 type VisitLogFiltersProps = {
@@ -83,10 +84,10 @@ const VisitLogFilters = ({
           helperText={t('visitLogs.filters.sort.helper')}
         >
           <Select id="visit-log-sort" value={sort} onChange={handleSortChange}>
-            <option value="latest">{t('visitLogs.filters.sort.latest')}</option>
-            <option value="oldest">{t('visitLogs.filters.sort.oldest')}</option>
+            <option value="latest">{getVisitLogSortLabel(t, 'latest')}</option>
+            <option value="oldest">{getVisitLogSortLabel(t, 'oldest')}</option>
             <option value="district">
-              {t('visitLogs.filters.sort.district')}
+              {getVisitLogSortLabel(t, 'district')}
             </option>
           </Select>
         </Field>

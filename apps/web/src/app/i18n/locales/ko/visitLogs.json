@@ -49,8 +49,7 @@
         "query": "검색: {{query}}",
         "remove": "{{label}} 적용 해제",
         "sort": {
-          "district": "정렬: 지역순",
-          "oldest": "정렬: 오래된 방문순"
+          "label": "정렬: {{sort}}"
         },
         "title": "적용 중인 필터"
       },
