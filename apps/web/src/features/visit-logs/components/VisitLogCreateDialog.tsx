@@ -9,9 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@shared-ui/core';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCreateVisitLog } from '../hooks/useCreateVisitLog';
+import { useVisitLogForm } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput, VisitLog } from '../types/visitLog';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
@@ -34,7 +34,8 @@ const VisitLogCreateDialog = ({
   onOpenChange,
   open,
 }: VisitLogCreateDialogProps) => {
-  const [form, setForm] = useState<CreateVisitLogInput>(initialFormState);
+  const { form, isValid, resetForm, setForm } =
+    useVisitLogForm(initialFormState);
   const mutation = useCreateVisitLog();
   const { t } = useTranslation();
 
@@ -44,7 +45,7 @@ const VisitLogCreateDialog = ({
     }
 
     if (!nextOpen) {
-      setForm(initialFormState);
+      resetForm();
       mutation.reset();
     }
     onOpenChange(nextOpen);
@@ -56,12 +57,7 @@ const VisitLogCreateDialog = ({
     handleOpenChange(false);
   };
 
-  const isCreateDisabled =
-    mutation.isPending ||
-    !form.title.trim() ||
-    !form.district.trim() ||
-    !form.priceLabel.trim() ||
-    !form.summary.trim();
+  const isCreateDisabled = mutation.isPending || !isValid;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
