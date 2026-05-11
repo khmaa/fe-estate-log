@@ -1,11 +1,8 @@
 import {
-  Button,
   Dialog,
   DialogBody,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@shared-ui/core';
@@ -13,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useCreateVisitLog } from '../hooks/useCreateVisitLog';
 import { useVisitLogForm } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput, VisitLog } from '../types/visitLog';
+import { VisitLogFormActions } from './VisitLogFormActions';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
 type VisitLogCreateDialogProps = {
@@ -81,20 +79,13 @@ const VisitLogCreateDialog = ({
             </p>
           ) : null}
         </DialogBody>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="ghost" disabled={mutation.isPending}>
-              {t('visitLogs.createDialog.cancel')}
-            </Button>
-          </DialogClose>
-          <Button
-            disabled={isCreateDisabled}
-            loading={mutation.isPending}
-            onClick={handleSubmit}
-          >
-            {t('visitLogs.createDialog.create')}
-          </Button>
-        </DialogFooter>
+        <VisitLogFormActions
+          cancelLabel={t('visitLogs.createDialog.cancel')}
+          isPending={mutation.isPending}
+          isSubmitDisabled={isCreateDisabled}
+          onSubmit={handleSubmit}
+          submitLabel={t('visitLogs.createDialog.create')}
+        />
       </DialogContent>
     </Dialog>
   );

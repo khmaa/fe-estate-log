@@ -1,11 +1,8 @@
 import {
-  Button,
   Dialog,
   DialogBody,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@shared-ui/core';
@@ -13,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useUpdateVisitLog } from '../hooks/useUpdateVisitLog';
 import { useVisitLogForm } from '../hooks/useVisitLogForm';
 import type { UpdateVisitLogInput, VisitLog } from '../types/visitLog';
+import { VisitLogFormActions } from './VisitLogFormActions';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
 type VisitLogEditDialogProps = {
@@ -90,20 +88,13 @@ const VisitLogEditDialog = ({
             </p>
           ) : null}
         </DialogBody>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="ghost" disabled={mutation.isPending}>
-              {t('visitLogs.editDialog.cancel')}
-            </Button>
-          </DialogClose>
-          <Button
-            disabled={isUpdateDisabled}
-            loading={mutation.isPending}
-            onClick={handleSubmit}
-          >
-            {t('visitLogs.editDialog.save')}
-          </Button>
-        </DialogFooter>
+        <VisitLogFormActions
+          cancelLabel={t('visitLogs.editDialog.cancel')}
+          isPending={mutation.isPending}
+          isSubmitDisabled={isUpdateDisabled}
+          onSubmit={handleSubmit}
+          submitLabel={t('visitLogs.editDialog.save')}
+        />
       </DialogContent>
     </Dialog>
   );
