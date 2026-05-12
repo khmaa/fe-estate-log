@@ -1,15 +1,8 @@
-import {
-  Dialog,
-  DialogBody,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useUpdateVisitLog } from '../hooks/useUpdateVisitLog';
 import { useVisitLogForm } from '../hooks/useVisitLogForm';
 import type { UpdateVisitLogInput, VisitLog } from '../types/visitLog';
+import { VisitLogDialogShell } from './VisitLogDialogShell';
 import { VisitLogFormActions } from './VisitLogFormActions';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
@@ -62,32 +55,8 @@ const VisitLogEditDialog = ({
   const isUpdateDisabled = mutation.isPending || !isValid;
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t('visitLogs.editDialog.title')}</DialogTitle>
-          <DialogDescription>
-            {t('visitLogs.editDialog.description')}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogBody>
-          <VisitLogFormFields
-            fieldIdPrefix="edit-visit-log"
-            form={form}
-            labelPrefix="editDialog"
-            onChange={(nextForm) =>
-              setForm((current) => ({
-                ...current,
-                ...nextForm,
-              }))
-            }
-          />
-          {mutation.isError ? (
-            <p className="text-sm text-danger">
-              {t('visitLogs.editDialog.error')}
-            </p>
-          ) : null}
-        </DialogBody>
+    <VisitLogDialogShell
+      actions={
         <VisitLogFormActions
           cancelLabel={t('visitLogs.editDialog.cancel')}
           isPending={mutation.isPending}
@@ -95,8 +64,27 @@ const VisitLogEditDialog = ({
           onSubmit={handleSubmit}
           submitLabel={t('visitLogs.editDialog.save')}
         />
-      </DialogContent>
-    </Dialog>
+      }
+      description={t('visitLogs.editDialog.description')}
+      onOpenChange={handleOpenChange}
+      open={open}
+      title={t('visitLogs.editDialog.title')}
+    >
+      <VisitLogFormFields
+        fieldIdPrefix="edit-visit-log"
+        form={form}
+        labelPrefix="editDialog"
+        onChange={(nextForm) =>
+          setForm((current) => ({
+            ...current,
+            ...nextForm,
+          }))
+        }
+      />
+      {mutation.isError ? (
+        <p className="text-sm text-danger">{t('visitLogs.editDialog.error')}</p>
+      ) : null}
+    </VisitLogDialogShell>
   );
 };
 
