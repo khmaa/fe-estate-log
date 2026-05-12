@@ -1,15 +1,8 @@
-import {
-  Dialog,
-  DialogBody,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useCreateVisitLog } from '../hooks/useCreateVisitLog';
 import { useVisitLogForm } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput, VisitLog } from '../types/visitLog';
+import { VisitLogDialogShell } from './VisitLogDialogShell';
 import { VisitLogFormActions } from './VisitLogFormActions';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
@@ -58,27 +51,8 @@ const VisitLogCreateDialog = ({
   const isCreateDisabled = mutation.isPending || !isValid;
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t('visitLogs.createDialog.title')}</DialogTitle>
-          <DialogDescription>
-            {t('visitLogs.createDialog.description')}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogBody>
-          <VisitLogFormFields
-            fieldIdPrefix="create-visit-log"
-            form={form}
-            labelPrefix="createDialog"
-            onChange={setForm}
-          />
-          {mutation.isError ? (
-            <p className="text-sm text-danger">
-              {t('visitLogs.createDialog.error')}
-            </p>
-          ) : null}
-        </DialogBody>
+    <VisitLogDialogShell
+      actions={
         <VisitLogFormActions
           cancelLabel={t('visitLogs.createDialog.cancel')}
           isPending={mutation.isPending}
@@ -86,8 +60,24 @@ const VisitLogCreateDialog = ({
           onSubmit={handleSubmit}
           submitLabel={t('visitLogs.createDialog.create')}
         />
-      </DialogContent>
-    </Dialog>
+      }
+      description={t('visitLogs.createDialog.description')}
+      onOpenChange={handleOpenChange}
+      open={open}
+      title={t('visitLogs.createDialog.title')}
+    >
+      <VisitLogFormFields
+        fieldIdPrefix="create-visit-log"
+        form={form}
+        labelPrefix="createDialog"
+        onChange={setForm}
+      />
+      {mutation.isError ? (
+        <p className="text-sm text-danger">
+          {t('visitLogs.createDialog.error')}
+        </p>
+      ) : null}
+    </VisitLogDialogShell>
   );
 };
 
