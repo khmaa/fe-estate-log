@@ -45,7 +45,7 @@ const VisitLogDeleteDialog = ({
           confirmLabel={t('visitLogs.deleteDialog.confirm')}
           isConfirmDisabled={mutation.isPending || !log}
           isPending={mutation.isPending}
-          onConfirm={log ? () => handleConfirm(log) : () => undefined}
+          onConfirm={() => handleConfirm(log as VisitLog)}
         />
       }
       description={t('visitLogs.deleteDialog.description')}
