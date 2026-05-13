@@ -1,7 +1,7 @@
-import { Button, DialogClose, DialogFooter } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useDeleteVisitLog } from '../hooks/useDeleteVisitLog';
 import type { VisitLog } from '../types/visitLog';
+import { VisitLogDeleteActions } from './VisitLogDeleteActions';
 import { VisitLogDialogShell } from './VisitLogDialogShell';
 
 type VisitLogDeleteDialogProps = {
@@ -40,22 +40,13 @@ const VisitLogDeleteDialog = ({
   return (
     <VisitLogDialogShell
       actions={
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="ghost" disabled={mutation.isPending}>
-              {t('visitLogs.deleteDialog.cancel')}
-            </Button>
-          </DialogClose>
-          <Button
-            variant="secondary"
-            className="bg-danger text-white hover:bg-danger"
-            disabled={mutation.isPending || !log}
-            loading={mutation.isPending}
-            onClick={log ? () => handleConfirm(log) : undefined}
-          >
-            {t('visitLogs.deleteDialog.confirm')}
-          </Button>
-        </DialogFooter>
+        <VisitLogDeleteActions
+          cancelLabel={t('visitLogs.deleteDialog.cancel')}
+          confirmLabel={t('visitLogs.deleteDialog.confirm')}
+          isConfirmDisabled={mutation.isPending || !log}
+          isPending={mutation.isPending}
+          onConfirm={() => handleConfirm(log as VisitLog)}
+        />
       }
       description={t('visitLogs.deleteDialog.description')}
       onOpenChange={handleOpenChange}
