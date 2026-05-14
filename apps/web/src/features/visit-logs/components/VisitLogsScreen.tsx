@@ -10,10 +10,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  useToast,
 } from '@shared-ui/core';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useVisitLogCreateFlow } from '../hooks/useVisitLogCreateFlow';
 import type { VisitLog, VisitLogSort } from '../types/visitLog';
 import { VisitLogActiveFilters } from './VisitLogActiveFilters';
 import { VisitLogCreateDialog } from './VisitLogCreateDialog';
@@ -77,22 +76,13 @@ const VisitLogsScreen = ({
   totalCount,
   totalPages,
 }: VisitLogsScreenProps) => {
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const { showToast } = useToast();
   const { t } = useTranslation();
-
-  const handleCreateClick = () => {
-    setIsCreateDialogOpen(true);
-  };
-
-  const handleCreateConfirm = () => {
-    setIsCreateDialogOpen(false);
-    showToast({
-      title: t('visitLogs.page.toast.title'),
-      description: t('visitLogs.page.toast.description'),
-      variant: 'success',
-    });
-  };
+  const {
+    handleCreated,
+    isCreateDialogOpen,
+    openCreateDialog,
+    setCreateDialogOpen,
+  } = useVisitLogCreateFlow();
 
   return (
     <main className="min-h-screen px-6 py-16">
@@ -126,7 +116,7 @@ const VisitLogsScreen = ({
                   {t('visitLogs.page.description')}
                 </CardDescription>
               </div>
-              <Button onClick={handleCreateClick}>
+              <Button onClick={openCreateDialog}>
                 {t('visitLogs.page.create')}
               </Button>
             </div>
@@ -170,7 +160,7 @@ const VisitLogsScreen = ({
           isError={isError}
           logs={logs}
           isLoading={isLoading}
-          onCreateFirstLog={handleCreateClick}
+          onCreateFirstLog={openCreateDialog}
           onOpenDetails={onOpenDetails}
           onPrefetchDetails={onPrefetchDetails}
           onPageChange={onPageChange}
@@ -183,8 +173,8 @@ const VisitLogsScreen = ({
 
         <VisitLogCreateDialog
           open={isCreateDialogOpen}
-          onOpenChange={setIsCreateDialogOpen}
-          onCreated={handleCreateConfirm}
+          onOpenChange={setCreateDialogOpen}
+          onCreated={handleCreated}
         />
       </section>
     </main>
