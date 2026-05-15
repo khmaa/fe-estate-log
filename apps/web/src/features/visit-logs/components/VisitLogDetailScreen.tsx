@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Card,
   CardContent,
@@ -9,25 +8,10 @@ import {
 } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
-import {
-  getVisitLogPropertyTypeLabel,
-  getVisitLogStatusLabel,
-} from '../utils/visitLogLabels';
+import { VisitLogDetailActions } from './VisitLogDetailActions';
+import { VisitLogDetailBadges } from './VisitLogDetailBadges';
+import { VisitLogDetailMetaGrid } from './VisitLogDetailMetaGrid';
 import { VisitLogDetailSkeleton } from './VisitLogDetailSkeleton';
-
-const statusVariantMap = {
-  completed: 'success',
-  draft: 'secondary',
-  scheduled: 'warning',
-} as const;
-
-const formatVisitedAt = (visitedAt: string) => {
-  return new Intl.DateTimeFormat('en-CA', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(visitedAt));
-};
 
 type VisitLogDetailScreenProps = {
   errorType: 'not-found' | 'unknown' | null;
@@ -97,74 +81,35 @@ const VisitLogDetailScreen = ({
   return (
     <main className="min-h-screen px-6 py-16">
       <section className="mx-auto flex max-w-4xl flex-col gap-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <Button variant="ghost" onClick={onBack}>
-            {t('visitLogs.detail.actions.back')}
-          </Button>
-          <div className="flex flex-wrap gap-3">
-            <Button
-              variant="secondary"
-              disabled={isActionDisabled}
-              onClick={onEdit}
-            >
-              {t('visitLogs.detail.actions.edit')}
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-danger hover:bg-danger-soft/50"
-              disabled={isActionDisabled}
-              onClick={onDelete}
-            >
-              {t('visitLogs.detail.actions.delete')}
-            </Button>
-          </div>
-        </div>
+        <VisitLogDetailActions
+          backLabel={t('visitLogs.detail.actions.back')}
+          deleteLabel={t('visitLogs.detail.actions.delete')}
+          editLabel={t('visitLogs.detail.actions.edit')}
+          isActionDisabled={isActionDisabled}
+          onBack={onBack}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
 
         <Card className="overflow-hidden">
           <CardHeader className="gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={statusVariantMap[log.status]}>
-                {getVisitLogStatusLabel(t, log.status)}
-              </Badge>
-              <Badge variant="secondary">
-                {getVisitLogPropertyTypeLabel(t, log.propertyType)}
-              </Badge>
-              {log.isPinned ? (
-                <Badge>{t('visitLogs.detail.pinned')}</Badge>
-              ) : null}
-            </div>
+            <VisitLogDetailBadges
+              isPinned={log.isPinned}
+              propertyType={log.propertyType}
+              status={log.status}
+            />
             <CardTitle>{log.title}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-sm leading-7 text-muted-foreground">
               {log.summary}
             </p>
-            <div className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
-              <div>
-                <p className="font-semibold text-foreground">
-                  {t('visitLogs.detail.fields.district')}
-                </p>
-                <p>{log.district}</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">
-                  {t('visitLogs.detail.fields.price')}
-                </p>
-                <p>{log.priceLabel}</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">
-                  {t('visitLogs.detail.fields.visited')}
-                </p>
-                <p>{formatVisitedAt(log.visitedAt)}</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">
-                  {t('visitLogs.detail.fields.agent')}
-                </p>
-                <p>{log.agentName}</p>
-              </div>
-            </div>
+            <VisitLogDetailMetaGrid
+              agentName={log.agentName}
+              district={log.district}
+              priceLabel={log.priceLabel}
+              visitedAt={log.visitedAt}
+            />
           </CardContent>
         </Card>
       </section>
