@@ -53,6 +53,28 @@ pnpm -F web dev
 
 이 명령은 `apps/web`의 Vite 개발 서버를 실행합니다.
 
+브라우저 MSW mock 데이터와 함께 웹 앱을 실행하려면:
+
+```bash
+pnpm -F web dev:mock
+```
+
+## Vercel 배포
+
+저장소 루트에는 모노레포의 Vite 웹 앱을 배포하기 위한 `vercel.json`이 포함되어 있습니다.
+
+Vercel은 다음 설정을 사용합니다.
+
+- install command: `pnpm install --frozen-lockfile`
+- build command: `VITE_ENABLE_MSW=true pnpm -F web build`
+- output directory: `apps/web/dist`
+- SPA rewrite: `/(.*)` -> `/index.html`
+
+현재 프로젝트는 실제 백엔드 없이 동작하므로 Vercel build command에 `VITE_ENABLE_MSW=true`를 명시했습니다.
+덕분에 배포된 demo에서도 로컬 mock 모드와 같은 MSW 임장 기록 handler를 사용합니다.
+
+실제 백엔드와 연결하는 배포로 전환할 때는 Vercel build command에서 `VITE_ENABLE_MSW=true`를 제거하고 API base URL을 별도로 설정합니다.
+
 ## 테스트 실행
 
 공용 UI 라이브러리 테스트 실행:
