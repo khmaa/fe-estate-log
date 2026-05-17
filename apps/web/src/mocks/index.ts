@@ -1,5 +1,13 @@
+type MockingEnv = {
+  VITE_ENABLE_MSW?: string;
+};
+
+const shouldEnableMocking = (env: MockingEnv) => {
+  return env.VITE_ENABLE_MSW === 'true';
+};
+
 const enableMocking = async () => {
-  if (!import.meta.env.DEV || import.meta.env.VITE_ENABLE_MSW !== 'true') {
+  if (!shouldEnableMocking(import.meta.env)) {
     return;
   }
 
@@ -10,4 +18,4 @@ const enableMocking = async () => {
   });
 };
 
-export { enableMocking };
+export { enableMocking, shouldEnableMocking };

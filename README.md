@@ -53,6 +53,28 @@ pnpm -F web dev
 
 The Vite dev server will run for the `apps/web` project.
 
+To run the web app with browser-side MSW mock data:
+
+```bash
+pnpm -F web dev:mock
+```
+
+## Vercel Deployment
+
+The repository includes a root-level `vercel.json` for deploying the Vite web app from the monorepo.
+
+Vercel uses the following settings:
+
+- install command: `pnpm install --frozen-lockfile`
+- build command: `VITE_ENABLE_MSW=true pnpm -F web build`
+- output directory: `apps/web/dist`
+- SPA rewrite: `/(.*)` -> `/index.html`
+
+`VITE_ENABLE_MSW=true` is intentionally set in the Vercel build command because this project currently runs without a real backend.
+That keeps the deployed demo backed by the same MSW visit log handlers used in local mock mode.
+
+For a real backend deployment, remove `VITE_ENABLE_MSW=true` from the Vercel build command and configure the API base URL instead.
+
 ## Run Tests
 
 Run tests for the shared UI library:
