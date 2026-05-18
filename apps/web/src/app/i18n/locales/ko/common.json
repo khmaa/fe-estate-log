@@ -1,6 +1,11 @@
 {
   "app": {
     "brandDescription": "웹 워크스페이스를 위한 라우트 기반 앱 셸입니다.",
+    "demoMode": {
+      "description": "Mock 데이터",
+      "label": "Mock 데이터를 사용하는 데모 모드",
+      "title": "데모 모드"
+    },
     "language": {
       "en": "EN",
       "ko": "KO",

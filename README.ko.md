@@ -72,6 +72,7 @@ Vercel은 다음 설정을 사용합니다.
 
 현재 프로젝트는 실제 백엔드 없이 동작하므로 Vercel build command에 `VITE_ENABLE_MSW=true`를 명시했습니다.
 덕분에 배포된 demo에서도 로컬 mock 모드와 같은 MSW 임장 기록 handler를 사용합니다.
+이 flag가 활성화되면 앱 셸에 demo mode indicator가 표시되어 배포 화면이 mock 데이터를 사용 중임을 알 수 있습니다.
 
 실제 백엔드와 연결하는 배포로 전환할 때는 Vercel build command에서 `VITE_ENABLE_MSW=true`를 제거하고 API base URL을 별도로 설정합니다.
 

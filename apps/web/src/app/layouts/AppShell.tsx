@@ -1,6 +1,7 @@
 import { Badge } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NavLink, Outlet } from 'react-router-dom';
+import { isDemoModeEnabled } from '../config/demoMode';
 
 const navigationLinkClassName = ({ isActive }: { isActive: boolean }) =>
   [
@@ -12,6 +13,7 @@ const navigationLinkClassName = ({ isActive }: { isActive: boolean }) =>
 
 const AppShell = () => {
   const { i18n, t } = useTranslation();
+  const isDemoMode = isDemoModeEnabled();
 
   const handleLanguageChange = (language: 'en' | 'ko') => {
     void i18n.changeLanguage(language);
@@ -28,6 +30,17 @@ const AppShell = () => {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
+            {isDemoMode ? (
+              <div
+                className="flex items-center gap-2 rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning"
+                aria-label={t('app.demoMode.label')}
+              >
+                <span>{t('app.demoMode.title')}</span>
+                <span className="text-muted-foreground">
+                  {t('app.demoMode.description')}
+                </span>
+              </div>
+            ) : null}
             <nav className="flex flex-wrap items-center gap-2">
               <NavLink to="/visit-logs" className={navigationLinkClassName}>
                 {t('app.nav.visitLogs')}
