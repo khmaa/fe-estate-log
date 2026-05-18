@@ -72,6 +72,7 @@ Vercel uses the following settings:
 
 `VITE_ENABLE_MSW=true` is intentionally set in the Vercel build command because this project currently runs without a real backend.
 That keeps the deployed demo backed by the same MSW visit log handlers used in local mock mode.
+When this flag is enabled, the app shell displays a demo mode indicator so viewers know the deployment is using mock data.
 
 For a real backend deployment, remove `VITE_ENABLE_MSW=true` from the Vercel build command and configure the API base URL instead.
 

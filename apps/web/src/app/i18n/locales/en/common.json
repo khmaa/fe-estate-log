@@ -1,6 +1,11 @@
 {
   "app": {
     "brandDescription": "Route-based app shell for the web workspace.",
+    "demoMode": {
+      "description": "Mock data",
+      "label": "Demo mode using mock data",
+      "title": "Demo mode"
+    },
     "language": {
       "en": "EN",
       "ko": "KO",
