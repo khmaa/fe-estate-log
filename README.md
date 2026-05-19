@@ -76,6 +76,11 @@ When this flag is enabled, the app shell displays a demo mode indicator so viewe
 
 For a real backend deployment, remove `VITE_ENABLE_MSW=true` from the Vercel build command and configure the API base URL instead.
 
+See the deployment checklist for setup verification, smoke tests, and troubleshooting:
+
+- [Deployment checklist](./docs/deployment.md)
+- [한국어 배포 체크리스트](./docs/deployment.ko.md)
+
 ## Run Tests
 
 Run tests for the shared UI library:
