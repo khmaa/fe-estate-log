@@ -76,6 +76,11 @@ Vercel은 다음 설정을 사용합니다.
 
 실제 백엔드와 연결하는 배포로 전환할 때는 Vercel build command에서 `VITE_ENABLE_MSW=true`를 제거하고 API base URL을 별도로 설정합니다.
 
+설정 확인, 스모크 테스트, 문제 해결 항목은 배포 체크리스트에서 확인합니다.
+
+- [배포 체크리스트](./docs/deployment.ko.md)
+- [English deployment checklist](./docs/deployment.md)
+
 ## 테스트 실행
 
 공용 UI 라이브러리 테스트 실행:
