@@ -16,6 +16,11 @@ Vercel 프로젝트 root는 저장소 루트로 설정합니다.
 실제 백엔드가 없는 demo 상태에서는 `VITE_ENABLE_MSW=true`를 유지합니다.
 배포된 API와 연결한 뒤에만 이 값을 제거합니다.
 
+## Demo URL
+
+첫 배포가 스모크 테스트를 통과한 뒤 검증된 production demo URL을 루트 README의 `Live Demo` 섹션에 기록합니다.
+production에서 demo mode indicator, mock 데이터, 직접 route 접근이 동작하는 것을 확인하기 전에는 배포 URL을 추가하지 않습니다.
+
 ## 배포 전 확인
 
 배포 PR을 올리기 전에 다음 명령을 실행합니다.
@@ -43,6 +48,7 @@ Vercel 배포가 끝나면 배포 URL을 브라우저에서 확인합니다.
 - 임장 기록 수정 후 update toast가 표시되고 상세 화면이 동기화된다.
 - 임장 기록 삭제 후 delete toast가 표시되고 목록으로 돌아간다.
 - 존재하지 않는 route에 직접 접속해도 Vercel 404가 아니라 앱의 not found page가 표시된다.
+- 스모크 테스트 통과 후 루트 README의 `Live Demo` 섹션이 검증된 배포 URL을 가리킨다.
 
 ## 문제 해결
 
