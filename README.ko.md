@@ -59,6 +59,11 @@ pnpm -F web dev
 pnpm -F web dev:mock
 ```
 
+## Live Demo
+
+첫 Vercel 배포를 검증한 뒤 공개 demo URL을 이 위치에 추가할 예정입니다.
+그 전까지는 Vercel 배포 체크리스트를 기준으로 demo build와 스모크 테스트 흐름을 확인합니다.
+
 ## Vercel 배포
 
 저장소 루트에는 모노레포의 Vite 웹 앱을 배포하기 위한 `vercel.json`이 포함되어 있습니다.

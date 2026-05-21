@@ -59,6 +59,11 @@ To run the web app with browser-side MSW mock data:
 pnpm -F web dev:mock
 ```
 
+## Live Demo
+
+The public Vercel demo URL will be added here after the first deployment is verified.
+Until then, use the Vercel deployment checklist to validate the demo build and smoke-test flow.
+
 ## Vercel Deployment
 
 The repository includes a root-level `vercel.json` for deploying the Vite web app from the monorepo.

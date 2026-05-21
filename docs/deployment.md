@@ -16,6 +16,11 @@ The root `vercel.json` defines the deployment settings:
 Keep `VITE_ENABLE_MSW=true` while the demo has no real backend.
 Remove it only after the web app is connected to a deployed API.
 
+## Demo URL
+
+Record the verified production demo URL in the root README `Live Demo` section after the first deployment passes the smoke test.
+Do not add a deployment URL before confirming that the demo mode indicator, mock data, and direct route access work in production.
+
 ## Pre-Deployment Checks
 
 Run these commands before opening a deployment PR:
@@ -43,6 +48,7 @@ After Vercel deploys the app, verify the deployed URL in a browser:
 - Editing a visit log shows the update toast and keeps the detail view synced.
 - Deleting a visit log shows the delete toast and returns to the list.
 - Directly opening an unknown route renders the not found page instead of a Vercel 404.
+- The root README `Live Demo` section points to the verified deployment URL after the smoke test passes.
 
 ## Troubleshooting
 
