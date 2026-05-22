@@ -71,15 +71,15 @@ The repository includes a root-level `vercel.json` for deploying the Vite web ap
 Vercel uses the following settings:
 
 - install command: `pnpm install --frozen-lockfile`
-- build command: `VITE_ENABLE_MSW=true pnpm -F web build`
+- build command: `pnpm run build:web:demo`
 - output directory: `apps/web/dist`
 - SPA rewrite: `/(.*)` -> `/index.html`
 
-`VITE_ENABLE_MSW=true` is intentionally set in the Vercel build command because this project currently runs without a real backend.
+`build:web:demo` intentionally builds with `VITE_ENABLE_MSW=true` because this project currently runs without a real backend.
 That keeps the deployed demo backed by the same MSW visit log handlers used in local mock mode.
 When this flag is enabled, the app shell displays a demo mode indicator so viewers know the deployment is using mock data.
 
-For a real backend deployment, remove `VITE_ENABLE_MSW=true` from the Vercel build command and configure the API base URL instead.
+For a real backend deployment, update `build:web:demo` to remove `VITE_ENABLE_MSW=true` and configure the API base URL instead.
 
 See the deployment checklist for setup verification, smoke tests, and troubleshooting:
 

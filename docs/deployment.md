@@ -9,12 +9,12 @@ Use the repository root as the Vercel project root.
 The root `vercel.json` defines the deployment settings:
 
 - install command: `pnpm install --frozen-lockfile`
-- build command: `VITE_ENABLE_MSW=true pnpm -F web build`
+- build command: `pnpm run build:web:demo`
 - output directory: `apps/web/dist`
 - SPA rewrite: `/(.*)` -> `/index.html`
 
-Keep `VITE_ENABLE_MSW=true` while the demo has no real backend.
-Remove it only after the web app is connected to a deployed API.
+Keep `build:web:demo` configured with `VITE_ENABLE_MSW=true` while the demo has no real backend.
+Remove that flag only after the web app is connected to a deployed API.
 
 ## Demo URL
 
@@ -30,7 +30,7 @@ pnpm run format:check
 pnpm run lint
 pnpm -F web test:run
 pnpm -F web build
-VITE_ENABLE_MSW=true pnpm -F web build
+pnpm run build:web:demo
 ```
 
 ## Post-Deployment Smoke Test
@@ -52,7 +52,7 @@ After Vercel deploys the app, verify the deployed URL in a browser:
 
 ## Troubleshooting
 
-- If the deployed list fails to load, confirm that `VITE_ENABLE_MSW=true` is present in the Vercel build command.
+- If the deployed list fails to load, confirm that `build:web:demo` still builds with `VITE_ENABLE_MSW=true`.
 - If direct detail URLs fail, confirm the `rewrites` rule in `vercel.json` is deployed.
 - If the demo indicator is missing, confirm the deployed bundle was built with `VITE_ENABLE_MSW=true`.
 - If a real backend is added later, remove `VITE_ENABLE_MSW=true` and replace mock handlers with the deployed API configuration.
