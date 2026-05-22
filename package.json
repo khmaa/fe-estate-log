@@ -4,6 +4,7 @@
   "scripts": {
     "build:web:demo": "VITE_ENABLE_MSW=true pnpm -F web build",
     "build:web": "pnpm -F web build",
+    "deploy:check": "pnpm run format:check && pnpm run lint && pnpm run test:all && pnpm run build:web && pnpm run build:web:demo",
     "format": "pnpm run format:write",
     "format:write": "prettier . --write && eslint . --fix",
     "format:check": "prettier . --check",

@@ -23,15 +23,13 @@ Do not add a deployment URL before confirming that the demo mode indicator, mock
 
 ## Pre-Deployment Checks
 
-Run these commands before opening a deployment PR:
+Run this command before opening a deployment PR:
 
 ```bash
-pnpm run format:check
-pnpm run lint
-pnpm -F web test:run
-pnpm -F web build
-pnpm run build:web:demo
+pnpm run deploy:check
 ```
+
+The script runs formatting checks, lint, workspace tests, the normal web build, and the demo web build used by Vercel.
 
 ## Post-Deployment Smoke Test
 
