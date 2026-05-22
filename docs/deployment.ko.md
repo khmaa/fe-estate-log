@@ -26,12 +26,10 @@ production에서 demo mode indicator, mock 데이터, 직접 route 접근이 동
 배포 PR을 올리기 전에 다음 명령을 실행합니다.
 
 ```bash
-pnpm run format:check
-pnpm run lint
-pnpm -F web test:run
-pnpm -F web build
-pnpm run build:web:demo
+pnpm run deploy:check
 ```
+
+이 스크립트는 포맷 검사, 린트, 워크스페이스 테스트, 일반 웹 빌드, Vercel에서 사용하는 demo 웹 빌드를 순서대로 실행합니다.
 
 ## 배포 후 스모크 테스트
 
