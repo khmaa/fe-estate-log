@@ -9,12 +9,12 @@ Vercel 프로젝트 root는 저장소 루트로 설정합니다.
 루트 `vercel.json`에는 다음 배포 설정이 정의되어 있습니다.
 
 - install command: `pnpm install --frozen-lockfile`
-- build command: `VITE_ENABLE_MSW=true pnpm -F web build`
+- build command: `pnpm run build:web:demo`
 - output directory: `apps/web/dist`
 - SPA rewrite: `/(.*)` -> `/index.html`
 
-실제 백엔드가 없는 demo 상태에서는 `VITE_ENABLE_MSW=true`를 유지합니다.
-배포된 API와 연결한 뒤에만 이 값을 제거합니다.
+실제 백엔드가 없는 demo 상태에서는 `build:web:demo`가 `VITE_ENABLE_MSW=true`로 빌드되도록 유지합니다.
+배포된 API와 연결한 뒤에만 이 flag를 제거합니다.
 
 ## Demo URL
 
@@ -30,7 +30,7 @@ pnpm run format:check
 pnpm run lint
 pnpm -F web test:run
 pnpm -F web build
-VITE_ENABLE_MSW=true pnpm -F web build
+pnpm run build:web:demo
 ```
 
 ## 배포 후 스모크 테스트
@@ -52,7 +52,7 @@ Vercel 배포가 끝나면 배포 URL을 브라우저에서 확인합니다.
 
 ## 문제 해결
 
-- 배포된 목록 로딩이 실패하면 Vercel build command에 `VITE_ENABLE_MSW=true`가 포함되어 있는지 확인한다.
+- 배포된 목록 로딩이 실패하면 `build:web:demo`가 여전히 `VITE_ENABLE_MSW=true`로 빌드되는지 확인한다.
 - 상세 URL 직접 접근이 실패하면 `vercel.json`의 `rewrites` 규칙이 배포되었는지 확인한다.
 - demo indicator가 보이지 않으면 배포 bundle이 `VITE_ENABLE_MSW=true`로 빌드되었는지 확인한다.
 - 추후 실제 백엔드를 추가하면 `VITE_ENABLE_MSW=true`를 제거하고 mock handler를 배포 API 설정으로 교체한다.

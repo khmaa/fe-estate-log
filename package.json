@@ -2,6 +2,7 @@
   "name": "fe-estate-log",
   "private": true,
   "scripts": {
+    "build:web:demo": "VITE_ENABLE_MSW=true pnpm -F web build",
     "build:web": "pnpm -F web build",
     "format": "pnpm run format:write",
     "format:write": "prettier . --write && eslint . --fix",
