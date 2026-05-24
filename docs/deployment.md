@@ -16,6 +16,22 @@ The root `vercel.json` defines the deployment settings:
 Keep `build:web:demo` configured with `VITE_ENABLE_MSW=true` while the demo has no real backend.
 Remove that flag only after the web app is connected to a deployed API.
 
+## Create the Vercel Project
+
+Use this flow when connecting the repository to Vercel for the first time:
+
+1. Import the GitHub repository from the Vercel dashboard.
+2. Set the project root to the repository root, not `apps/web`.
+3. Keep the framework preset as Vite if Vercel detects it automatically.
+4. Confirm that Vercel reads the root `vercel.json` settings.
+5. Confirm the install command is `pnpm install --frozen-lockfile`.
+6. Confirm the build command is `pnpm run build:web:demo`.
+7. Confirm the output directory is `apps/web/dist`.
+8. Deploy the project and run the post-deployment smoke test before sharing the URL.
+
+Do not add a separate Vercel environment variable for `VITE_ENABLE_MSW` while `build:web:demo` already sets it.
+If the project later switches to a real backend, update `build:web:demo` and then add the backend API environment variables in Vercel.
+
 ## Demo URL
 
 Record the verified production demo URL in the root README `Live Demo` section after the first deployment passes the smoke test.

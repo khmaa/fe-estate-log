@@ -16,6 +16,22 @@ Vercel 프로젝트 root는 저장소 루트로 설정합니다.
 실제 백엔드가 없는 demo 상태에서는 `build:web:demo`가 `VITE_ENABLE_MSW=true`로 빌드되도록 유지합니다.
 배포된 API와 연결한 뒤에만 이 flag를 제거합니다.
 
+## Vercel 프로젝트 생성
+
+처음 Vercel에 저장소를 연결할 때는 다음 순서로 진행합니다.
+
+1. Vercel dashboard에서 GitHub 저장소를 import한다.
+2. 프로젝트 root를 `apps/web`이 아니라 저장소 루트로 설정한다.
+3. Vercel이 framework preset을 자동 감지하면 Vite로 유지한다.
+4. 루트 `vercel.json` 설정이 읽히는지 확인한다.
+5. install command가 `pnpm install --frozen-lockfile`인지 확인한다.
+6. build command가 `pnpm run build:web:demo`인지 확인한다.
+7. output directory가 `apps/web/dist`인지 확인한다.
+8. 배포한 뒤 URL을 공유하기 전에 배포 후 스모크 테스트를 실행한다.
+
+`build:web:demo`가 이미 `VITE_ENABLE_MSW`를 설정하므로, 현재 demo 상태에서는 Vercel 환경 변수에 `VITE_ENABLE_MSW`를 따로 추가하지 않습니다.
+추후 실제 백엔드로 전환할 때는 `build:web:demo`를 먼저 수정한 뒤 Vercel에 backend API 환경 변수를 추가합니다.
+
 ## Demo URL
 
 첫 배포가 스모크 테스트를 통과한 뒤 검증된 production demo URL을 루트 README의 `Live Demo` 섹션에 기록합니다.
