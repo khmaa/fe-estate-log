@@ -49,20 +49,28 @@ The script runs formatting checks, lint, workspace tests, the normal web build, 
 
 ## Post-Deployment Smoke Test
 
-After Vercel deploys the app, verify the deployed URL in a browser:
+After Vercel deploys the app, paste this checklist into the PR or release note and verify the deployed URL in a browser.
 
-- The app loads at `/` and redirects to `/visit-logs`.
-- The app shell shows `Demo mode` and `Mock data`.
-- Visit log list data appears without a backend server.
-- The language switch changes app shell and page copy between English and Korean.
-- Visit log search, sort, pinned-only filter, active filter removal, and pagination work.
-- Creating a visit log shows the success toast and adds the draft to the mocked list.
-- Opening a visit log detail route works from the list.
-- Directly opening `/visit-logs/:visitLogId` works after a page refresh.
-- Editing a visit log shows the update toast and keeps the detail view synced.
-- Deleting a visit log shows the delete toast and returns to the list.
-- Directly opening an unknown route renders the not found page instead of a Vercel 404.
-- The root README `Live Demo` section points to the verified deployment URL after the smoke test passes.
+```text
+Smoke test target
+- URL:
+- Verified by:
+- Verified at:
+
+Checks
+- [ ] The app loads at `/` and redirects to `/visit-logs`.
+- [ ] The app shell shows `Demo mode` and `Mock data`.
+- [ ] Visit log list data appears without a backend server.
+- [ ] The language switch changes app shell and page copy between English and Korean.
+- [ ] Visit log search, sort, pinned-only filter, active filter removal, and pagination work.
+- [ ] Creating a visit log shows the success toast and adds the draft to the mocked list.
+- [ ] Opening a visit log detail route works from the list.
+- [ ] Directly opening `/visit-logs/:visitLogId` works after a page refresh.
+- [ ] Editing a visit log shows the update toast and keeps the detail view synced.
+- [ ] Deleting a visit log shows the delete toast and returns to the list.
+- [ ] Directly opening an unknown route renders the not found page instead of a Vercel 404.
+- [ ] The root README `Live Demo` section points to the verified deployment URL after the smoke test passes.
+```
 
 ## Troubleshooting
 
