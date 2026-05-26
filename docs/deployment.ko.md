@@ -37,6 +37,15 @@ Vercel 프로젝트 root는 저장소 루트로 설정합니다.
 첫 배포가 스모크 테스트를 통과한 뒤 검증된 production demo URL을 루트 README의 `Live Demo` 섹션에 기록합니다.
 production에서 demo mode indicator, mock 데이터, 직접 route 접근이 동작하는 것을 확인하기 전에는 배포 URL을 추가하지 않습니다.
 
+스모크 테스트가 통과하면 다음 순서로 공개 demo 참조를 수정합니다.
+
+1. 루트 README의 `Live Demo` placeholder를 검증된 Vercel production URL로 교체한다.
+2. 같은 PR에서 `README.md`와 `README.ko.md`를 함께 수정한다.
+3. 이후 배포 검증 흐름을 찾을 수 있도록 demo URL 근처에 배포 체크리스트 링크를 유지한다.
+4. PR을 올리기 전에 `pnpm run deploy:check`를 실행한다.
+
+스모크 테스트가 실패하면 README placeholder는 유지하고 배포 문제를 먼저 해결합니다.
+
 ## 배포 전 확인
 
 배포 PR을 올리기 전에 다음 명령을 실행합니다.
