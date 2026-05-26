@@ -37,6 +37,15 @@ If the project later switches to a real backend, update `build:web:demo` and the
 Record the verified production demo URL in the root README `Live Demo` section after the first deployment passes the smoke test.
 Do not add a deployment URL before confirming that the demo mode indicator, mock data, and direct route access work in production.
 
+After the smoke test passes, update the public demo references in this order:
+
+1. Replace the root README `Live Demo` placeholder with the verified Vercel production URL.
+2. Update both `README.md` and `README.ko.md` in the same PR.
+3. Keep the deployment checklist link near the demo URL so future deployment checks remain discoverable.
+4. Run `pnpm run deploy:check` before opening the PR.
+
+If the smoke test fails, keep the README placeholder unchanged and fix the deployment issue first.
+
 ## Pre-Deployment Checks
 
 Run this command before opening a deployment PR:
