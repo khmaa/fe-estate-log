@@ -78,10 +78,12 @@ const VisitLogsScreen = ({
 }: VisitLogsScreenProps) => {
   const { t } = useTranslation();
   const {
+    createInitialValues,
     handleCreated,
+    handleCreateDialogOpenChange,
     isCreateDialogOpen,
     openCreateDialog,
-    setCreateDialogOpen,
+    openDuplicateDialog,
   } = useVisitLogCreateFlow();
 
   return (
@@ -161,6 +163,7 @@ const VisitLogsScreen = ({
           logs={logs}
           isLoading={isLoading}
           onCreateFirstLog={openCreateDialog}
+          onDuplicateDraft={openDuplicateDialog}
           onOpenDetails={onOpenDetails}
           onPrefetchDetails={onPrefetchDetails}
           onPageChange={onPageChange}
@@ -172,8 +175,9 @@ const VisitLogsScreen = ({
         />
 
         <VisitLogCreateDialog
+          initialValues={createInitialValues}
           open={isCreateDialogOpen}
-          onOpenChange={setCreateDialogOpen}
+          onOpenChange={handleCreateDialogOpenChange}
           onCreated={handleCreated}
         />
       </section>

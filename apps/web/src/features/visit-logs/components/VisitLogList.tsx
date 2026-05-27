@@ -10,6 +10,7 @@ type VisitLogListProps = {
   isLoading: boolean;
   logs: VisitLog[];
   onCreateFirstLog: () => void;
+  onDuplicateDraft: (visitLog: VisitLog) => void;
   onOpenDetails: (visitLogId: string) => void;
   onPrefetchDetails: (visitLogId: string) => void;
   onPageChange: (page: number) => void;
@@ -25,6 +26,7 @@ const VisitLogList = ({
   isLoading,
   logs,
   onCreateFirstLog,
+  onDuplicateDraft,
   onOpenDetails,
   onPrefetchDetails,
   onPageChange,
@@ -76,6 +78,7 @@ const VisitLogList = ({
         <VisitLogCard
           key={log.id}
           log={log}
+          onDuplicateDraft={onDuplicateDraft}
           onOpenDetails={onOpenDetails}
           onPrefetchDetails={onPrefetchDetails}
         />

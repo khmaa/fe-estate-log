@@ -214,6 +214,27 @@ describe('VisitLogsScreen', () => {
     expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
   });
 
+  it('opens the create dialog with duplicated visit log values', async () => {
+    renderScreen(visitLogs);
+
+    fireEvent.pointerDown(
+      screen.getAllByRole('button', { name: 'Actions' })[0],
+    );
+    fireEvent.click(
+      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+    );
+
+    expect(
+      screen.getByRole('heading', { name: 'Create a new visit log' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Title')).toHaveValue(
+      'Samsung-dong river-view apartment',
+    );
+    expect(screen.getByLabelText('District')).toHaveValue('Gangnam-gu');
+    expect(screen.getByLabelText('Price')).toHaveValue('KRW 1.28B');
+    expect(screen.getByLabelText('Summary')).toHaveValue('Summary');
+  });
+
   it('forwards quick filter actions from the filter controls', () => {
     const handleQuickShowAll = vi.fn();
     const handleQuickShowPinned = vi.fn();

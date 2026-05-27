@@ -27,6 +27,7 @@ const statusVariantMap = {
 
 type VisitLogCardProps = {
   log: VisitLog;
+  onDuplicateDraft: (visitLog: VisitLog) => void;
   onOpenDetails: (visitLogId: string) => void;
   onPrefetchDetails: (visitLogId: string) => void;
 };
@@ -41,6 +42,7 @@ const formatVisitedAt = (visitedAt: string) => {
 
 const VisitLogCard = ({
   log,
+  onDuplicateDraft,
   onOpenDetails,
   onPrefetchDetails,
 }: VisitLogCardProps) => {
@@ -83,7 +85,7 @@ const VisitLogCard = ({
               >
                 {t('visitLogs.card.details')}
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => onDuplicateDraft(log)}>
                 {t('visitLogs.card.duplicate')}
               </DropdownMenuItem>
               <DropdownMenuSeparator />

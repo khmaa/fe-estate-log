@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCreateVisitLog } from '../hooks/useCreateVisitLog';
 import { useVisitLogForm } from '../hooks/useVisitLogForm';
@@ -7,6 +8,7 @@ import { VisitLogFormActions } from './VisitLogFormActions';
 import { VisitLogFormFields } from './VisitLogFormFields';
 
 type VisitLogCreateDialogProps = {
+  initialValues?: CreateVisitLogInput;
   onCreated: (visitLog: VisitLog) => void;
   onOpenChange: (open: boolean) => void;
   open: boolean;
@@ -21,14 +23,21 @@ const initialFormState: CreateVisitLogInput = {
 };
 
 const VisitLogCreateDialog = ({
+  initialValues,
   onCreated,
   onOpenChange,
   open,
 }: VisitLogCreateDialogProps) => {
-  const { form, isValid, resetForm, setForm } =
-    useVisitLogForm(initialFormState);
+  const initialForm = initialValues ?? initialFormState;
+  const { form, isValid, resetForm, setForm } = useVisitLogForm(initialForm);
   const mutation = useCreateVisitLog();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (open) {
+      setForm(initialForm);
+    }
+  }, [initialForm, open, setForm]);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen && mutation.isPending) {
