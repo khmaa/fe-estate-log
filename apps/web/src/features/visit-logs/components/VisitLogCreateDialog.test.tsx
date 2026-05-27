@@ -96,4 +96,33 @@ describe('VisitLogCreateDialog', () => {
     expect(screen.getByLabelText('Price')).toHaveValue('');
     expect(screen.getByLabelText('Summary')).toHaveValue('');
   });
+
+  it('prefills the form from duplicate initial values', () => {
+    render(
+      <AppProviders>
+        <VisitLogCreateDialog
+          open
+          initialValues={{
+            title: 'Duplicated visit',
+            district: 'Mapo-gu',
+            priceLabel: 'KRW 730M',
+            propertyType: 'retail',
+            summary: 'Review the weekend foot traffic.',
+          }}
+          onCreated={vi.fn()}
+          onOpenChange={vi.fn()}
+        />
+      </AppProviders>,
+    );
+
+    expect(screen.getByLabelText('Title')).toHaveValue('Duplicated visit');
+    expect(screen.getByLabelText('District')).toHaveValue('Mapo-gu');
+    expect(screen.getByLabelText('Price')).toHaveValue('KRW 730M');
+    expect(screen.getByLabelText('Summary')).toHaveValue(
+      'Review the weekend foot traffic.',
+    );
+    expect(
+      screen.getByRole('button', { name: 'Create draft' }),
+    ).not.toBeDisabled();
+  });
 });

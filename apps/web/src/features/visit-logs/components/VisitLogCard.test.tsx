@@ -21,6 +21,7 @@ describe('VisitLogCard', () => {
     render(
       <VisitLogCard
         log={visitLog}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
       />,
@@ -40,6 +41,7 @@ describe('VisitLogCard', () => {
     render(
       <VisitLogCard
         log={visitLog}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={handleOpenDetails}
         onPrefetchDetails={vi.fn()}
       />,
@@ -56,6 +58,7 @@ describe('VisitLogCard', () => {
     render(
       <VisitLogCard
         log={visitLog}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={handleOpenDetails}
         onPrefetchDetails={vi.fn()}
       />,
@@ -69,12 +72,33 @@ describe('VisitLogCard', () => {
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
   });
 
+  it('forwards duplicate draft actions from the dropdown', async () => {
+    const handleDuplicateDraft = vi.fn();
+
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onDuplicateDraft={handleDuplicateDraft}
+        onOpenDetails={vi.fn()}
+        onPrefetchDetails={vi.fn()}
+      />,
+    );
+
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.click(
+      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+    );
+
+    expect(handleDuplicateDraft).toHaveBeenCalledWith(visitLog);
+  });
+
   it('prefetches detail data from hover and focus interactions', async () => {
     const handlePrefetchDetails = vi.fn();
 
     render(
       <VisitLogCard
         log={visitLog}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={handlePrefetchDetails}
       />,

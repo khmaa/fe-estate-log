@@ -23,6 +23,7 @@ describe('VisitLogList', () => {
         isLoading
         logs={[]}
         onCreateFirstLog={vi.fn()}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
         onPageChange={vi.fn()}
@@ -47,6 +48,7 @@ describe('VisitLogList', () => {
         isLoading={false}
         logs={[]}
         onCreateFirstLog={handleCreateFirstLog}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
         onPageChange={vi.fn()}
@@ -72,6 +74,7 @@ describe('VisitLogList', () => {
         isLoading={false}
         logs={[]}
         onCreateFirstLog={vi.fn()}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
         onPageChange={vi.fn()}
@@ -96,6 +99,7 @@ describe('VisitLogList', () => {
         isLoading={false}
         logs={[visitLog]}
         onCreateFirstLog={vi.fn()}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
         onPageChange={vi.fn()}
@@ -121,6 +125,7 @@ describe('VisitLogList', () => {
         isLoading={false}
         logs={[visitLog]}
         onCreateFirstLog={vi.fn()}
+        onDuplicateDraft={vi.fn()}
         onOpenDetails={vi.fn()}
         onPrefetchDetails={vi.fn()}
         onPageChange={handlePageChange}
@@ -136,5 +141,34 @@ describe('VisitLogList', () => {
 
     expect(screen.getByText('Page 1 of 2')).toBeInTheDocument();
     expect(handlePageChange).toHaveBeenCalledWith(2);
+  });
+
+  it('forwards duplicate draft actions from visit log cards', async () => {
+    const handleDuplicateDraft = vi.fn();
+
+    render(
+      <VisitLogList
+        isError={false}
+        isLoading={false}
+        logs={[visitLog]}
+        onCreateFirstLog={vi.fn()}
+        onDuplicateDraft={handleDuplicateDraft}
+        onOpenDetails={vi.fn()}
+        onPrefetchDetails={vi.fn()}
+        onPageChange={vi.fn()}
+        onRetry={vi.fn()}
+        page={1}
+        pageSize={2}
+        totalCount={1}
+        totalPages={1}
+      />,
+    );
+
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.click(
+      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+    );
+
+    expect(handleDuplicateDraft).toHaveBeenCalledWith(visitLog);
   });
 });
