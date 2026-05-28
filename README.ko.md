@@ -86,6 +86,11 @@ Vercel은 다음 설정을 사용합니다.
 - [배포 체크리스트](./docs/deployment.ko.md)
 - [English deployment checklist](./docs/deployment.md)
 
+## 개발 가이드
+
+- [원격 Codex 접속 가이드](./docs/remote-codex.ko.md)
+- [English remote Codex access guide](./docs/remote-codex.md)
+
 ## 테스트 실행
 
 공용 UI 라이브러리 테스트 실행:
