@@ -86,6 +86,11 @@ See the deployment checklist for setup verification, smoke tests, and troublesho
 - [Deployment checklist](./docs/deployment.md)
 - [한국어 배포 체크리스트](./docs/deployment.ko.md)
 
+## Development Guides
+
+- [Remote Codex access](./docs/remote-codex.md)
+- [한국어 원격 Codex 접속 가이드](./docs/remote-codex.ko.md)
+
 ## Run Tests
 
 Run tests for the shared UI library:
