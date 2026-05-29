@@ -9,7 +9,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -87,10 +86,6 @@ const VisitLogCard = ({
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => onDuplicateDraft(log)}>
                 {t('visitLogs.card.duplicate')}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-danger focus:bg-danger-soft/50">
-                {t('visitLogs.card.archive')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

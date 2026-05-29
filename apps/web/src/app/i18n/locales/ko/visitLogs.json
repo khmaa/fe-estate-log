@@ -107,7 +107,6 @@
     },
     "card": {
       "actions": "작업",
-      "archive": "기록 보관",
       "details": "상세 보기",
       "duplicate": "초안 복제",
       "fields": {
