@@ -92,6 +92,26 @@ describe('VisitLogCard', () => {
     expect(handleDuplicateDraft).toHaveBeenCalledWith(visitLog);
   });
 
+  it('does not render unsupported archive actions', async () => {
+    render(
+      <VisitLogCard
+        log={visitLog}
+        onDuplicateDraft={vi.fn()}
+        onOpenDetails={vi.fn()}
+        onPrefetchDetails={vi.fn()}
+      />,
+    );
+
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+
+    expect(
+      await screen.findByRole('menuitem', { name: 'Open details' }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('menuitem', { name: 'Archive record' })).toBe(
+      null,
+    );
+  });
+
   it('prefetches detail data from hover and focus interactions', async () => {
     const handlePrefetchDetails = vi.fn();
 
