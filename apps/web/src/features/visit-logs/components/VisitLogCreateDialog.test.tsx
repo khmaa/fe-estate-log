@@ -115,6 +115,14 @@ describe('VisitLogCreateDialog', () => {
       </AppProviders>,
     );
 
+    expect(
+      screen.getByRole('heading', { name: 'Duplicate visit log draft' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Start from the selected visit log and adjust the copied details before saving a new draft.',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByLabelText('Title')).toHaveValue('Duplicated visit');
     expect(screen.getByLabelText('District')).toHaveValue('Mapo-gu');
     expect(screen.getByLabelText('Price')).toHaveValue('KRW 730M');
@@ -122,7 +130,7 @@ describe('VisitLogCreateDialog', () => {
       'Review the weekend foot traffic.',
     );
     expect(
-      screen.getByRole('button', { name: 'Create draft' }),
+      screen.getByRole('button', { name: 'Create duplicate draft' }),
     ).not.toBeDisabled();
   });
 });
