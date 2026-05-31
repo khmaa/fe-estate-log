@@ -28,6 +28,7 @@ const VisitLogCreateDialog = ({
   onOpenChange,
   open,
 }: VisitLogCreateDialogProps) => {
+  const isDuplicateDraft = Boolean(initialValues);
   const initialForm = initialValues ?? initialFormState;
   const { form, isValid, resetForm, setForm } = useVisitLogForm(initialForm);
   const mutation = useCreateVisitLog();
@@ -67,13 +68,25 @@ const VisitLogCreateDialog = ({
           isPending={mutation.isPending}
           isSubmitDisabled={isCreateDisabled}
           onSubmit={handleSubmit}
-          submitLabel={t('visitLogs.createDialog.create')}
+          submitLabel={t(
+            isDuplicateDraft
+              ? 'visitLogs.createDialog.duplicate.create'
+              : 'visitLogs.createDialog.create',
+          )}
         />
       }
-      description={t('visitLogs.createDialog.description')}
+      description={t(
+        isDuplicateDraft
+          ? 'visitLogs.createDialog.duplicate.description'
+          : 'visitLogs.createDialog.description',
+      )}
       onOpenChange={handleOpenChange}
       open={open}
-      title={t('visitLogs.createDialog.title')}
+      title={t(
+        isDuplicateDraft
+          ? 'visitLogs.createDialog.duplicate.title'
+          : 'visitLogs.createDialog.title',
+      )}
     >
       <VisitLogFormFields
         fieldIdPrefix="create-visit-log"

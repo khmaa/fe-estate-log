@@ -156,7 +156,12 @@
       },
       "error": "Failed to create the visit log.",
       "cancel": "Cancel",
-      "create": "Create draft"
+      "create": "Create draft",
+      "duplicate": {
+        "title": "Duplicate visit log draft",
+        "description": "Start from the selected visit log and adjust the copied details before saving a new draft.",
+        "create": "Create duplicate draft"
+      }
     },
     "editDialog": {
       "title": "Edit visit log",

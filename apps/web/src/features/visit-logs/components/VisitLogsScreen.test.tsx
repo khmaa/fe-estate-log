@@ -225,7 +225,10 @@ describe('VisitLogsScreen', () => {
     );
 
     expect(
-      screen.getByRole('heading', { name: 'Create a new visit log' }),
+      screen.getByRole('heading', { name: 'Duplicate visit log draft' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Create duplicate draft' }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Title')).toHaveValue(
       'Samsung-dong river-view apartment',
