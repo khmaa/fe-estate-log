@@ -102,6 +102,10 @@
       "title": "Visit logs workspace",
       "toast": {
         "description": "The new draft has been added through the feature mutation flow.",
+        "duplicate": {
+          "description": "A copied draft has been added from the selected visit log.",
+          "title": "Duplicate draft created"
+        },
         "title": "Visit log created"
       }
     },

@@ -112,6 +112,29 @@ describe('useVisitLogCreateFlow', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows duplicate draft toast copy after creating from duplicated values', () => {
+    const { result } = renderHook(() => useVisitLogCreateFlow(), { wrapper });
+
+    act(() => {
+      result.current.openDuplicateDialog(visitLog);
+    });
+
+    expect(result.current.isCreateDialogOpen).toBe(true);
+
+    act(() => {
+      result.current.handleCreated();
+    });
+
+    expect(result.current.isCreateDialogOpen).toBe(false);
+    expect(result.current.createInitialValues).toBeUndefined();
+    expect(screen.getByText('Duplicate draft created')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'A copied draft has been added from the selected visit log.',
+      ),
+    ).toBeInTheDocument();
+  });
+
   it('maps a visit log into duplicate create input', () => {
     expect(getDuplicateVisitLogInput(visitLog)).toEqual({
       title: 'Samsung-dong river-view apartment',

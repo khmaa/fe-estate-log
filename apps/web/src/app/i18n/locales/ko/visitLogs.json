@@ -102,6 +102,10 @@
       "title": "임장 기록 워크스페이스",
       "toast": {
         "description": "새 임장 기록 초안이 feature mutation 흐름을 통해 추가되었습니다.",
+        "duplicate": {
+          "description": "선택한 임장 기록을 기준으로 복제 초안이 추가되었습니다.",
+          "title": "복제 초안이 생성되었습니다"
+        },
         "title": "임장 기록이 생성되었습니다"
       }
     },
