@@ -39,11 +39,21 @@ const useVisitLogCreateFlow = () => {
   };
 
   const handleCreated = () => {
+    const isDuplicateDraft = Boolean(createInitialValues);
+
     setCreateInitialValues(undefined);
     setCreateDialogOpen(false);
     showToast({
-      title: t('visitLogs.page.toast.title'),
-      description: t('visitLogs.page.toast.description'),
+      title: t(
+        isDuplicateDraft
+          ? 'visitLogs.page.toast.duplicate.title'
+          : 'visitLogs.page.toast.title',
+      ),
+      description: t(
+        isDuplicateDraft
+          ? 'visitLogs.page.toast.duplicate.description'
+          : 'visitLogs.page.toast.description',
+      ),
       variant: 'success',
     });
   };
