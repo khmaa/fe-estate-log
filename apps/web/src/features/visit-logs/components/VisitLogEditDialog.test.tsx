@@ -35,6 +35,26 @@ describe('VisitLogEditDialog', () => {
     expect(screen.getByLabelText('Summary')).toHaveValue(visitLog.summary);
   });
 
+  it('shows validation feedback when a required field is cleared', () => {
+    render(
+      <AppProviders>
+        <VisitLogEditDialog
+          log={visitLog}
+          open
+          onOpenChange={vi.fn()}
+          onUpdated={vi.fn()}
+        />
+      </AppProviders>,
+    );
+
+    fireEvent.change(screen.getByLabelText('Title'), {
+      target: { value: '' },
+    });
+
+    expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save changes' })).toBeDisabled();
+  });
+
   it('updates a visit log and resets the form when the dialog closes', async () => {
     const onUpdated = vi.fn();
     const onOpenChange = vi.fn();

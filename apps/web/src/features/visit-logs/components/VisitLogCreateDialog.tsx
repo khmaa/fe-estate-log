@@ -30,7 +30,8 @@ const VisitLogCreateDialog = ({
 }: VisitLogCreateDialogProps) => {
   const isDuplicateDraft = Boolean(initialValues);
   const initialForm = initialValues ?? initialFormState;
-  const { form, isValid, resetForm, setForm } = useVisitLogForm(initialForm);
+  const { form, isValid, resetForm, setForm, validationErrors } =
+    useVisitLogForm(initialForm);
   const mutation = useCreateVisitLog();
   const { t } = useTranslation();
 
@@ -93,6 +94,7 @@ const VisitLogCreateDialog = ({
         form={form}
         labelPrefix="createDialog"
         onChange={setForm}
+        validationErrors={validationErrors}
       />
       {mutation.isError ? (
         <p className="text-sm text-danger">

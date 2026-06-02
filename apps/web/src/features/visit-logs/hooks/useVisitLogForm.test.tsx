@@ -4,7 +4,11 @@ import type {
   CreateVisitLogInput,
   UpdateVisitLogInput,
 } from '../types/visitLog';
-import { isValidVisitLogForm, useVisitLogForm } from './useVisitLogForm';
+import {
+  getVisitLogFormValidationErrors,
+  isValidVisitLogForm,
+  useVisitLogForm,
+} from './useVisitLogForm';
 
 const validForm: CreateVisitLogInput = {
   title: 'Jamsil draft',
@@ -31,6 +35,24 @@ describe('useVisitLogForm', () => {
     expect(isValidVisitLogForm(validForm)).toBe(true);
   });
 
+  it('returns validation errors for missing required fields', () => {
+    expect(
+      getVisitLogFormValidationErrors({
+        ...validForm,
+        district: '   ',
+        priceLabel: '',
+        summary: '',
+        title: '',
+      }),
+    ).toEqual({
+      district: true,
+      priceLabel: true,
+      summary: true,
+      title: true,
+    });
+    expect(getVisitLogFormValidationErrors(validForm)).toEqual({});
+  });
+
   it('updates and resets create form state', () => {
     const { result } = renderHook(() => useVisitLogForm(validForm));
 
@@ -48,6 +70,7 @@ describe('useVisitLogForm', () => {
       title: 'Updated draft',
     });
     expect(result.current.isValid).toBe(true);
+    expect(result.current.validationErrors).toEqual({});
 
     act(() => {
       result.current.resetForm();

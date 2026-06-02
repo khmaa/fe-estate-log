@@ -2,6 +2,9 @@ import { useState } from 'react';
 import type { CreateVisitLogInput } from '../types/visitLog';
 
 type VisitLogFormState = CreateVisitLogInput;
+type VisitLogFormValidationErrors = Partial<
+  Record<'district' | 'priceLabel' | 'summary' | 'title', true>
+>;
 
 const isValidVisitLogForm = (form: VisitLogFormState) =>
   Boolean(
@@ -10,6 +13,15 @@ const isValidVisitLogForm = (form: VisitLogFormState) =>
     form.priceLabel.trim() &&
     form.summary.trim(),
   );
+
+const getVisitLogFormValidationErrors = (
+  form: VisitLogFormState,
+): VisitLogFormValidationErrors => ({
+  ...(form.title.trim() ? {} : { title: true }),
+  ...(form.district.trim() ? {} : { district: true }),
+  ...(form.priceLabel.trim() ? {} : { priceLabel: true }),
+  ...(form.summary.trim() ? {} : { summary: true }),
+});
 
 const useVisitLogForm = <FormState extends VisitLogFormState>(
   initialForm: FormState,
@@ -25,8 +37,13 @@ const useVisitLogForm = <FormState extends VisitLogFormState>(
     isValid: isValidVisitLogForm(form),
     resetForm,
     setForm,
+    validationErrors: getVisitLogFormValidationErrors(form),
   };
 };
 
-export { isValidVisitLogForm, useVisitLogForm };
-export type { VisitLogFormState };
+export {
+  getVisitLogFormValidationErrors,
+  isValidVisitLogForm,
+  useVisitLogForm,
+};
+export type { VisitLogFormState, VisitLogFormValidationErrors };

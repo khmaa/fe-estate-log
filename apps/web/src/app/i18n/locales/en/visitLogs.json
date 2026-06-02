@@ -158,6 +158,12 @@
         "price": "KRW 1.35B",
         "summary": "Notes about sunlight, noise, and commute conditions."
       },
+      "validation": {
+        "titleRequired": "Enter a visit log title.",
+        "districtRequired": "Enter the district or destination area.",
+        "priceRequired": "Enter a price label.",
+        "summaryRequired": "Enter a short summary."
+      },
       "error": "Failed to create the visit log.",
       "cancel": "Cancel",
       "create": "Create draft",
@@ -182,6 +188,12 @@
         "district": "Songpa-gu",
         "price": "KRW 1.35B",
         "summary": "Notes about sunlight, noise, and commute conditions."
+      },
+      "validation": {
+        "titleRequired": "Enter a visit log title.",
+        "districtRequired": "Enter the district or destination area.",
+        "priceRequired": "Enter a price label.",
+        "summaryRequired": "Enter a short summary."
       },
       "error": "Failed to update the visit log.",
       "cancel": "Cancel",
