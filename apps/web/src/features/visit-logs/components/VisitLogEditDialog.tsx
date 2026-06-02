@@ -28,9 +28,8 @@ const VisitLogEditDialog = ({
   onUpdated,
   open,
 }: VisitLogEditDialogProps) => {
-  const { form, isValid, resetForm, setForm } = useVisitLogForm(
-    toFormState(log),
-  );
+  const { form, isValid, resetForm, setForm, validationErrors } =
+    useVisitLogForm(toFormState(log));
   const mutation = useUpdateVisitLog();
   const { t } = useTranslation();
 
@@ -80,6 +79,7 @@ const VisitLogEditDialog = ({
             ...nextForm,
           }))
         }
+        validationErrors={validationErrors}
       />
       {mutation.isError ? (
         <p className="text-sm text-danger">{t('visitLogs.editDialog.error')}</p>

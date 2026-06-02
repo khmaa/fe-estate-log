@@ -12,6 +12,12 @@ describe('VisitLogCreateDialog', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Create draft' })).toBeDisabled();
+    expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Enter the district or destination area.'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Enter a price label.')).toBeInTheDocument();
+    expect(screen.getByText('Enter a short summary.')).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('Title'), {
       target: { value: 'Jamsil draft' },

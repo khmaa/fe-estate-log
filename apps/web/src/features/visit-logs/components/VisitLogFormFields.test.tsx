@@ -69,4 +69,40 @@ describe('VisitLogFormFields', () => {
       summary: 'Updated summary.',
     });
   });
+
+  it('renders validation errors for required fields', () => {
+    render(
+      <AppProviders>
+        <VisitLogFormFields
+          fieldIdPrefix="test-visit-log"
+          form={{
+            ...form,
+            district: '',
+            priceLabel: '',
+            summary: '',
+            title: '',
+          }}
+          labelPrefix="createDialog"
+          onChange={vi.fn()}
+          validationErrors={{
+            district: true,
+            priceLabel: true,
+            summary: true,
+            title: true,
+          }}
+        />
+      </AppProviders>,
+    );
+
+    expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Enter the district or destination area.'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Enter a price label.')).toBeInTheDocument();
+    expect(screen.getByText('Enter a short summary.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Title')).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
 });
