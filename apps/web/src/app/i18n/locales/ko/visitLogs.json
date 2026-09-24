@@ -159,6 +159,7 @@
         "summary": "일조량, 소음, 출퇴근 동선에 대한 메모를 남겨보세요."
       },
       "validation": {
+        "summary": "필수 입력값 {{count}}개를 확인하세요.",
         "titleRequired": "임장 기록 제목을 입력하세요.",
         "districtRequired": "지역 또는 목적지를 입력하세요.",
         "priceRequired": "가격 정보를 입력하세요.",
@@ -190,6 +191,7 @@
         "summary": "일조량, 소음, 출퇴근 동선에 대한 메모를 남겨보세요."
       },
       "validation": {
+        "summary": "필수 입력값 {{count}}개를 확인하세요.",
         "titleRequired": "임장 기록 제목을 입력하세요.",
         "districtRequired": "지역 또는 목적지를 입력하세요.",
         "priceRequired": "가격 정보를 입력하세요.",

@@ -159,6 +159,7 @@
         "summary": "Notes about sunlight, noise, and commute conditions."
       },
       "validation": {
+        "summary": "Fields needing attention: {{count}}.",
         "titleRequired": "Enter a visit log title.",
         "districtRequired": "Enter the district or destination area.",
         "priceRequired": "Enter a price label.",
@@ -190,6 +191,7 @@
         "summary": "Notes about sunlight, noise, and commute conditions."
       },
       "validation": {
+        "summary": "Fields needing attention: {{count}}.",
         "titleRequired": "Enter a visit log title.",
         "districtRequired": "Enter the district or destination area.",
         "priceRequired": "Enter a price label.",
