@@ -1,4 +1,11 @@
-import { Field, Input, Select, Textarea } from '@shared-ui/core';
+import {
+  Alert,
+  AlertDescription,
+  Field,
+  Input,
+  Select,
+  Textarea,
+} from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLogFormValidationErrors } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput } from '../types/visitLog';
@@ -22,6 +29,7 @@ const VisitLogFormFields = ({
   validationErrors,
 }: VisitLogFormFieldsProps) => {
   const { t } = useTranslation();
+  const validationErrorCount = Object.keys(validationErrors ?? {}).length;
 
   const updateForm = <Key extends keyof CreateVisitLogInput>(
     key: Key,
@@ -35,6 +43,15 @@ const VisitLogFormFields = ({
 
   return (
     <>
+      {validationErrorCount > 0 ? (
+        <Alert variant="error">
+          <AlertDescription>
+            {t(`visitLogs.${labelPrefix}.validation.summary`, {
+              count: validationErrorCount,
+            })}
+          </AlertDescription>
+        </Alert>
+      ) : null}
       <Field
         error={
           validationErrors?.title

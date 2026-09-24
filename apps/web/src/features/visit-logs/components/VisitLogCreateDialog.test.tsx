@@ -12,6 +12,9 @@ describe('VisitLogCreateDialog', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Create draft' })).toBeDisabled();
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Fields needing attention: 4.',
+    );
     expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
     expect(
       screen.getByText('Enter the district or destination area.'),

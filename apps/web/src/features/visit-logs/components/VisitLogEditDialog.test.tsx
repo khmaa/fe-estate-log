@@ -52,6 +52,9 @@ describe('VisitLogEditDialog', () => {
     });
 
     expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Fields needing attention: 1.',
+    );
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeDisabled();
   });
 
