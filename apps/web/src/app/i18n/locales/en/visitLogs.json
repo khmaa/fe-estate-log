@@ -160,6 +160,7 @@
       },
       "validation": {
         "summary": "Fields needing attention: {{count}}.",
+        "submitDisabledReason": "Complete the required fields before creating the visit log.",
         "titleRequired": "Enter a visit log title.",
         "districtRequired": "Enter the district or destination area.",
         "priceRequired": "Enter a price label.",
@@ -192,6 +193,7 @@
       },
       "validation": {
         "summary": "Fields needing attention: {{count}}.",
+        "submitDisabledReason": "Complete the required fields before saving changes.",
         "titleRequired": "Enter a visit log title.",
         "districtRequired": "Enter the district or destination area.",
         "priceRequired": "Enter a price label.",

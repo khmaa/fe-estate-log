@@ -27,4 +27,4 @@ storybook-static/
 ai-context/
 AGENTS.md
 worklog/*
-!worklog/day-75-summary*.md
+!worklog/*.md
