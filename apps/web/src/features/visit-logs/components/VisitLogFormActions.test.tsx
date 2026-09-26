@@ -28,6 +28,8 @@ const renderActions = ({
           isPending={isPending}
           isSubmitDisabled={isSubmitDisabled}
           onSubmit={onSubmit}
+          submitDisabledReason="Complete the required fields before saving changes."
+          submitDisabledReasonId="visit-log-submit-disabled-reason"
           submitLabel="Save changes"
         />
       </DialogContent>
@@ -51,6 +53,16 @@ describe('VisitLogFormActions', () => {
 
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Cancel' })).not.toBeDisabled();
+  });
+
+  it('describes why submit is disabled when a reason is provided', () => {
+    renderActions({ isSubmitDisabled: true });
+
+    expect(
+      screen.getByRole('button', { name: 'Save changes' }),
+    ).toHaveAccessibleDescription(
+      'Complete the required fields before saving changes.',
+    );
   });
 
   it('disables both actions while pending', () => {

@@ -61,6 +61,12 @@ const VisitLogEditDialog = ({
           isPending={mutation.isPending}
           isSubmitDisabled={isUpdateDisabled}
           onSubmit={handleSubmit}
+          submitDisabledReason={
+            !isValid
+              ? t('visitLogs.editDialog.validation.submitDisabledReason')
+              : undefined
+          }
+          submitDisabledReasonId="edit-visit-log-submit-disabled-reason"
           submitLabel={t('visitLogs.editDialog.save')}
         />
       }

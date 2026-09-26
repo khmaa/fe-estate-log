@@ -12,6 +12,11 @@ describe('VisitLogCreateDialog', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Create draft' })).toBeDisabled();
+    expect(
+      screen.getByRole('button', { name: 'Create draft' }),
+    ).toHaveAccessibleDescription(
+      'Complete the required fields before creating the visit log.',
+    );
     expect(screen.getByRole('alert')).toHaveTextContent(
       'Fields needing attention: 4.',
     );

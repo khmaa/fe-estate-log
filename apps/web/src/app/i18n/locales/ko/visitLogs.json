@@ -160,6 +160,7 @@
       },
       "validation": {
         "summary": "필수 입력값 {{count}}개를 확인하세요.",
+        "submitDisabledReason": "임장 기록을 만들기 전에 필수 입력값을 모두 입력하세요.",
         "titleRequired": "임장 기록 제목을 입력하세요.",
         "districtRequired": "지역 또는 목적지를 입력하세요.",
         "priceRequired": "가격 정보를 입력하세요.",
@@ -192,6 +193,7 @@
       },
       "validation": {
         "summary": "필수 입력값 {{count}}개를 확인하세요.",
+        "submitDisabledReason": "변경 사항을 저장하기 전에 필수 입력값을 모두 입력하세요.",
         "titleRequired": "임장 기록 제목을 입력하세요.",
         "districtRequired": "지역 또는 목적지를 입력하세요.",
         "priceRequired": "가격 정보를 입력하세요.",

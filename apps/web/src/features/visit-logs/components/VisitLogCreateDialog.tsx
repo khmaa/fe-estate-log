@@ -69,6 +69,12 @@ const VisitLogCreateDialog = ({
           isPending={mutation.isPending}
           isSubmitDisabled={isCreateDisabled}
           onSubmit={handleSubmit}
+          submitDisabledReason={
+            !isValid
+              ? t('visitLogs.createDialog.validation.submitDisabledReason')
+              : undefined
+          }
+          submitDisabledReasonId="create-visit-log-submit-disabled-reason"
           submitLabel={t(
             isDuplicateDraft
               ? 'visitLogs.createDialog.duplicate.create'
