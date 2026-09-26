@@ -1,6 +1,7 @@
 # Day 6 Summary
 
 ## Overview
+
 - Added `Checkbox` as the first shared selectable input component.
 - Expanded Storybook and test coverage for checkbox state combinations.
 - Set up GitHub Actions and Codecov integration for repository coverage reporting.
@@ -9,6 +10,7 @@
 ## Completed Work
 
 ### 1. Added `Checkbox`
+
 - Created `libs/shared-ui/src/components/Checkbox.tsx`
 - Implemented a shared checkbox wrapper with token-based styling
 - Supported:
@@ -18,6 +20,7 @@
 - `onChange`
 
 ### 2. Added `Checkbox` stories
+
 - Created `libs/shared-ui/src/components/Checkbox.stories.tsx`
 - Added stories for:
 - `Default`
@@ -27,6 +30,7 @@
 - `WithLabel`
 
 ### 3. Added `Checkbox` tests
+
 - Created `libs/shared-ui/src/components/tests/Checkbox.test.tsx`
 - Verified:
 - checkbox rendering
@@ -36,11 +40,13 @@
 - `onChange` behavior
 
 ### 4. Improved `Field` test coverage
+
 - Updated `libs/shared-ui/src/components/tests/Field.test.tsx`
 - Added a case to verify merging an existing `aria-describedby` value
 - Brought `Field.tsx` coverage to 100%
 
 ### 5. Added CI and Codecov setup
+
 - Created `.github/workflows/ci.yml`
 - Added CI steps for:
 - install
@@ -53,6 +59,7 @@
 - Documented Codecov-based repository coverage reporting
 
 ### 6. Fixed CI type dependency failure
+
 - Added missing type packages to `@shared-ui/core`
 - Added:
 - `@types/react`
@@ -60,6 +67,7 @@
 - Resolved CI build failures caused by missing React type declarations during `web` build
 
 ### 7. Fixed Codecov upload failure
+
 - Updated:
 - `apps/web/vitest.config.ts`
 - `libs/shared-ui/vitest.config.ts`
@@ -69,6 +77,7 @@
 - `libs/shared-ui/coverage/lcov.info`
 
 ## Validation
+
 - `pnpm -F @shared-ui/core test:run`
 - passed
 - `pnpm -F @shared-ui/core storybook:build`
@@ -85,12 +94,14 @@
 - passed
 
 ## Decisions
+
 - A disabled checkbox can also be checked, and that combination should be documented and tested
 - Repository-level coverage visibility on GitHub should use GitHub Actions plus Codecov
 - `lcov` output is required for reliable Codecov uploads in this project
 - Shared UI packages should declare their own React type dependencies for stable CI builds
 
 ## Suggested Next Steps
+
 - Add a `CheckboxField` or field-level layout pattern for checkbox + helper/error messaging
 - Add `Select`, `Radio`, or `Switch` as the next interactive input type
 - Verify that the first successful upload updates the Codecov badge on the repository README
