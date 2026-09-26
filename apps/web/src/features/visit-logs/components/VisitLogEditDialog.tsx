@@ -88,7 +88,9 @@ const VisitLogEditDialog = ({
         validationErrors={validationErrors}
       />
       {mutation.isError ? (
-        <p className="text-sm text-danger">{t('visitLogs.editDialog.error')}</p>
+        <p className="text-sm text-danger" role="alert">
+          {t('visitLogs.editDialog.error')}
+        </p>
       ) : null}
     </VisitLogDialogShell>
   );
