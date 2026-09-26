@@ -63,7 +63,9 @@ const VisitLogDeleteDialog = ({
         </p>
         <p>{t('visitLogs.deleteDialog.warning')}</p>
         {mutation.isError ? (
-          <p className="text-danger">{t('visitLogs.deleteDialog.error')}</p>
+          <p className="text-danger" role="alert">
+            {t('visitLogs.deleteDialog.error')}
+          </p>
         ) : null}
       </div>
     </VisitLogDialogShell>

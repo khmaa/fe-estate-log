@@ -103,7 +103,7 @@ const VisitLogCreateDialog = ({
         validationErrors={validationErrors}
       />
       {mutation.isError ? (
-        <p className="text-sm text-danger">
+        <p className="text-sm text-danger" role="alert">
           {t('visitLogs.createDialog.error')}
         </p>
       ) : null}

@@ -50,9 +50,10 @@ describe('VisitLogEditDialog state handling', () => {
       </AppProviders>,
     );
 
-    expect(
-      screen.getByText('Failed to update the visit log.'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Failed to update the visit log.')).toHaveAttribute(
+      'role',
+      'alert',
+    );
   });
 
   it('resets mutation state when the dialog is closed from the cancel action', async () => {
