@@ -213,7 +213,8 @@
       "warning": "이 작업은 feature 상태에 즉시 반영되며 되돌릴 수 없습니다.",
       "error": "임장 기록 삭제에 실패했습니다.",
       "cancel": "취소",
-      "confirm": "삭제"
+      "confirm": "삭제",
+      "confirmDisabledReason": "삭제할 임장 기록을 먼저 선택하세요."
     },
     "enums": {
       "propertyType": {

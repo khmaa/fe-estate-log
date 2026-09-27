@@ -26,6 +26,8 @@ const renderActions = ({
         <VisitLogDeleteActions
           cancelLabel="Cancel"
           confirmLabel="Delete"
+          confirmDisabledReason="Select a visit log before deleting it."
+          confirmDisabledReasonId="visit-log-confirm-disabled-reason"
           isConfirmDisabled={isConfirmDisabled}
           isPending={isPending}
           onConfirm={onConfirm}
@@ -51,6 +53,14 @@ describe('VisitLogDeleteActions', () => {
 
     expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Cancel' })).not.toBeDisabled();
+  });
+
+  it('describes why confirm is disabled when a reason is provided', () => {
+    renderActions({ isConfirmDisabled: true });
+
+    expect(
+      screen.getByRole('button', { name: 'Delete' }),
+    ).toHaveAccessibleDescription('Select a visit log before deleting it.');
   });
 
   it('disables both actions while pending', () => {

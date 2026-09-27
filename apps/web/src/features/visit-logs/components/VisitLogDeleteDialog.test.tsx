@@ -78,6 +78,9 @@ describe('VisitLogDeleteDialog', () => {
       screen.getByText('Are you sure you want to delete this visit log?'),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    expect(
+      screen.getByRole('button', { name: 'Delete' }),
+    ).toHaveAccessibleDescription('Select a visit log before deleting it.');
     expect(onDeleted).not.toHaveBeenCalled();
   });
 });

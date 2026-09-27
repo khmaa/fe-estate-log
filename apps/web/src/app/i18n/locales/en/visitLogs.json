@@ -213,7 +213,8 @@
       "warning": "This action updates the feature state immediately and cannot be undone.",
       "error": "Failed to delete the visit log.",
       "cancel": "Cancel",
-      "confirm": "Delete"
+      "confirm": "Delete",
+      "confirmDisabledReason": "Select a visit log before deleting it."
     },
     "enums": {
       "propertyType": {

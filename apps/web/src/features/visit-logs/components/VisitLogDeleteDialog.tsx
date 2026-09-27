@@ -43,6 +43,10 @@ const VisitLogDeleteDialog = ({
         <VisitLogDeleteActions
           cancelLabel={t('visitLogs.deleteDialog.cancel')}
           confirmLabel={t('visitLogs.deleteDialog.confirm')}
+          confirmDisabledReason={
+            !log ? t('visitLogs.deleteDialog.confirmDisabledReason') : undefined
+          }
+          confirmDisabledReasonId="delete-visit-log-confirm-disabled-reason"
           isConfirmDisabled={mutation.isPending || !log}
           isPending={mutation.isPending}
           onConfirm={() => handleConfirm(log as VisitLog)}
