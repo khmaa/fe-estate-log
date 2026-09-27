@@ -3,6 +3,8 @@ import { Button, DialogClose, DialogFooter } from '@shared-ui/core';
 type VisitLogDeleteActionsProps = {
   cancelLabel: string;
   confirmLabel: string;
+  confirmDisabledReason?: string;
+  confirmDisabledReasonId?: string;
   isConfirmDisabled: boolean;
   isPending: boolean;
   onConfirm: () => void;
@@ -11,10 +13,16 @@ type VisitLogDeleteActionsProps = {
 const VisitLogDeleteActions = ({
   cancelLabel,
   confirmLabel,
+  confirmDisabledReason,
+  confirmDisabledReasonId,
   isConfirmDisabled,
   isPending,
   onConfirm,
 }: VisitLogDeleteActionsProps) => {
+  const shouldDescribeConfirm =
+    isConfirmDisabled &&
+    Boolean(confirmDisabledReason && confirmDisabledReasonId);
+
   return (
     <DialogFooter>
       <DialogClose asChild>
@@ -23,6 +31,9 @@ const VisitLogDeleteActions = ({
         </Button>
       </DialogClose>
       <Button
+        aria-describedby={
+          shouldDescribeConfirm ? confirmDisabledReasonId : undefined
+        }
         variant="secondary"
         className="bg-danger text-white hover:bg-danger"
         disabled={isConfirmDisabled}
@@ -31,6 +42,11 @@ const VisitLogDeleteActions = ({
       >
         {confirmLabel}
       </Button>
+      {shouldDescribeConfirm ? (
+        <p id={confirmDisabledReasonId} className="sr-only">
+          {confirmDisabledReason}
+        </p>
+      ) : null}
     </DialogFooter>
   );
 };
