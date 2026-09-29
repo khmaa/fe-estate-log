@@ -137,6 +137,7 @@
       }
     },
     "pagination": {
+      "label": "Visit log pagination",
       "previous": "Previous",
       "next": "Next",
       "current": "Page {{page}} of {{totalPages}}",

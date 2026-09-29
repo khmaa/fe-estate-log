@@ -26,7 +26,10 @@ const VisitLogPagination = ({
   const rangeEnd = Math.min(page * pageSize, totalCount);
 
   return (
-    <div className="flex flex-col gap-4 rounded-[24px] border border-border bg-surface px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between">
+    <nav
+      aria-label={t('visitLogs.pagination.label')}
+      className="flex flex-col gap-4 rounded-[24px] border border-border bg-surface px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between"
+    >
       <p className="text-sm text-muted-foreground">
         {t('visitLogs.pagination.summary', {
           page,
@@ -45,7 +48,10 @@ const VisitLogPagination = ({
         >
           {t('visitLogs.pagination.previous')}
         </Button>
-        <span className="text-sm font-medium text-foreground">
+        <span
+          aria-current="page"
+          className="text-sm font-medium text-foreground"
+        >
           {t('visitLogs.pagination.current', { page, totalPages })}
         </span>
         <Button
@@ -56,7 +62,7 @@ const VisitLogPagination = ({
           {t('visitLogs.pagination.next')}
         </Button>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -34,6 +34,13 @@ describe('VisitLogPagination', () => {
     expect(
       screen.getByText('Showing 3-4 of 5 visit logs.'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('navigation', { name: 'Visit log pagination' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Page 2 of 3')).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
     fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
     fireEvent.click(screen.getByRole('button', { name: 'Next' }));
 

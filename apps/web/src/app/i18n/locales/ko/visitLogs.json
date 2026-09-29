@@ -137,6 +137,7 @@
       }
     },
     "pagination": {
+      "label": "임장 기록 페이지네이션",
       "previous": "이전",
       "next": "다음",
       "current": "{{totalPages}}페이지 중 {{page}}페이지",
