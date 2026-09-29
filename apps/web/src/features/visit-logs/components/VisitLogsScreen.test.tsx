@@ -115,7 +115,11 @@ describe('VisitLogsScreen', () => {
 
     renderScreen(visitLogs, undefined, handleOpenDetails);
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Review note' })[0]);
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Review note for Samsung-dong river-view apartment',
+      }),
+    );
 
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
   });
@@ -208,7 +212,9 @@ describe('VisitLogsScreen', () => {
     renderScreen(visitLogs, undefined, vi.fn(), handlePrefetchDetails);
 
     fireEvent.mouseEnter(
-      screen.getAllByRole('button', { name: 'Review note' })[0],
+      screen.getByRole('button', {
+        name: 'Review note for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
@@ -218,10 +224,14 @@ describe('VisitLogsScreen', () => {
     renderScreen(visitLogs);
 
     fireEvent.pointerDown(
-      screen.getAllByRole('button', { name: 'Actions' })[0],
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
     );
     fireEvent.click(
-      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+      await screen.findByRole('menuitem', {
+        name: 'Duplicate draft for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(

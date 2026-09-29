@@ -111,8 +111,11 @@
     },
     "card": {
       "actions": "작업",
+      "actionsLabel": "{{title}} 작업",
       "details": "상세 보기",
+      "detailsLabel": "{{title}} 상세 보기",
       "duplicate": "초안 복제",
+      "duplicateLabel": "{{title}} 초안 복제",
       "fields": {
         "district": "지역",
         "price": "가격",
@@ -120,7 +123,8 @@
       },
       "handledBy": "{{name}} 중개사가 담당",
       "menuLabel": "임장 기록 작업",
-      "review": "기록 검토"
+      "review": "기록 검토",
+      "reviewLabel": "{{title}} 기록 검토"
     },
     "list": {
       "error": {

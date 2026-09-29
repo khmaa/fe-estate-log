@@ -111,8 +111,11 @@
     },
     "card": {
       "actions": "Actions",
+      "actionsLabel": "Actions for {{title}}",
       "details": "Open details",
+      "detailsLabel": "Open details for {{title}}",
       "duplicate": "Duplicate draft",
+      "duplicateLabel": "Duplicate draft for {{title}}",
       "fields": {
         "district": "District",
         "price": "Price",
@@ -120,7 +123,8 @@
       },
       "handledBy": "Handled by {{name}}",
       "menuLabel": "Visit log actions",
-      "review": "Review note"
+      "review": "Review note",
+      "reviewLabel": "Review note for {{title}}"
     },
     "list": {
       "error": {

@@ -47,7 +47,11 @@ describe('VisitLogCard', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Review note' }));
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Review note for Samsung-dong river-view apartment',
+      }),
+    );
 
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
   });
@@ -64,9 +68,15 @@ describe('VisitLogCard', () => {
       />,
     );
 
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.pointerDown(
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
+    );
     fireEvent.click(
-      await screen.findByRole('menuitem', { name: 'Open details' }),
+      await screen.findByRole('menuitem', {
+        name: 'Open details for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(handleOpenDetails).toHaveBeenCalledWith('visit-log-1');
@@ -84,9 +94,15 @@ describe('VisitLogCard', () => {
       />,
     );
 
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.pointerDown(
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
+    );
     fireEvent.click(
-      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+      await screen.findByRole('menuitem', {
+        name: 'Duplicate draft for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(handleDuplicateDraft).toHaveBeenCalledWith(visitLog);
@@ -102,10 +118,16 @@ describe('VisitLogCard', () => {
       />,
     );
 
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.pointerDown(
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
+    );
 
     expect(
-      await screen.findByRole('menuitem', { name: 'Open details' }),
+      await screen.findByRole('menuitem', {
+        name: 'Open details for Samsung-dong river-view apartment',
+      }),
     ).toBeInTheDocument();
     expect(screen.queryByRole('menuitem', { name: 'Archive record' })).toBe(
       null,
@@ -124,11 +146,25 @@ describe('VisitLogCard', () => {
       />,
     );
 
-    fireEvent.mouseEnter(screen.getByRole('button', { name: 'Review note' }));
-    fireEvent.focus(screen.getByRole('button', { name: 'Review note' }));
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.mouseEnter(
+      screen.getByRole('button', {
+        name: 'Review note for Samsung-dong river-view apartment',
+      }),
+    );
     fireEvent.focus(
-      await screen.findByRole('menuitem', { name: 'Open details' }),
+      screen.getByRole('button', {
+        name: 'Review note for Samsung-dong river-view apartment',
+      }),
+    );
+    fireEvent.pointerDown(
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
+    );
+    fireEvent.focus(
+      await screen.findByRole('menuitem', {
+        name: 'Open details for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(handlePrefetchDetails).toHaveBeenCalledWith('visit-log-1');
