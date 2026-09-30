@@ -71,20 +71,35 @@ const VisitLogCard = ({
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost">{t('visitLogs.card.actions')}</Button>
+              <Button
+                aria-label={t('visitLogs.card.actionsLabel', {
+                  title: log.title,
+                })}
+                variant="ghost"
+              >
+                {t('visitLogs.card.actions')}
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
                 {t('visitLogs.card.menuLabel')}
               </DropdownMenuLabel>
               <DropdownMenuItem
+                aria-label={t('visitLogs.card.detailsLabel', {
+                  title: log.title,
+                })}
                 onSelect={() => onOpenDetails(log.id)}
                 onFocus={handlePrefetchDetails}
                 onPointerMove={handlePrefetchDetails}
               >
                 {t('visitLogs.card.details')}
               </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => onDuplicateDraft(log)}>
+              <DropdownMenuItem
+                aria-label={t('visitLogs.card.duplicateLabel', {
+                  title: log.title,
+                })}
+                onSelect={() => onDuplicateDraft(log)}
+              >
                 {t('visitLogs.card.duplicate')}
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -118,6 +133,9 @@ const VisitLogCard = ({
             {t('visitLogs.card.handledBy', { name: log.agentName })}
           </p>
           <Button
+            aria-label={t('visitLogs.card.reviewLabel', {
+              title: log.title,
+            })}
             variant="secondary"
             onClick={() => onOpenDetails(log.id)}
             onFocus={handlePrefetchDetails}

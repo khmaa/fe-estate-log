@@ -24,7 +24,9 @@ const openVisitLogDetails = async (title: string) => {
     throw new Error(`Could not find a visit log card for "${title}"`);
   }
 
-  fireEvent.click(within(card).getByRole('button', { name: 'Review note' }));
+  fireEvent.click(
+    within(card).getByRole('button', { name: `Review note for ${title}` }),
+  );
 };
 
 describe('App', () => {
@@ -64,7 +66,7 @@ describe('App', () => {
       screen.getByRole('button', { name: '임장 기록 생성' }),
     ).toBeInTheDocument();
     expect(
-      (await screen.findAllByRole('button', { name: '기록 검토' })).length,
+      (await screen.findAllByRole('button', { name: /기록 검토/ })).length,
     ).toBeGreaterThan(0);
 
     fireEvent.click(screen.getByRole('button', { name: '임장 기록 생성' }));

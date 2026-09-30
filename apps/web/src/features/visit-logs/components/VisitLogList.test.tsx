@@ -164,9 +164,15 @@ describe('VisitLogList', () => {
       />,
     );
 
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Actions' }));
+    fireEvent.pointerDown(
+      screen.getByRole('button', {
+        name: 'Actions for Samsung-dong river-view apartment',
+      }),
+    );
     fireEvent.click(
-      await screen.findByRole('menuitem', { name: 'Duplicate draft' }),
+      await screen.findByRole('menuitem', {
+        name: 'Duplicate draft for Samsung-dong river-view apartment',
+      }),
     );
 
     expect(handleDuplicateDraft).toHaveBeenCalledWith(visitLog);
