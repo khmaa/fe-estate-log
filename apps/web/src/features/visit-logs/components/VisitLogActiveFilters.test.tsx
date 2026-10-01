@@ -26,6 +26,10 @@ describe('VisitLogActiveFilters', () => {
 
     expect(screen.getByText('Active filters')).toBeInTheDocument();
     expect(
+      screen.getByRole('region', { name: 'Active filters' }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(5);
+    expect(
       screen.getByRole('button', { name: 'Clear Search: gangnam filter' }),
     ).toBeInTheDocument();
     expect(
