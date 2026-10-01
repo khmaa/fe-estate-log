@@ -34,30 +34,37 @@ const VisitLogActiveFilters = ({
   }
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm font-semibold text-foreground">
+    <section
+      aria-labelledby="visit-log-active-filters-title"
+      className="space-y-3"
+    >
+      <p
+        id="visit-log-active-filters-title"
+        className="text-sm font-semibold text-foreground"
+      >
         {t('visitLogs.filters.active.title')}
       </p>
-      <div className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap gap-2">
         {activeFilterBadges.map((badge) => (
-          <button
-            key={badge.key}
-            type="button"
-            onClick={badge.onClear}
-            className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-            aria-label={badge.removeLabel}
-            title={badge.removeLabel}
-          >
-            <Badge variant="secondary">
-              <span>{badge.label}</span>
-              <span aria-hidden="true" className="ml-1">
-                ×
-              </span>
-            </Badge>
-          </button>
+          <li key={badge.key}>
+            <button
+              type="button"
+              onClick={badge.onClear}
+              className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+              aria-label={badge.removeLabel}
+              title={badge.removeLabel}
+            >
+              <Badge variant="secondary">
+                <span>{badge.label}</span>
+                <span aria-hidden="true" className="ml-1">
+                  ×
+                </span>
+              </Badge>
+            </button>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };
 
