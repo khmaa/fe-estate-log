@@ -30,11 +30,16 @@ const VisitLogQuickFilters = ({
   });
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div
+      aria-label={t('visitLogs.filters.summary.title')}
+      className="flex flex-wrap items-center gap-2"
+      role="group"
+    >
       {quickFilters.map((filter) => (
         <Button
           key={filter.key}
           type="button"
+          aria-pressed={filter.active}
           variant={filter.active ? 'primary' : 'secondary'}
           onClick={filter.onClick}
         >

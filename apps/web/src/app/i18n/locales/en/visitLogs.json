@@ -42,6 +42,7 @@
     },
     "filters": {
       "advanced": "Advanced filters",
+      "label": "Visit log filters",
       "active": {
         "page": "Page: {{page}}",
         "pageSize": "Page size: {{pageSize}}",
