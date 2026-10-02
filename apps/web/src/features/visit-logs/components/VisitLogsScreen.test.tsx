@@ -106,6 +106,9 @@ describe('VisitLogsScreen', () => {
       screen.getByText('Samsung-dong river-view apartment'),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole('main', { name: 'Visit logs workspace' }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByText('Yeonnam boutique retail corner'),
     ).toBeInTheDocument();
   });

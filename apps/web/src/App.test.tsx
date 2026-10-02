@@ -40,6 +40,9 @@ describe('App', () => {
     expect(
       await screen.findByRole('heading', { name: 'Visit logs workspace' }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: 'Visit logs workspace' }),
+    ).toBeInTheDocument();
     expect(screen.getByLabelText('Search visit logs')).toBeInTheDocument();
     expect(screen.getByLabelText('Page size')).toHaveValue('2');
     expect(
@@ -57,6 +60,9 @@ describe('App', () => {
 
     expect(
       await screen.findByRole('heading', { name: '임장 기록 워크스페이스' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: '임장 기록 워크스페이스' }),
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: '임장 기록' })).toHaveAttribute(
       'aria-current',
