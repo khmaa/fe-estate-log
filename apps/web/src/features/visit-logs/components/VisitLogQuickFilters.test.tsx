@@ -18,6 +18,9 @@ describe('VisitLogQuickFilters', () => {
       />,
     );
 
+    expect(
+      screen.getByRole('group', { name: 'Quick view filters' }),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'All' }));
     fireEvent.click(screen.getByRole('button', { name: 'Pinned' }));
     fireEvent.click(screen.getByRole('button', { name: 'Latest' }));
@@ -45,11 +48,23 @@ describe('VisitLogQuickFilters', () => {
     expect(screen.getByRole('button', { name: 'Pinned' })).toHaveClass(
       'bg-primary',
     );
+    expect(screen.getByRole('button', { name: 'Pinned' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
     expect(screen.getByRole('button', { name: 'District' })).toHaveClass(
       'bg-primary',
     );
+    expect(screen.getByRole('button', { name: 'District' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
     expect(screen.getByRole('button', { name: 'All' })).toHaveClass(
       'bg-secondary',
+    );
+    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
     );
   });
 });

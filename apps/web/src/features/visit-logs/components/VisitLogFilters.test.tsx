@@ -25,6 +25,9 @@ describe('VisitLogFilters', () => {
       />,
     );
 
+    expect(
+      screen.getByRole('search', { name: 'Visit log filters' }),
+    ).toBeInTheDocument();
     fireEvent.change(screen.getByLabelText('Search visit logs'), {
       target: { value: 'gangnam' },
     });

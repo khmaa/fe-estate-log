@@ -55,7 +55,11 @@ const VisitLogFilters = ({
   };
 
   return (
-    <div className="space-y-4">
+    <section
+      aria-label={t('visitLogs.filters.label')}
+      className="space-y-4"
+      role="search"
+    >
       <VisitLogQuickFilters
         pinnedOnly={pinnedOnly}
         sort={sort}
@@ -159,7 +163,7 @@ const VisitLogFilters = ({
           </Popover>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

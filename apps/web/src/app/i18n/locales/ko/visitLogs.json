@@ -42,6 +42,7 @@
     },
     "filters": {
       "advanced": "고급 필터",
+      "label": "임장 기록 필터",
       "active": {
         "page": "페이지: {{page}}",
         "pageSize": "페이지 크기: {{pageSize}}",
