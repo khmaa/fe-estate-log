@@ -87,7 +87,10 @@ const VisitLogsScreen = ({
   } = useVisitLogCreateFlow();
 
   return (
-    <main className="min-h-screen px-6 py-16">
+    <main
+      aria-labelledby="visit-logs-workspace-title"
+      className="min-h-screen px-6 py-16"
+    >
       <section className="mx-auto flex max-w-6xl flex-col gap-8">
         <Banner
           title={t('visitLogs.page.banner.title')}
@@ -113,7 +116,9 @@ const VisitLogsScreen = ({
             </div>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="space-y-2">
-                <CardTitle>{t('visitLogs.page.title')}</CardTitle>
+                <CardTitle id="visit-logs-workspace-title">
+                  {t('visitLogs.page.title')}
+                </CardTitle>
                 <CardDescription className="max-w-3xl">
                   {t('visitLogs.page.description')}
                 </CardDescription>
