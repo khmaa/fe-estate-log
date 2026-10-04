@@ -28,6 +28,7 @@
         "price": "가격",
         "visited": "방문일"
       },
+      "loadingLabel": "임장 기록 상세를 불러오는 중",
       "pinned": "고정됨",
       "toasts": {
         "deleted": {

@@ -31,6 +31,9 @@ describe('VisitLogDetailScreen', () => {
     );
 
     expect(screen.getByTestId('visit-log-detail-skeleton')).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: 'Loading visit log detail' }),
+    ).toBeInTheDocument();
   });
 
   it('renders a visit log detail view', () => {

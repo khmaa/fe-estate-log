@@ -28,6 +28,7 @@
         "price": "Price",
         "visited": "Visited"
       },
+      "loadingLabel": "Loading visit log detail",
       "pinned": "Pinned",
       "toasts": {
         "deleted": {
