@@ -356,6 +356,9 @@ describe('App', () => {
       }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole('main', { name: '연남동 부티크 상가 코너' }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole('button', { name: 'Back to visit logs' }),
     ).toBeInTheDocument();
   });
@@ -414,5 +417,8 @@ describe('App', () => {
     renderApp('/visit-logs/missing-log');
 
     expect(await screen.findByText('Visit log not found')).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: 'Visit log not found' }),
+    ).toBeInTheDocument();
   });
 });
