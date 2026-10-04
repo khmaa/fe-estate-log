@@ -42,7 +42,10 @@ const VisitLogDetailScreen = ({
 
   if (isError && errorType === 'unknown') {
     return (
-      <main className="min-h-screen px-6 py-16">
+      <main
+        aria-label={t('visitLogs.detail.error.title')}
+        className="min-h-screen px-6 py-16"
+      >
         <section className="mx-auto max-w-4xl">
           <EmptyState
             badge={t('visitLogs.detail.error.badge')}
@@ -61,7 +64,10 @@ const VisitLogDetailScreen = ({
 
   if (!log) {
     return (
-      <main className="min-h-screen px-6 py-16">
+      <main
+        aria-label={t('visitLogs.detail.empty.title')}
+        className="min-h-screen px-6 py-16"
+      >
         <section className="mx-auto max-w-4xl">
           <EmptyState
             badge={t('visitLogs.detail.empty.badge')}
@@ -79,7 +85,10 @@ const VisitLogDetailScreen = ({
   }
 
   return (
-    <main className="min-h-screen px-6 py-16">
+    <main
+      aria-labelledby="visit-log-detail-title"
+      className="min-h-screen px-6 py-16"
+    >
       <section className="mx-auto flex max-w-4xl flex-col gap-8">
         <VisitLogDetailActions
           backLabel={t('visitLogs.detail.actions.back')}
@@ -98,7 +107,7 @@ const VisitLogDetailScreen = ({
               propertyType={log.propertyType}
               status={log.status}
             />
-            <CardTitle>{log.title}</CardTitle>
+            <CardTitle id="visit-log-detail-title">{log.title}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-sm leading-7 text-muted-foreground">

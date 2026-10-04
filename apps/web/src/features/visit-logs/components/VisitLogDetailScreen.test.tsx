@@ -51,6 +51,11 @@ describe('VisitLogDetailScreen', () => {
         name: 'Samsung-dong river-view apartment',
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', {
+        name: 'Samsung-dong river-view apartment',
+      }),
+    ).toBeInTheDocument();
     expect(screen.queryByText('Handled by Minji Park')).toBeNull();
     expect(screen.getByText('Minji Park')).toBeInTheDocument();
   });
@@ -69,6 +74,9 @@ describe('VisitLogDetailScreen', () => {
     );
 
     expect(screen.getByText('Visit log not found')).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: 'Visit log not found' }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Back to visit logs' }),
     ).toBeInTheDocument();
@@ -89,6 +97,9 @@ describe('VisitLogDetailScreen', () => {
 
     expect(
       screen.getByText('Failed to load the visit log'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('main', { name: 'Failed to load the visit log' }),
     ).toBeInTheDocument();
   });
 
