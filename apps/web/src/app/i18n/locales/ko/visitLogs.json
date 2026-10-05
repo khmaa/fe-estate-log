@@ -129,6 +129,7 @@
       "reviewLabel": "{{title}} 기록 검토"
     },
     "list": {
+      "loadingLabel": "임장 기록 목록을 불러오는 중",
       "error": {
         "action": "다시 시도",
         "badge": "임장 기록 요청",

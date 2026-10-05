@@ -36,6 +36,9 @@ describe('VisitLogList', () => {
     );
 
     expect(screen.getByTestId('visit-log-list-skeleton')).toBeInTheDocument();
+    expect(
+      screen.getByRole('status', { name: 'Loading visit logs' }),
+    ).toBeInTheDocument();
     expect(screen.getAllByTestId('visit-log-card-skeleton')).toHaveLength(2);
   });
 
