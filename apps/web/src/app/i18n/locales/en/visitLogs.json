@@ -129,6 +129,7 @@
       "reviewLabel": "Review note for {{title}}"
     },
     "list": {
+      "loadingLabel": "Loading visit logs",
       "error": {
         "action": "Retry request",
         "badge": "Visit logs request",

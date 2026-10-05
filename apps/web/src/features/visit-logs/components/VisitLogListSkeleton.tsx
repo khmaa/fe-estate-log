@@ -1,8 +1,16 @@
 import { Skeleton } from '@shared-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const VisitLogListSkeleton = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="grid gap-6" data-testid="visit-log-list-skeleton">
+    <div
+      aria-label={t('visitLogs.list.loadingLabel')}
+      className="grid gap-6"
+      data-testid="visit-log-list-skeleton"
+      role="status"
+    >
       {Array.from({ length: 2 }, (_, index) => (
         <div
           key={index}
