@@ -1,8 +1,14 @@
 import { Skeleton } from '@shared-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const VisitLogDetailSkeleton = () => {
+  const { t } = useTranslation();
+
   return (
-    <main className="min-h-screen px-6 py-16">
+    <main
+      aria-label={t('visitLogs.detail.loadingLabel')}
+      className="min-h-screen px-6 py-16"
+    >
       <section
         className="mx-auto flex max-w-4xl flex-col gap-8"
         data-testid="visit-log-detail-skeleton"
