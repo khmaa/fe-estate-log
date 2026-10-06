@@ -45,9 +45,11 @@ const VisitLogList = ({
   if (isError) {
     return (
       <EmptyState
+        aria-label={t('visitLogs.list.error.title')}
         badge={t('visitLogs.list.error.badge')}
         title={t('visitLogs.list.error.title')}
         description={t('visitLogs.list.error.description')}
+        role="region"
         action={
           <EmptyStateAction onClick={onRetry}>
             {t('visitLogs.list.error.action')}
@@ -60,9 +62,11 @@ const VisitLogList = ({
   if (logs.length === 0) {
     return (
       <EmptyState
+        aria-label={t('visitLogs.list.empty.title')}
         badge={t('visitLogs.list.empty.badge')}
         title={t('visitLogs.list.empty.title')}
         description={t('visitLogs.list.empty.description')}
+        role="region"
         action={
           <EmptyStateAction onClick={onCreateFirstLog}>
             {t('visitLogs.list.empty.action')}
