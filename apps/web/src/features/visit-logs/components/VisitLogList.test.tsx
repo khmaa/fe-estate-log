@@ -63,6 +63,9 @@ describe('VisitLogList', () => {
       />,
     );
 
+    expect(
+      screen.getByRole('region', { name: 'Nothing matched your filters' }),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Create a visit log' }));
 
     expect(handleCreateFirstLog).toHaveBeenCalled();
@@ -89,9 +92,12 @@ describe('VisitLogList', () => {
       />,
     );
 
+    expect(screen.getByText('Failed to load visit logs')).toBeInTheDocument();
+    expect(
+      screen.getByRole('region', { name: 'Failed to load visit logs' }),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Retry request' }));
 
-    expect(screen.getByText('Failed to load visit logs')).toBeInTheDocument();
     expect(handleRetry).toHaveBeenCalled();
   });
 
