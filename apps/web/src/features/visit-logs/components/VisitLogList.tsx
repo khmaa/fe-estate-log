@@ -77,7 +77,11 @@ const VisitLogList = ({
   }
 
   return (
-    <div className="grid gap-6">
+    <div
+      aria-label={t('visitLogs.list.resultsLabel')}
+      className="grid gap-6"
+      role="region"
+    >
       {logs.map((log) => (
         <VisitLogCard
           key={log.id}

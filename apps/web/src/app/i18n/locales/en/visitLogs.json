@@ -130,6 +130,7 @@
     },
     "list": {
       "loadingLabel": "Loading visit logs",
+      "resultsLabel": "Visit log results",
       "error": {
         "action": "Retry request",
         "badge": "Visit logs request",
