@@ -123,6 +123,9 @@ describe('VisitLogList', () => {
     expect(
       screen.getByText('Samsung-dong river-view apartment'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('region', { name: 'Visit log results' }),
+    ).toBeInTheDocument();
   });
 
   it('renders pagination controls when multiple pages exist', () => {
