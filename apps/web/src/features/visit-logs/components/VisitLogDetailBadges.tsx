@@ -26,7 +26,11 @@ const VisitLogDetailBadges = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div
+      aria-label={t('visitLogs.detail.badgesLabel')}
+      className="flex flex-wrap items-center gap-2"
+      role="group"
+    >
       <Badge variant={statusVariantMap[status]}>
         {getVisitLogStatusLabel(t, status)}
       </Badge>

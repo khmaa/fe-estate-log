@@ -55,7 +55,13 @@ const VisitLogCard = ({
       <CardHeader className="gap-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
+            <div
+              aria-label={t('visitLogs.card.badgesLabel', {
+                title: log.title,
+              })}
+              className="flex flex-wrap items-center gap-2"
+              role="group"
+            >
               <Badge variant={statusVariantMap[log.status]}>
                 {getVisitLogStatusLabel(t, log.status)}
               </Badge>

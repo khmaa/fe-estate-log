@@ -28,6 +28,7 @@
         "price": "Price",
         "visited": "Visited"
       },
+      "badgesLabel": "Visit log detail badges",
       "loadingLabel": "Loading visit log detail",
       "pinned": "Pinned",
       "toasts": {
@@ -114,6 +115,7 @@
     "card": {
       "actions": "Actions",
       "actionsLabel": "Actions for {{title}}",
+      "badgesLabel": "Badges for {{title}}",
       "details": "Open details",
       "detailsLabel": "Open details for {{title}}",
       "duplicate": "Duplicate draft",

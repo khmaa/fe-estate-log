@@ -13,6 +13,9 @@ describe('VisitLogDetailBadges', () => {
     );
 
     expect(screen.getByText('Completed')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Visit log detail badges' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Apartment')).toBeInTheDocument();
     expect(screen.getByText('Pinned')).toBeInTheDocument();
   });
