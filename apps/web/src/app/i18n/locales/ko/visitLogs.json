@@ -28,6 +28,7 @@
         "price": "가격",
         "visited": "방문일"
       },
+      "badgesLabel": "임장 기록 상세 배지",
       "loadingLabel": "임장 기록 상세를 불러오는 중",
       "pinned": "고정됨",
       "toasts": {
@@ -114,6 +115,7 @@
     "card": {
       "actions": "작업",
       "actionsLabel": "{{title}} 작업",
+      "badgesLabel": "{{title}} 배지",
       "details": "상세 보기",
       "detailsLabel": "{{title}} 상세 보기",
       "duplicate": "초안 복제",

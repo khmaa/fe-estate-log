@@ -30,6 +30,11 @@ describe('VisitLogCard', () => {
     expect(
       screen.getByText('Samsung-dong river-view apartment'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Badges for Samsung-dong river-view apartment',
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Pinned')).toBeInTheDocument();
     expect(screen.getByText('KRW 1.28B')).toBeInTheDocument();
     expect(screen.getByText('Handled by Minji Park')).toBeInTheDocument();
