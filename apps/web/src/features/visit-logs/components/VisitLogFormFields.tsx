@@ -1,17 +1,11 @@
-import {
-  Alert,
-  AlertDescription,
-  Field,
-  Input,
-  Select,
-  Textarea,
-} from '@shared-ui/core';
+import { Alert, Field, Input, Select, Textarea } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLogFormValidationErrors } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput } from '../types/visitLog';
 import { getVisitLogPropertyTypeLabel } from '../utils/visitLogLabels';
 
 type VisitLogFormFieldPrefix = 'createDialog' | 'editDialog';
+type VisitLogFormValidationField = keyof VisitLogFormValidationErrors;
 
 type VisitLogFormFieldsProps = {
   fieldIdPrefix: string;
@@ -20,6 +14,20 @@ type VisitLogFormFieldsProps = {
   onChange: (form: CreateVisitLogInput) => void;
   validationErrors?: VisitLogFormValidationErrors;
 };
+
+const validationFieldOrder = [
+  'title',
+  'district',
+  'priceLabel',
+  'summary',
+] as const satisfies readonly VisitLogFormValidationField[];
+
+const validationFieldLabelKeys = {
+  district: 'district',
+  priceLabel: 'price',
+  summary: 'summary',
+  title: 'title',
+} as const satisfies Record<VisitLogFormValidationField, string>;
 
 const VisitLogFormFields = ({
   fieldIdPrefix,
@@ -30,6 +38,11 @@ const VisitLogFormFields = ({
 }: VisitLogFormFieldsProps) => {
   const { t } = useTranslation();
   const validationErrorCount = Object.keys(validationErrors ?? {}).length;
+  const validationFieldLabels = validationFieldOrder
+    .filter((field) => Boolean(validationErrors?.[field]))
+    .map((field) =>
+      t(`visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`),
+    );
 
   const updateForm = <Key extends keyof CreateVisitLogInput>(
     key: Key,
@@ -45,11 +58,18 @@ const VisitLogFormFields = ({
     <>
       {validationErrorCount > 0 ? (
         <Alert variant="error">
-          <AlertDescription>
-            {t(`visitLogs.${labelPrefix}.validation.summary`, {
-              count: validationErrorCount,
-            })}
-          </AlertDescription>
+          <div className="text-sm leading-6 text-muted-foreground">
+            <p>
+              {t(`visitLogs.${labelPrefix}.validation.summary`, {
+                count: validationErrorCount,
+              })}
+            </p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {validationFieldLabels.map((label) => (
+                <li key={label}>{label}</li>
+              ))}
+            </ul>
+          </div>
         </Alert>
       ) : null}
       <Field
