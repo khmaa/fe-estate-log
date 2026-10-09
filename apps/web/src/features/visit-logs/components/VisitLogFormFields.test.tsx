@@ -97,6 +97,10 @@ describe('VisitLogFormFields', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(
       'Fields needing attention: 4.',
     );
+    expect(screen.getByRole('alert')).toHaveTextContent('Title');
+    expect(screen.getByRole('alert')).toHaveTextContent('District');
+    expect(screen.getByRole('alert')).toHaveTextContent('Price');
+    expect(screen.getByRole('alert')).toHaveTextContent('Summary');
     expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
     expect(
       screen.getByText('Enter the district or destination area.'),
