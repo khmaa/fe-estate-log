@@ -1,4 +1,11 @@
-import { Alert, Field, Input, Select, Textarea } from '@shared-ui/core';
+import {
+  Alert,
+  AlertTitle,
+  Field,
+  Input,
+  Select,
+  Textarea,
+} from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLogFormValidationErrors } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput } from '../types/visitLog';
@@ -58,6 +65,9 @@ const VisitLogFormFields = ({
     <>
       {validationErrorCount > 0 ? (
         <Alert variant="error">
+          <AlertTitle>
+            {t(`visitLogs.${labelPrefix}.validation.summaryTitle`)}
+          </AlertTitle>
           <div className="text-sm leading-6 text-muted-foreground">
             <p>
               {t(`visitLogs.${labelPrefix}.validation.summary`, {
