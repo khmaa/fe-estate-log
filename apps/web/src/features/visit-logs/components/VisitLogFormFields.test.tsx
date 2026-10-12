@@ -118,9 +118,17 @@ describe('VisitLogFormFields', () => {
       'aria-describedby',
       'test-visit-log-validation-summary test-visit-log-title-error',
     );
+    expect(screen.getByLabelText('Title')).toHaveAttribute(
+      'aria-errormessage',
+      'test-visit-log-title-error',
+    );
     expect(screen.getByLabelText('District')).toHaveAttribute(
       'aria-describedby',
       'test-visit-log-validation-summary test-visit-log-district-error',
+    );
+    expect(screen.getByLabelText('District')).toHaveAttribute(
+      'aria-errormessage',
+      'test-visit-log-district-error',
     );
   });
 });
