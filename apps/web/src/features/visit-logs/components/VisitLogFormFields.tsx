@@ -45,11 +45,15 @@ const VisitLogFormFields = ({
 }: VisitLogFormFieldsProps) => {
   const { t } = useTranslation();
   const validationErrorCount = Object.keys(validationErrors ?? {}).length;
+  const validationSummaryId = `${fieldIdPrefix}-validation-summary`;
   const validationFieldLabels = validationFieldOrder
     .filter((field) => Boolean(validationErrors?.[field]))
     .map((field) =>
       t(`visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`),
     );
+  const getValidationSummaryDescription = (
+    field: VisitLogFormValidationField,
+  ) => (validationErrors?.[field] ? validationSummaryId : undefined);
 
   const updateForm = <Key extends keyof CreateVisitLogInput>(
     key: Key,
@@ -68,7 +72,10 @@ const VisitLogFormFields = ({
           <AlertTitle>
             {t(`visitLogs.${labelPrefix}.validation.summaryTitle`)}
           </AlertTitle>
-          <div className="text-sm leading-6 text-muted-foreground">
+          <div
+            id={validationSummaryId}
+            className="text-sm leading-6 text-muted-foreground"
+          >
             <p>
               {t(`visitLogs.${labelPrefix}.validation.summary`, {
                 count: validationErrorCount,
@@ -93,6 +100,7 @@ const VisitLogFormFields = ({
         required
       >
         <Input
+          aria-describedby={getValidationSummaryDescription('title')}
           id={`${fieldIdPrefix}-title`}
           value={form.title}
           onChange={(event) => updateForm('title', event.target.value)}
@@ -111,6 +119,7 @@ const VisitLogFormFields = ({
           required
         >
           <Input
+            aria-describedby={getValidationSummaryDescription('district')}
             id={`${fieldIdPrefix}-district`}
             value={form.district}
             onChange={(event) => updateForm('district', event.target.value)}
@@ -128,6 +137,7 @@ const VisitLogFormFields = ({
           required
         >
           <Input
+            aria-describedby={getValidationSummaryDescription('priceLabel')}
             id={`${fieldIdPrefix}-price`}
             value={form.priceLabel}
             onChange={(event) => updateForm('priceLabel', event.target.value)}
@@ -171,6 +181,7 @@ const VisitLogFormFields = ({
         required
       >
         <Textarea
+          aria-describedby={getValidationSummaryDescription('summary')}
           id={`${fieldIdPrefix}-summary`}
           value={form.summary}
           onChange={(event) => updateForm('summary', event.target.value)}

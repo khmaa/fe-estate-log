@@ -114,5 +114,13 @@ describe('VisitLogFormFields', () => {
       'aria-invalid',
       'true',
     );
+    expect(screen.getByLabelText('Title')).toHaveAttribute(
+      'aria-describedby',
+      'test-visit-log-validation-summary test-visit-log-title-error',
+    );
+    expect(screen.getByLabelText('District')).toHaveAttribute(
+      'aria-describedby',
+      'test-visit-log-validation-summary test-visit-log-district-error',
+    );
   });
 });
