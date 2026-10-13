@@ -46,6 +46,7 @@ const VisitLogFormFields = ({
   const { t } = useTranslation();
   const validationErrorCount = Object.keys(validationErrors ?? {}).length;
   const validationSummaryId = `${fieldIdPrefix}-validation-summary`;
+  const validationSummaryTitleId = `${fieldIdPrefix}-validation-summary-title`;
   const validationFieldLabels = validationFieldOrder
     .filter((field) => Boolean(validationErrors?.[field]))
     .map((field) =>
@@ -72,8 +73,8 @@ const VisitLogFormFields = ({
   return (
     <>
       {validationErrorCount > 0 ? (
-        <Alert variant="error">
-          <AlertTitle>
+        <Alert aria-labelledby={validationSummaryTitleId} variant="error">
+          <AlertTitle id={validationSummaryTitleId}>
             {t(`visitLogs.${labelPrefix}.validation.summaryTitle`)}
           </AlertTitle>
           <div
