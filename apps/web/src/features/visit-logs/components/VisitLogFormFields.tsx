@@ -73,7 +73,11 @@ const VisitLogFormFields = ({
   return (
     <>
       {validationErrorCount > 0 ? (
-        <Alert aria-labelledby={validationSummaryTitleId} variant="error">
+        <Alert
+          aria-describedby={validationSummaryId}
+          aria-labelledby={validationSummaryTitleId}
+          variant="error"
+        >
           <AlertTitle id={validationSummaryTitleId}>
             {t(`visitLogs.${labelPrefix}.validation.summaryTitle`)}
           </AlertTitle>

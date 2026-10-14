@@ -100,6 +100,13 @@ describe('VisitLogFormFields', () => {
     expect(
       screen.getByRole('alert', { name: 'Review required fields' }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('alert', {
+        description:
+          'Fields needing attention: 4. Title District Price Summary',
+        name: 'Review required fields',
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('alert')).toHaveTextContent(
       'Fields needing attention: 4.',
     );
