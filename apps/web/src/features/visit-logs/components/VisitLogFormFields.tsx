@@ -36,6 +36,13 @@ const validationFieldLabelKeys = {
   title: 'title',
 } as const satisfies Record<VisitLogFormValidationField, string>;
 
+const validationFieldIdSuffixes = {
+  district: 'district',
+  priceLabel: 'price',
+  summary: 'summary',
+  title: 'title',
+} as const satisfies Record<VisitLogFormValidationField, string>;
+
 const VisitLogFormFields = ({
   fieldIdPrefix,
   form,
@@ -47,11 +54,14 @@ const VisitLogFormFields = ({
   const validationErrorCount = Object.keys(validationErrors ?? {}).length;
   const validationSummaryId = `${fieldIdPrefix}-validation-summary`;
   const validationSummaryTitleId = `${fieldIdPrefix}-validation-summary-title`;
-  const validationFieldLabels = validationFieldOrder
+  const invalidFields = validationFieldOrder
     .filter((field) => Boolean(validationErrors?.[field]))
-    .map((field) =>
-      t(`visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`),
-    );
+    .map((field) => ({
+      fieldId: `${fieldIdPrefix}-${validationFieldIdSuffixes[field]}`,
+      label: t(
+        `visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`,
+      ),
+    }));
   const getValidationSummaryDescription = (
     field: VisitLogFormValidationField,
   ) => (validationErrors?.[field] ? validationSummaryId : undefined);
@@ -91,8 +101,15 @@ const VisitLogFormFields = ({
               })}
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              {validationFieldLabels.map((label) => (
-                <li key={label}>{label}</li>
+              {invalidFields.map(({ fieldId, label }) => (
+                <li key={fieldId}>
+                  <a
+                    className="font-medium underline underline-offset-2"
+                    href={`#${fieldId}`}
+                  >
+                    {label}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>

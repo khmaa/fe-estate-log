@@ -114,6 +114,22 @@ describe('VisitLogFormFields', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('District');
     expect(screen.getByRole('alert')).toHaveTextContent('Price');
     expect(screen.getByRole('alert')).toHaveTextContent('Summary');
+    expect(screen.getByRole('link', { name: 'Title' })).toHaveAttribute(
+      'href',
+      '#test-visit-log-title',
+    );
+    expect(screen.getByRole('link', { name: 'District' })).toHaveAttribute(
+      'href',
+      '#test-visit-log-district',
+    );
+    expect(screen.getByRole('link', { name: 'Price' })).toHaveAttribute(
+      'href',
+      '#test-visit-log-price',
+    );
+    expect(screen.getByRole('link', { name: 'Summary' })).toHaveAttribute(
+      'href',
+      '#test-visit-log-summary',
+    );
     expect(screen.getByText('Enter a visit log title.')).toBeInTheDocument();
     expect(
       screen.getByText('Enter the district or destination area.'),
