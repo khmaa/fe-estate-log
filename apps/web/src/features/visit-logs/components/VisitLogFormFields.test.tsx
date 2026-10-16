@@ -157,4 +157,25 @@ describe('VisitLogFormFields', () => {
       'test-visit-log-district-error',
     );
   });
+
+  it('moves focus from a validation summary link to its invalid field', () => {
+    render(
+      <AppProviders>
+        <VisitLogFormFields
+          fieldIdPrefix="test-visit-log"
+          form={{
+            ...form,
+            district: '',
+          }}
+          labelPrefix="createDialog"
+          onChange={vi.fn()}
+          validationErrors={{ district: true }}
+        />
+      </AppProviders>,
+    );
+
+    fireEvent.click(screen.getByRole('link', { name: 'District' }));
+
+    expect(screen.getByLabelText('District')).toHaveFocus();
+  });
 });
