@@ -69,6 +69,9 @@ const VisitLogFormFields = ({
     field: VisitLogFormValidationField,
     fieldId: string,
   ) => (validationErrors?.[field] ? `${fieldId}-error` : undefined);
+  const focusValidationField = (fieldId: string) => {
+    document.getElementById(fieldId)?.focus();
+  };
 
   const updateForm = <Key extends keyof CreateVisitLogInput>(
     key: Key,
@@ -106,6 +109,7 @@ const VisitLogFormFields = ({
                   <a
                     className="font-medium underline underline-offset-2"
                     href={`#${fieldId}`}
+                    onClick={() => focusValidationField(fieldId)}
                   >
                     {label}
                   </a>
