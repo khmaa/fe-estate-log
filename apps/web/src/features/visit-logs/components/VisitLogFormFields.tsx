@@ -6,6 +6,7 @@ import {
   Select,
   Textarea,
 } from '@shared-ui/core';
+import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { VisitLogFormValidationErrors } from '../hooks/useVisitLogForm';
 import type { CreateVisitLogInput } from '../types/visitLog';
@@ -69,7 +70,11 @@ const VisitLogFormFields = ({
     field: VisitLogFormValidationField,
     fieldId: string,
   ) => (validationErrors?.[field] ? `${fieldId}-error` : undefined);
-  const focusValidationField = (fieldId: string) => {
+  const focusValidationField = (
+    event: MouseEvent<HTMLAnchorElement>,
+    fieldId: string,
+  ) => {
+    event.preventDefault();
     document.getElementById(fieldId)?.focus();
   };
 
@@ -109,7 +114,7 @@ const VisitLogFormFields = ({
                   <a
                     className="font-medium underline underline-offset-2"
                     href={`#${fieldId}`}
-                    onClick={() => focusValidationField(fieldId)}
+                    onClick={(event) => focusValidationField(event, fieldId)}
                   >
                     {label}
                   </a>

@@ -174,8 +174,9 @@ describe('VisitLogFormFields', () => {
       </AppProviders>,
     );
 
-    fireEvent.click(screen.getByRole('link', { name: 'District' }));
+    const validationLink = screen.getByRole('link', { name: 'District' });
 
+    expect(fireEvent.click(validationLink)).toBe(false);
     expect(screen.getByLabelText('District')).toHaveFocus();
   });
 });
