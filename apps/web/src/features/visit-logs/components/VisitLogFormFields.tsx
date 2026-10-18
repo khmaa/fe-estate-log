@@ -112,7 +112,7 @@ const VisitLogFormFields = ({
               {invalidFields.map(({ fieldId, label }) => (
                 <li key={fieldId}>
                   <a
-                    className="font-medium underline underline-offset-2"
+                    className="rounded-ui font-medium underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     href={`#${fieldId}`}
                     onClick={(event) => focusValidationField(event, fieldId)}
                   >

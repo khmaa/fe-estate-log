@@ -176,6 +176,12 @@ describe('VisitLogFormFields', () => {
 
     const validationLink = screen.getByRole('link', { name: 'District' });
 
+    expect(validationLink).toHaveClass(
+      'focus-visible:outline',
+      'focus-visible:outline-2',
+      'focus-visible:outline-offset-2',
+      'focus-visible:outline-focus',
+    );
     expect(fireEvent.click(validationLink)).toBe(false);
     expect(screen.getByLabelText('District')).toHaveFocus();
   });
