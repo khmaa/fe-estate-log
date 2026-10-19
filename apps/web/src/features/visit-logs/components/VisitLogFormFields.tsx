@@ -57,12 +57,17 @@ const VisitLogFormFields = ({
   const validationSummaryTitleId = `${fieldIdPrefix}-validation-summary-title`;
   const invalidFields = validationFieldOrder
     .filter((field) => Boolean(validationErrors?.[field]))
-    .map((field) => ({
-      fieldId: `${fieldIdPrefix}-${validationFieldIdSuffixes[field]}`,
-      label: t(
-        `visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`,
-      ),
-    }));
+    .map((field) => {
+      const fieldId = `${fieldIdPrefix}-${validationFieldIdSuffixes[field]}`;
+
+      return {
+        errorMessageId: `${fieldId}-error`,
+        fieldId,
+        label: t(
+          `visitLogs.${labelPrefix}.fields.${validationFieldLabelKeys[field]}`,
+        ),
+      };
+    });
   const getValidationSummaryDescription = (
     field: VisitLogFormValidationField,
   ) => (validationErrors?.[field] ? validationSummaryId : undefined);
@@ -109,9 +114,10 @@ const VisitLogFormFields = ({
               })}
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              {invalidFields.map(({ fieldId, label }) => (
+              {invalidFields.map(({ errorMessageId, fieldId, label }) => (
                 <li key={fieldId}>
                   <a
+                    aria-describedby={errorMessageId}
                     className="rounded-ui font-medium underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     href={`#${fieldId}`}
                     onClick={(event) => focusValidationField(event, fieldId)}

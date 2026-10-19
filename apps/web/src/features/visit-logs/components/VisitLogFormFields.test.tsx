@@ -176,6 +176,13 @@ describe('VisitLogFormFields', () => {
 
     const validationLink = screen.getByRole('link', { name: 'District' });
 
+    expect(validationLink).toHaveAccessibleDescription(
+      'Enter the district or destination area.',
+    );
+    expect(validationLink).toHaveAttribute(
+      'aria-describedby',
+      'test-visit-log-district-error',
+    );
     expect(validationLink).toHaveClass(
       'focus-visible:outline',
       'focus-visible:outline-2',
