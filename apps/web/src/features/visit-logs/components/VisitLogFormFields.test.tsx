@@ -31,6 +31,11 @@ describe('VisitLogFormFields', () => {
     expect(screen.getByLabelText('District')).toHaveValue(form.district);
     expect(screen.getByLabelText('Price')).toHaveValue(form.priceLabel);
     expect(screen.getByLabelText('Summary')).toHaveValue(form.summary);
+    expect(screen.getByLabelText('Title')).toBeRequired();
+    expect(screen.getByLabelText('District')).toBeRequired();
+    expect(screen.getByLabelText('Price')).toBeRequired();
+    expect(screen.getByLabelText('Summary')).toBeRequired();
+    expect(screen.getByLabelText('Property type')).not.toBeRequired();
 
     fireEvent.change(screen.getByLabelText('Title'), {
       target: { value: 'Updated title' },
