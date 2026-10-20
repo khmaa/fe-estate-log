@@ -6,6 +6,7 @@ type FieldControlProps = {
   id?: string;
   'aria-describedby'?: string;
   'aria-invalid'?: boolean | 'true' | 'false';
+  required?: boolean;
 };
 
 type FieldProps = {
@@ -49,6 +50,7 @@ const Field = ({
       ? mergeDescribedBy(children.props['aria-describedby'], descriptionId)
       : children.props['aria-describedby'],
     'aria-invalid': error ? true : children.props['aria-invalid'],
+    required: required ? true : children.props.required,
   });
 
   return (
@@ -56,7 +58,12 @@ const Field = ({
       <div className="inline-flex items-center gap-1">
         <Label htmlFor={htmlFor}>{label}</Label>
         {required ? (
-          <span className="text-sm font-semibold text-danger">*</span>
+          <span
+            aria-hidden="true"
+            className="text-sm font-semibold text-danger"
+          >
+            *
+          </span>
         ) : null}
       </div>
       {control}

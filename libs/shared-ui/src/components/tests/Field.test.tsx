@@ -55,13 +55,14 @@ describe('Field', () => {
     expect(textbox).toHaveAttribute('aria-describedby', 'password-error');
   });
 
-  it('renders the required indicator', () => {
+  it('marks the control as required and hides the visual indicator', () => {
     render(
       <Field htmlFor="name" label="Full name" required>
         <Input />
       </Field>,
     );
 
-    expect(screen.getByText('*')).toBeInTheDocument();
+    expect(screen.getByLabelText('Full name')).toBeRequired();
+    expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
   });
 });
