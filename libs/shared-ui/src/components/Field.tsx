@@ -5,6 +5,7 @@ import { Label } from './Label';
 type FieldControlProps = {
   id?: string;
   'aria-describedby'?: string;
+  'aria-errormessage'?: string;
   'aria-invalid'?: boolean | 'true' | 'false';
   required?: boolean;
 };
@@ -49,6 +50,9 @@ const Field = ({
     'aria-describedby': descriptionId
       ? mergeDescribedBy(children.props['aria-describedby'], descriptionId)
       : children.props['aria-describedby'],
+    'aria-errormessage': error
+      ? descriptionId
+      : children.props['aria-errormessage'],
     'aria-invalid': error ? true : children.props['aria-invalid'],
     required: required ? true : children.props.required,
   });
