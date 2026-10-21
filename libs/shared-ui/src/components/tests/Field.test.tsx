@@ -32,14 +32,19 @@ describe('Field', () => {
         label="Company"
         helperText="This will be shown on your profile."
       >
-        <Input aria-describedby="custom-description" />
+        <Input
+          aria-describedby="custom-description"
+          aria-errormessage="custom-error"
+        />
       </Field>,
     );
 
-    expect(screen.getByRole('textbox')).toHaveAttribute(
+    const textbox = screen.getByRole('textbox');
+    expect(textbox).toHaveAttribute(
       'aria-describedby',
       'custom-description company-helper',
     );
+    expect(textbox).toHaveAttribute('aria-errormessage', 'custom-error');
   });
 
   it('renders error text and marks the control as invalid', () => {
@@ -53,6 +58,7 @@ describe('Field', () => {
     expect(screen.getByText('Password is required.')).toBeInTheDocument();
     expect(textbox).toHaveAttribute('aria-invalid', 'true');
     expect(textbox).toHaveAttribute('aria-describedby', 'password-error');
+    expect(textbox).toHaveAttribute('aria-errormessage', 'password-error');
   });
 
   it('marks the control as required and hides the visual indicator', () => {

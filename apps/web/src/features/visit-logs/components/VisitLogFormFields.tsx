@@ -71,10 +71,6 @@ const VisitLogFormFields = ({
   const getValidationSummaryDescription = (
     field: VisitLogFormValidationField,
   ) => (validationErrors?.[field] ? validationSummaryId : undefined);
-  const getValidationErrorMessageId = (
-    field: VisitLogFormValidationField,
-    fieldId: string,
-  ) => (validationErrors?.[field] ? `${fieldId}-error` : undefined);
   const focusValidationField = (
     event: MouseEvent<HTMLAnchorElement>,
     fieldId: string,
@@ -142,10 +138,6 @@ const VisitLogFormFields = ({
       >
         <Input
           aria-describedby={getValidationSummaryDescription('title')}
-          aria-errormessage={getValidationErrorMessageId(
-            'title',
-            `${fieldIdPrefix}-title`,
-          )}
           id={`${fieldIdPrefix}-title`}
           value={form.title}
           onChange={(event) => updateForm('title', event.target.value)}
@@ -165,10 +157,6 @@ const VisitLogFormFields = ({
         >
           <Input
             aria-describedby={getValidationSummaryDescription('district')}
-            aria-errormessage={getValidationErrorMessageId(
-              'district',
-              `${fieldIdPrefix}-district`,
-            )}
             id={`${fieldIdPrefix}-district`}
             value={form.district}
             onChange={(event) => updateForm('district', event.target.value)}
@@ -187,10 +175,6 @@ const VisitLogFormFields = ({
         >
           <Input
             aria-describedby={getValidationSummaryDescription('priceLabel')}
-            aria-errormessage={getValidationErrorMessageId(
-              'priceLabel',
-              `${fieldIdPrefix}-price`,
-            )}
             id={`${fieldIdPrefix}-price`}
             value={form.priceLabel}
             onChange={(event) => updateForm('priceLabel', event.target.value)}
@@ -235,10 +219,6 @@ const VisitLogFormFields = ({
       >
         <Textarea
           aria-describedby={getValidationSummaryDescription('summary')}
-          aria-errormessage={getValidationErrorMessageId(
-            'summary',
-            `${fieldIdPrefix}-summary`,
-          )}
           id={`${fieldIdPrefix}-summary`}
           value={form.summary}
           onChange={(event) => updateForm('summary', event.target.value)}
