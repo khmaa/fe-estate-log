@@ -45,6 +45,7 @@ const Field = ({
     : helperText
       ? `${htmlFor}-helper`
       : undefined;
+  const isRequired = required || Boolean(children.props.required);
   const control = React.cloneElement(children, {
     id: children.props.id ?? htmlFor,
     'aria-describedby': descriptionId
@@ -54,14 +55,14 @@ const Field = ({
       ? descriptionId
       : children.props['aria-errormessage'],
     'aria-invalid': error ? true : children.props['aria-invalid'],
-    required: required ? true : children.props.required,
+    required: isRequired,
   });
 
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>
       <div className="inline-flex items-center gap-1">
         <Label htmlFor={htmlFor}>{label}</Label>
-        {required ? (
+        {isRequired ? (
           <span
             aria-hidden="true"
             className="text-sm font-semibold text-danger"

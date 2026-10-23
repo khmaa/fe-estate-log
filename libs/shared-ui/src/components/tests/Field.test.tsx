@@ -71,4 +71,15 @@ describe('Field', () => {
     expect(screen.getByLabelText('Full name')).toBeRequired();
     expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
   });
+
+  it('shows the required indicator when the child control is required', () => {
+    render(
+      <Field htmlFor="phone" label="Phone">
+        <Input required />
+      </Field>,
+    );
+
+    expect(screen.getByLabelText('Phone')).toBeRequired();
+    expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
+  });
 });
