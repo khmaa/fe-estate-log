@@ -104,6 +104,10 @@ describe('RadioGroup', () => {
       'aria-describedby',
       'contact-error',
     );
+    expect(screen.getByRole('radiogroup')).toHaveAttribute(
+      'aria-errormessage',
+      'contact-error',
+    );
   });
 
   it('calls onValueChange when a different option is selected', () => {

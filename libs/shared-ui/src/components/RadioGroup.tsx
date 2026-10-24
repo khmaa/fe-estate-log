@@ -59,8 +59,9 @@ const RadioGroup = ({
       </div>
       <div
         role="radiogroup"
-        aria-invalid={error ? true : undefined}
         aria-describedby={descriptionId}
+        aria-errormessage={error ? descriptionId : undefined}
+        aria-invalid={error ? true : undefined}
         aria-labelledby={groupId}
         className="flex flex-col gap-3"
       >
