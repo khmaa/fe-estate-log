@@ -12,6 +12,7 @@ describe('CheckboxField', () => {
   it('renders helper text and wires aria-describedby', () => {
     render(
       <CheckboxField
+        aria-errormessage="updates-custom-error"
         id="updates"
         label="Receive updates"
         helperText="We will only send product announcements."
@@ -24,6 +25,10 @@ describe('CheckboxField', () => {
     expect(screen.getByRole('checkbox')).toHaveAttribute(
       'aria-describedby',
       'updates-helper',
+    );
+    expect(screen.getByRole('checkbox')).toHaveAttribute(
+      'aria-errormessage',
+      'updates-custom-error',
     );
   });
 
@@ -43,6 +48,10 @@ describe('CheckboxField', () => {
     );
     expect(screen.getByRole('checkbox')).toHaveAttribute(
       'aria-describedby',
+      'policy-error',
+    );
+    expect(screen.getByRole('checkbox')).toHaveAttribute(
+      'aria-errormessage',
       'policy-error',
     );
   });

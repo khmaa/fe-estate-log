@@ -46,6 +46,7 @@ const CheckboxField = ({
             ? mergeDescribedBy(props['aria-describedby'], descriptionId)
             : props['aria-describedby']
         }
+        aria-errormessage={error ? descriptionId : props['aria-errormessage']}
         aria-invalid={error ? true : props['aria-invalid']}
         className={cn('mt-0.5', checkboxClassName)}
       />
