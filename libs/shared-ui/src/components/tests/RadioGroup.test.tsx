@@ -53,6 +53,33 @@ describe('RadioGroup', () => {
     expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('disables the group options and prevents value changes', () => {
+    const handleValueChange = vi.fn();
+
+    render(
+      <RadioGroup
+        disabled
+        label="Contact method"
+        name="contact"
+        onValueChange={handleValueChange}
+        options={options}
+        value="email"
+      />,
+    );
+
+    expect(screen.getByRole('radiogroup')).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    );
+    screen.getAllByRole('radio').forEach((radio) => {
+      expect(radio).toBeDisabled();
+    });
+
+    fireEvent.click(screen.getByRole('radio', { name: /Phone/i }));
+
+    expect(handleValueChange).not.toHaveBeenCalled();
+  });
+
   it('wires helper text through aria-describedby', () => {
     render(
       <RadioGroup

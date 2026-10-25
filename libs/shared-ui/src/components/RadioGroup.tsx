@@ -9,6 +9,7 @@ type RadioOption = {
 
 type RadioGroupProps = {
   className?: string;
+  disabled?: boolean;
   error?: string;
   helperText?: string;
   name: string;
@@ -29,6 +30,7 @@ const mergeDescribedBy = (existing: string | undefined, nextId: string) => {
 
 const RadioGroup = ({
   className,
+  disabled = false,
   error,
   helperText,
   label,
@@ -68,6 +70,7 @@ const RadioGroup = ({
       </div>
       <div
         role="radiogroup"
+        aria-disabled={disabled ? true : undefined}
         aria-describedby={descriptionId}
         aria-errormessage={error ? descriptionId : undefined}
         aria-invalid={error ? true : undefined}
@@ -80,6 +83,7 @@ const RadioGroup = ({
         </span>
         {options.map((option) => {
           const optionId = `${name}-${option.value}`;
+          const isOptionDisabled = disabled || Boolean(option.disabled);
           const optionDescriptionId = option.description
             ? `${optionId}-description`
             : undefined;
@@ -93,7 +97,7 @@ const RadioGroup = ({
               htmlFor={optionId}
               className={cn(
                 'flex items-start gap-3 rounded-ui border border-border bg-surface-alt px-4 py-3 transition-colors duration-200',
-                option.disabled && 'cursor-not-allowed opacity-70',
+                isOptionDisabled && 'cursor-not-allowed opacity-70',
                 value === option.value && 'border-primary bg-primary/5',
               )}
             >
@@ -103,9 +107,13 @@ const RadioGroup = ({
                 type="radio"
                 value={option.value}
                 checked={value === option.value}
-                disabled={option.disabled}
+                disabled={isOptionDisabled}
                 required={required}
-                onChange={() => onValueChange?.(option.value)}
+                onChange={() => {
+                  if (!isOptionDisabled) {
+                    onValueChange?.(option.value);
+                  }
+                }}
                 aria-describedby={finalDescribedBy}
                 className="mt-0.5 h-4 w-4 border border-border text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed"
               />
