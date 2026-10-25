@@ -55,6 +55,13 @@ export const WithError: Story = {
   ),
 };
 
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+  render: (args) => <RadioGroupStory {...args} />,
+};
+
 export const WithDisabledOption: Story = {
   render: (args) => (
     <RadioGroupStory
