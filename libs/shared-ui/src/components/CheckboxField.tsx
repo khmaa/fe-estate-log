@@ -53,6 +53,11 @@ const CheckboxField = ({
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <Label htmlFor={fieldId} className="leading-5">
           {label}
+          {props.required ? (
+            <span aria-hidden="true" className="ml-1 text-danger">
+              *
+            </span>
+          ) : null}
         </Label>
         {error ? (
           <p id={`${fieldId}-error`} className="text-sm text-danger">

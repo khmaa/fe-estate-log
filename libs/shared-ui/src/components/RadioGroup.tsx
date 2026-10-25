@@ -14,6 +14,7 @@ type RadioGroupProps = {
   name: string;
   onValueChange?: (value: string) => void;
   options: RadioOption[];
+  required?: boolean;
   value?: string;
   label: string;
 };
@@ -34,6 +35,7 @@ const RadioGroup = ({
   name,
   onValueChange,
   options,
+  required = false,
   value,
 }: RadioGroupProps) => {
   const groupId = `${name}-group`;
@@ -46,7 +48,14 @@ const RadioGroup = ({
   return (
     <div className={cn('flex w-full flex-col gap-3', className)}>
       <div className="space-y-1">
-        <p className="text-sm font-semibold text-foreground">{label}</p>
+        <p className="inline-flex items-center gap-1 text-sm font-semibold text-foreground">
+          {label}
+          {required ? (
+            <span aria-hidden="true" className="text-danger">
+              *
+            </span>
+          ) : null}
+        </p>
         {error ? (
           <p id={`${name}-error`} className="text-sm text-danger">
             {error}
@@ -63,6 +72,7 @@ const RadioGroup = ({
         aria-errormessage={error ? descriptionId : undefined}
         aria-invalid={error ? true : undefined}
         aria-labelledby={groupId}
+        aria-required={required ? true : undefined}
         className="flex flex-col gap-3"
       >
         <span id={groupId} className="sr-only">
@@ -94,6 +104,7 @@ const RadioGroup = ({
                 value={option.value}
                 checked={value === option.value}
                 disabled={option.disabled}
+                required={required}
                 onChange={() => onValueChange?.(option.value)}
                 aria-describedby={finalDescribedBy}
                 className="mt-0.5 h-4 w-4 border border-border text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed"
