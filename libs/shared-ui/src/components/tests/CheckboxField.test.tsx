@@ -9,6 +9,15 @@ describe('CheckboxField', () => {
     expect(screen.getByLabelText('Accept terms')).toBeInTheDocument();
   });
 
+  it('marks a required checkbox and hides its visual indicator', () => {
+    render(<CheckboxField id="terms" label="Accept terms" required />);
+
+    expect(
+      screen.getByRole('checkbox', { name: 'Accept terms' }),
+    ).toBeRequired();
+    expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('renders helper text and wires aria-describedby', () => {
     render(
       <CheckboxField

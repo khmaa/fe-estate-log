@@ -33,6 +33,26 @@ describe('RadioGroup', () => {
     expect(screen.getByRole('radio', { name: /Phone/i })).toBeInTheDocument();
   });
 
+  it('marks a required group and hides its visual indicator', () => {
+    render(
+      <RadioGroup
+        label="Contact method"
+        name="contact"
+        options={options}
+        required
+      />,
+    );
+
+    expect(screen.getByRole('radiogroup')).toHaveAttribute(
+      'aria-required',
+      'true',
+    );
+    screen.getAllByRole('radio').forEach((radio) => {
+      expect(radio).toBeRequired();
+    });
+    expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('wires helper text through aria-describedby', () => {
     render(
       <RadioGroup
