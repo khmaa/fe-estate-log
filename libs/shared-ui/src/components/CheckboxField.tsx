@@ -37,7 +37,13 @@ const CheckboxField = ({
       : undefined;
 
   return (
-    <div className={cn('flex w-full items-start gap-3', className)}>
+    <div
+      className={cn(
+        'flex w-full items-start gap-3',
+        props.disabled && 'cursor-not-allowed opacity-70',
+        className,
+      )}
+    >
       <Checkbox
         {...props}
         id={fieldId}
@@ -49,6 +55,11 @@ const CheckboxField = ({
         aria-errormessage={error ? descriptionId : props['aria-errormessage']}
         aria-invalid={error ? true : props['aria-invalid']}
         className={cn('mt-0.5', checkboxClassName)}
+        onChange={(event) => {
+          if (!props.disabled) {
+            props.onChange?.(event);
+          }
+        }}
       />
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <Label htmlFor={fieldId} className="leading-5">

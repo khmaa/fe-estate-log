@@ -18,6 +18,30 @@ describe('CheckboxField', () => {
     expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('styles a disabled field and prevents change events', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <CheckboxField
+        disabled
+        id="terms"
+        label="Accept terms"
+        onChange={handleChange}
+      />,
+    );
+
+    const checkbox = screen.getByRole('checkbox', { name: 'Accept terms' });
+    expect(checkbox).toBeDisabled();
+    expect(checkbox.parentElement).toHaveClass(
+      'cursor-not-allowed',
+      'opacity-70',
+    );
+
+    fireEvent.click(checkbox);
+
+    expect(handleChange).not.toHaveBeenCalled();
+  });
+
   it('renders helper text and wires aria-describedby', () => {
     render(
       <CheckboxField
