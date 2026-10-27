@@ -82,4 +82,34 @@ describe('Field', () => {
     expect(screen.getByLabelText('Phone')).toBeRequired();
     expect(screen.getByText('*')).toHaveAttribute('aria-hidden', 'true');
   });
+
+  it('disables the control and styles the complete field', () => {
+    render(
+      <Field disabled htmlFor="email" label="Email">
+        <Input />
+      </Field>,
+    );
+
+    const textbox = screen.getByLabelText('Email');
+    expect(textbox).toBeDisabled();
+    expect(textbox.parentElement).toHaveClass(
+      'cursor-not-allowed',
+      'opacity-70',
+    );
+  });
+
+  it('styles the complete field when its child control is disabled', () => {
+    render(
+      <Field htmlFor="company" label="Company">
+        <Input disabled />
+      </Field>,
+    );
+
+    const textbox = screen.getByLabelText('Company');
+    expect(textbox).toBeDisabled();
+    expect(textbox.parentElement).toHaveClass(
+      'cursor-not-allowed',
+      'opacity-70',
+    );
+  });
 });

@@ -41,6 +41,21 @@ export const WithError: Story = {
   ),
 };
 
+export const Disabled: Story = {
+  args: {
+    children: <Input type="email" value="locked@example.com" readOnly />,
+    disabled: true,
+  },
+  render: (args) => (
+    <div className="max-w-sm">
+      <Field
+        {...args}
+        helperText="This value is managed by your organization."
+      />
+    </div>
+  ),
+};
+
 export const TextareaField: Story = {
   args: {
     children: <Textarea placeholder="Describe what you are trying to build." />,
