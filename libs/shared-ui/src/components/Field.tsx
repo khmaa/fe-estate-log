@@ -3,6 +3,7 @@ import { cn } from '../utils/cn';
 import { Label } from './Label';
 
 type FieldControlProps = {
+  disabled?: boolean;
   id?: string;
   'aria-describedby'?: string;
   'aria-errormessage'?: string;
@@ -13,6 +14,7 @@ type FieldControlProps = {
 type FieldProps = {
   children: React.ReactElement<FieldControlProps>;
   className?: string;
+  disabled?: boolean;
   error?: string;
   helperText?: string;
   htmlFor: string;
@@ -34,6 +36,7 @@ const mergeDescribedBy = (
 const Field = ({
   children,
   className,
+  disabled = false,
   error,
   helperText,
   htmlFor,
@@ -45,8 +48,10 @@ const Field = ({
     : helperText
       ? `${htmlFor}-helper`
       : undefined;
+  const isDisabled = disabled || Boolean(children.props.disabled);
   const isRequired = required || Boolean(children.props.required);
   const control = React.cloneElement(children, {
+    disabled: isDisabled,
     id: children.props.id ?? htmlFor,
     'aria-describedby': descriptionId
       ? mergeDescribedBy(children.props['aria-describedby'], descriptionId)
@@ -59,7 +64,13 @@ const Field = ({
   });
 
   return (
-    <div className={cn('flex w-full flex-col gap-2', className)}>
+    <div
+      className={cn(
+        'flex w-full flex-col gap-2',
+        isDisabled && 'cursor-not-allowed opacity-70',
+        className,
+      )}
+    >
       <div className="inline-flex items-center gap-1">
         <Label htmlFor={htmlFor}>{label}</Label>
         {isRequired ? (
