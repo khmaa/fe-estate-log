@@ -65,7 +65,7 @@ describe('VisitLogFilters', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Advanced filters' }));
     fireEvent.click(
-      await screen.findByRole('checkbox', {
+      await screen.findByRole('switch', {
         name: 'Pinned only',
       }),
     );

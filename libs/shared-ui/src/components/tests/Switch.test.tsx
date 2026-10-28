@@ -3,24 +3,22 @@ import { describe, expect, it, vi } from 'vitest';
 import { Switch } from '../Switch';
 
 describe('Switch', () => {
-  it('renders as a checkbox input', () => {
+  it('renders with switch semantics', () => {
     render(<Switch aria-label="Auto save" />);
     expect(
-      screen.getByRole('checkbox', { name: 'Auto save' }),
+      screen.getByRole('switch', { name: 'Auto save' }),
     ).toBeInTheDocument();
   });
 
   it('supports the checked state', () => {
     render(<Switch aria-label="Notifications" defaultChecked />);
-    expect(
-      screen.getByRole('checkbox', { name: 'Notifications' }),
-    ).toBeChecked();
+    expect(screen.getByRole('switch', { name: 'Notifications' })).toBeChecked();
   });
 
   it('respects the disabled state', () => {
     render(<Switch aria-label="Disabled switch" disabled />);
     expect(
-      screen.getByRole('checkbox', { name: 'Disabled switch' }),
+      screen.getByRole('switch', { name: 'Disabled switch' }),
     ).toBeDisabled();
   });
 
@@ -28,7 +26,7 @@ describe('Switch', () => {
     const handleChange = vi.fn();
     render(<Switch aria-label="Live updates" onChange={handleChange} />);
 
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Live updates' }));
+    fireEvent.click(screen.getByRole('switch', { name: 'Live updates' }));
 
     expect(handleChange).toHaveBeenCalledTimes(1);
   });

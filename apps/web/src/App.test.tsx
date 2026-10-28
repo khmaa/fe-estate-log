@@ -109,7 +109,7 @@ describe('App', () => {
     expect(screen.getByLabelText('Sort by')).toHaveValue('district');
     fireEvent.click(screen.getByRole('button', { name: 'Advanced filters' }));
     expect(
-      await screen.findByRole('checkbox', {
+      await screen.findByRole('switch', {
         name: 'Pinned only',
       }),
     ).toBeChecked();
@@ -259,7 +259,7 @@ describe('App', () => {
       await screen.findByRole('button', { name: 'Advanced filters' }),
     );
 
-    const toggle = screen.getByRole('checkbox', {
+    const toggle = screen.getByRole('switch', {
       name: 'Pinned only',
     });
 
