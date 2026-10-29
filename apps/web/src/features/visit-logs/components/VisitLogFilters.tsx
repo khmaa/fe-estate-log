@@ -2,6 +2,7 @@ import {
   Button,
   Field,
   Input,
+  Label,
   Popover,
   PopoverClose,
   PopoverContent,
@@ -136,19 +137,26 @@ const VisitLogFilters = ({
                 </div>
                 <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-foreground">
+                    <Label
+                      className="text-sm font-semibold text-foreground"
+                      htmlFor="visit-log-pinned-only"
+                    >
                       {t('visitLogs.filters.pinned.label')}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
+                    </Label>
+                    <p
+                      id="visit-log-pinned-only-description"
+                      className="text-sm text-muted-foreground"
+                    >
                       {t('visitLogs.filters.pinned.description')}
                     </p>
                   </div>
                   <Switch
+                    id="visit-log-pinned-only"
                     checked={pinnedOnly}
                     onChange={(event) =>
                       onPinnedOnlyChange(event.currentTarget.checked)
                     }
-                    aria-label={t('visitLogs.filters.pinned.label')}
+                    aria-describedby="visit-log-pinned-only-description"
                   />
                 </div>
                 <div className="flex justify-end gap-3">
