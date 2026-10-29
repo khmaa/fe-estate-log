@@ -64,11 +64,14 @@ describe('VisitLogFilters', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Advanced filters' }));
-    fireEvent.click(
-      await screen.findByRole('switch', {
-        name: 'Pinned only',
-      }),
+    const pinnedOnlySwitch = await screen.findByRole('switch', {
+      name: 'Pinned only',
+    });
+
+    expect(pinnedOnlySwitch).toHaveAccessibleDescription(
+      'Focus on high-priority logs you marked for follow-up.',
     );
+    fireEvent.click(pinnedOnlySwitch);
 
     expect(handlePinnedOnlyChange).toHaveBeenCalledWith(true);
   });
