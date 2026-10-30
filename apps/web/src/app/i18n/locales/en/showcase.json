@@ -87,8 +87,7 @@
       },
       "switch": {
         "title": "Release notifications",
-        "description": "Toggle digest emails for new shared-ui updates.",
-        "ariaLabel": "Enable release notifications"
+        "description": "Toggle digest emails for new shared-ui updates."
       }
     },
     "feedback": {

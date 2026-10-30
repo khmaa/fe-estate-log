@@ -35,22 +35,22 @@ Guidelines:
 
 ## Commit Messages
 
-Use concise conventional-style commit messages.
+Use concise conventional-style commit messages. Keep the type and optional scope in English, and write the subject and body in Korean.
 
 Recommended format:
 
 ```text
-type: short summary
+type: 한글 요약
 ```
 
 Examples:
 
-- `feat: add shared-ui Button component`
-- `feat: add shared-ui Storybook and Button stories`
-- `docs: update root README with Storybook usage`
-- `test: add Button unit tests`
+- `feat: 공통 Button 컴포넌트 추가`
+- `feat(shared-ui): Storybook과 Button 스토리 추가`
+- `docs: 루트 README에 Storybook 사용법 추가`
+- `test: Button 단위 테스트 추가`
 
-If more detail is helpful, add a multi-line body with bullets.
+If more detail is helpful, add a multi-line body with bullets written in Korean.
 
 ## Git Hooks
 

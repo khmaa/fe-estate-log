@@ -87,8 +87,7 @@
       },
       "switch": {
         "title": "릴리스 알림",
-        "description": "새 shared-ui 업데이트에 대한 요약 이메일을 토글합니다.",
-        "ariaLabel": "릴리스 알림 활성화"
+        "description": "새 shared-ui 업데이트에 대한 요약 이메일을 토글합니다."
       }
     },
     "feedback": {

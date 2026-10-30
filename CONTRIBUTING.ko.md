@@ -35,22 +35,22 @@ type/scope-short-description
 
 ## 커밋 메시지
 
-짧고 명확한 conventional 스타일 커밋 메시지를 사용합니다.
+짧고 명확한 conventional 스타일 커밋 메시지를 사용합니다. `type`과 선택적 `scope`는 영어로 유지하고 제목과 본문은 한글로 작성합니다.
 
 권장 형식:
 
 ```text
-type: short summary
+type: 한글 요약
 ```
 
 예시:
 
-- `feat: add shared-ui Button component`
-- `feat: add shared-ui Storybook and Button stories`
-- `docs: update root README with Storybook usage`
-- `test: add Button unit tests`
+- `feat: 공통 Button 컴포넌트 추가`
+- `feat(shared-ui): Storybook과 Button 스토리 추가`
+- `docs: 루트 README에 Storybook 사용법 추가`
+- `test: Button 단위 테스트 추가`
 
-추가 설명이 필요하면 본문에 여러 줄 bullet을 붙입니다.
+추가 설명이 필요하면 한글로 작성한 여러 줄 bullet을 본문에 붙입니다.
 
 ## Git Hook
 
