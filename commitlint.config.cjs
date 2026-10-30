@@ -1,5 +1,5 @@
 const headerPattern =
-  /^(feat|fix|docs|test|chore|refactor|style|build|ci|revert)(\([a-z0-9-]+\))?:\s[A-Z].+/;
+  /^(feat|fix|docs|test|chore|refactor|style|build|ci|revert)(\([a-z0-9-]+\))?:\s[가-힣].*$/u;
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -37,7 +37,7 @@ module.exports = {
         'custom-header-format': ({ header }) => {
           return [
             headerPattern.test(header),
-            'Commit message must match `type(scope): Subject` or `type: Subject`, and the subject must start with an uppercase letter.',
+            'Commit message must match `type(scope): 한글 제목` or `type: 한글 제목`, and the subject must start with Korean text.',
           ];
         },
       },

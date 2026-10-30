@@ -29,6 +29,7 @@ import {
   EmptyState,
   Field,
   Input,
+  Label,
   Popover,
   PopoverClose,
   PopoverContent,
@@ -186,19 +187,26 @@ const ShowcaseContent = () => {
               />
               <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-foreground">
+                  <Label
+                    className="text-sm font-semibold text-foreground"
+                    htmlFor="showcase-release-notifications"
+                  >
                     {t('showcase.selection.switch.title')}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
+                  </Label>
+                  <p
+                    id="showcase-release-notifications-description"
+                    className="text-sm text-muted-foreground"
+                  >
                     {t('showcase.selection.switch.description')}
                   </p>
                 </div>
                 <Switch
+                  id="showcase-release-notifications"
                   checked={notificationsEnabled}
                   onChange={(event) =>
                     setNotificationsEnabled(event.currentTarget.checked)
                   }
-                  aria-label={t('showcase.selection.switch.ariaLabel')}
+                  aria-describedby="showcase-release-notifications-description"
                 />
               </div>
             </CardContent>

@@ -177,6 +177,18 @@ describe('App', () => {
       'aria-current',
       'page',
     );
+    const notificationsSwitch = screen.getByRole('switch', {
+      name: 'Release notifications',
+    });
+
+    expect(notificationsSwitch).toHaveAccessibleDescription(
+      'Toggle digest emails for new shared-ui updates.',
+    );
+    expect(notificationsSwitch).toBeChecked();
+    fireEvent.click(screen.getByText('Release notifications'));
+    expect(
+      screen.getByRole('switch', { name: 'Release notifications' }),
+    ).not.toBeChecked();
   });
 
   it('switches the showcase page copy to Korean', async () => {
@@ -193,6 +205,11 @@ describe('App', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('이메일')).toBeInTheDocument();
     expect(screen.getByRole('option', { name: '아파트' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('switch', { name: '릴리스 알림' }),
+    ).toHaveAccessibleDescription(
+      '새 shared-ui 업데이트에 대한 요약 이메일을 토글합니다.',
+    );
   });
 
   it('renders the not found page on an unknown route', async () => {
