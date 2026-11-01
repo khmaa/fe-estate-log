@@ -1,13 +1,28 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import type { SwitchProps } from '../Switch';
 import { Switch } from '../Switch';
 
 describe('Switch', () => {
   it('renders with switch semantics', () => {
     render(<Switch aria-label="Auto save" />);
-    expect(
-      screen.getByRole('switch', { name: 'Auto save' }),
-    ).toBeInTheDocument();
+    const toggle = screen.getByRole('switch', { name: 'Auto save' });
+
+    expect(toggle).toBeInTheDocument();
+    expect(toggle).toHaveAttribute('type', 'checkbox');
+  });
+
+  it('keeps checkbox behavior when an unsupported runtime type is passed', () => {
+    const unsupportedProps = {
+      type: 'radio',
+    } as unknown as SwitchProps;
+
+    render(<Switch {...unsupportedProps} aria-label="Auto save" />);
+
+    expect(screen.getByRole('switch', { name: 'Auto save' })).toHaveAttribute(
+      'type',
+      'checkbox',
+    );
   });
 
   it('supports the checked state', () => {
