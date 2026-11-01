@@ -2,13 +2,12 @@ import {
   Button,
   Field,
   Input,
-  Label,
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
   Select,
-  Switch,
+  SwitchField,
 } from '@shared-ui/core';
 import type { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -135,30 +134,16 @@ const VisitLogFilters = ({
                     {t('visitLogs.filters.summary.description')}
                   </p>
                 </div>
-                <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
-                  <div className="space-y-1">
-                    <Label
-                      className="text-sm font-semibold text-foreground"
-                      htmlFor="visit-log-pinned-only"
-                    >
-                      {t('visitLogs.filters.pinned.label')}
-                    </Label>
-                    <p
-                      id="visit-log-pinned-only-description"
-                      className="text-sm text-muted-foreground"
-                    >
-                      {t('visitLogs.filters.pinned.description')}
-                    </p>
-                  </div>
-                  <Switch
-                    id="visit-log-pinned-only"
-                    checked={pinnedOnly}
-                    onChange={(event) =>
-                      onPinnedOnlyChange(event.currentTarget.checked)
-                    }
-                    aria-describedby="visit-log-pinned-only-description"
-                  />
-                </div>
+                <SwitchField
+                  className="rounded-ui border border-border bg-background px-4 py-4"
+                  id="visit-log-pinned-only"
+                  label={t('visitLogs.filters.pinned.label')}
+                  helperText={t('visitLogs.filters.pinned.description')}
+                  checked={pinnedOnly}
+                  onChange={(event) =>
+                    onPinnedOnlyChange(event.currentTarget.checked)
+                  }
+                />
                 <div className="flex justify-end gap-3">
                   <PopoverClose asChild>
                     <Button variant="ghost">

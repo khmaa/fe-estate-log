@@ -29,7 +29,6 @@ import {
   EmptyState,
   Field,
   Input,
-  Label,
   Popover,
   PopoverClose,
   PopoverContent,
@@ -37,7 +36,7 @@ import {
   RadioGroup,
   Select,
   Spinner,
-  Switch,
+  SwitchField,
   Textarea,
   ToastHostProvider,
   useToast,
@@ -185,30 +184,16 @@ const ShowcaseContent = () => {
                 onValueChange={setContactMethod}
                 options={contactOptions}
               />
-              <div className="flex items-start justify-between gap-4 rounded-ui border border-border bg-background px-4 py-4">
-                <div className="space-y-1">
-                  <Label
-                    className="text-sm font-semibold text-foreground"
-                    htmlFor="showcase-release-notifications"
-                  >
-                    {t('showcase.selection.switch.title')}
-                  </Label>
-                  <p
-                    id="showcase-release-notifications-description"
-                    className="text-sm text-muted-foreground"
-                  >
-                    {t('showcase.selection.switch.description')}
-                  </p>
-                </div>
-                <Switch
-                  id="showcase-release-notifications"
-                  checked={notificationsEnabled}
-                  onChange={(event) =>
-                    setNotificationsEnabled(event.currentTarget.checked)
-                  }
-                  aria-describedby="showcase-release-notifications-description"
-                />
-              </div>
+              <SwitchField
+                className="rounded-ui border border-border bg-background px-4 py-4"
+                id="showcase-release-notifications"
+                label={t('showcase.selection.switch.title')}
+                helperText={t('showcase.selection.switch.description')}
+                checked={notificationsEnabled}
+                onChange={(event) =>
+                  setNotificationsEnabled(event.currentTarget.checked)
+                }
+              />
             </CardContent>
           </Card>
         </section>

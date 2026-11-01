@@ -109,6 +109,8 @@ export { Spinner } from './components/Spinner';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner';
 export { Switch } from './components/Switch';
 export type { SwitchProps } from './components/Switch';
+export { SwitchField } from './components/SwitchField';
+export type { SwitchFieldProps } from './components/SwitchField';
 export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
 export {
