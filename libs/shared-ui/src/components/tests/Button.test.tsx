@@ -1,13 +1,46 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { Button } from '../Button';
 
 describe('Button', () => {
   it('renders children', () => {
     render(<Button>Shared Button</Button>);
-    expect(
-      screen.getByRole('button', { name: 'Shared Button' }),
-    ).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: 'Shared Button' });
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('type', 'button');
+  });
+
+  it('does not submit an enclosing form by default', () => {
+    const handleSubmit = vi.fn((event: React.FormEvent) => {
+      event.preventDefault();
+    });
+
+    render(
+      <form onSubmit={handleSubmit}>
+        <Button>Open details</Button>
+      </form>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open details' }));
+
+    expect(handleSubmit).not.toHaveBeenCalled();
+  });
+
+  it('supports an explicit submit type', () => {
+    const handleSubmit = vi.fn((event: React.FormEvent) => {
+      event.preventDefault();
+    });
+
+    render(
+      <form onSubmit={handleSubmit}>
+        <Button type="submit">Save changes</Button>
+      </form>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
   it('applies className', () => {
