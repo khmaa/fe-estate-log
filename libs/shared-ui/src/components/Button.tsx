@@ -44,6 +44,7 @@ const Button = ({
     <button
       {...props}
       type={type}
+      aria-busy={loading ? true : props['aria-busy']}
       disabled={disabled || loading}
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-ui font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none',
