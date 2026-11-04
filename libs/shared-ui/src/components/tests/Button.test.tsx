@@ -9,6 +9,7 @@ describe('Button', () => {
 
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute('type', 'button');
+    expect(button).not.toHaveAttribute('aria-busy');
   });
 
   it('does not submit an enclosing form by default', () => {
@@ -66,10 +67,29 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: 'Large' })).toHaveClass('px-5');
   });
 
-  it('renders a spinner and disables the button when loading', () => {
-    render(<Button loading>Saving</Button>);
+  it('exposes a busy state and blocks clicks while loading', () => {
+    const handleClick = vi.fn();
+    render(
+      <Button loading aria-busy={false} onClick={handleClick}>
+        Saving
+      </Button>,
+    );
 
-    expect(screen.getByRole('button', { name: 'Saving' })).toBeDisabled();
+    const button = screen.getByRole('button', { name: 'Saving' });
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    fireEvent.click(button);
+
+    expect(handleClick).not.toHaveBeenCalled();
     expect(document.querySelector('.animate-spin')).toBeInTheDocument();
+  });
+
+  it('preserves an explicit busy state when not loading', () => {
+    render(<Button aria-busy>Syncing elsewhere</Button>);
+
+    expect(
+      screen.getByRole('button', { name: 'Syncing elsewhere' }),
+    ).toHaveAttribute('aria-busy', 'true');
   });
 });
