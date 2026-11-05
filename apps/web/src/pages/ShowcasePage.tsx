@@ -243,8 +243,13 @@ const ShowcaseContent = () => {
                   {t('showcase.feedback.loading.publishing')}
                 </Button>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <Spinner size="sm" />
-                  {t('showcase.feedback.loading.backgroundSync')}
+                  <Spinner
+                    label={t('showcase.feedback.loading.backgroundSync')}
+                    size="sm"
+                  />
+                  <span aria-hidden="true">
+                    {t('showcase.feedback.loading.backgroundSync')}
+                  </span>
                 </div>
               </div>
             </CardContent>

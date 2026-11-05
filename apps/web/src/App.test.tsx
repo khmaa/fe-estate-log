@@ -177,6 +177,9 @@ describe('App', () => {
       'aria-current',
       'page',
     );
+    expect(
+      screen.getByRole('status', { name: 'Background sync in progress' }),
+    ).toBeInTheDocument();
     const notificationsSwitch = screen.getByRole('switch', {
       name: 'Release notifications',
     });
@@ -205,6 +208,9 @@ describe('App', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('이메일')).toBeInTheDocument();
     expect(screen.getByRole('option', { name: '아파트' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('status', { name: '백그라운드 동기화 진행 중' }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('switch', { name: '릴리스 알림' }),
     ).toHaveAccessibleDescription(
