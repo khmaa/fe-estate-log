@@ -53,11 +53,7 @@ const Button = ({
         className,
       )}
     >
-      {loading ? (
-        <span aria-hidden="true">
-          <Spinner label="Loading" size={spinnerSize} />
-        </span>
-      ) : null}
+      {loading ? <Spinner decorative size={spinnerSize} /> : null}
       {children}
     </button>
   );

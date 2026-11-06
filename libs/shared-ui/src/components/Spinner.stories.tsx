@@ -30,3 +30,10 @@ export const Large: Story = {
     size: 'lg',
   },
 };
+
+export const Decorative: Story = {
+  args: {
+    decorative: true,
+    size: 'md',
+  },
+};
