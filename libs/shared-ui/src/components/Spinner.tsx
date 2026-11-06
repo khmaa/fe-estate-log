@@ -10,12 +10,14 @@ const spinnerSizes = {
 type SpinnerSize = keyof typeof spinnerSizes;
 
 type SpinnerProps = React.HTMLAttributes<HTMLSpanElement> & {
+  decorative?: boolean;
   label?: string;
   size?: SpinnerSize;
 };
 
 const Spinner = ({
   className,
+  decorative = false,
   label = 'Loading',
   size = 'md',
   ...props
@@ -23,8 +25,9 @@ const Spinner = ({
   return (
     <span
       {...props}
-      role="status"
-      aria-label={label}
+      role={decorative ? undefined : 'status'}
+      aria-hidden={decorative ? true : props['aria-hidden']}
+      aria-label={decorative ? undefined : label}
       className={cn('inline-flex items-center justify-center', className)}
     >
       <span

@@ -83,6 +83,7 @@ describe('Button', () => {
 
     expect(handleClick).not.toHaveBeenCalled();
     expect(document.querySelector('.animate-spin')).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
   it('preserves an explicit busy state when not loading', () => {
