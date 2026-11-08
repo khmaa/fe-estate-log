@@ -68,4 +68,20 @@ describe('Toast', () => {
 
     expect(screen.queryByText('Dismissible toast')).toBeNull();
   });
+
+  it('disables root animation for reduced motion', () => {
+    render(
+      <ToastProvider>
+        <Toast open>
+          <ToastTitle>Reduced motion toast</ToastTitle>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>,
+    );
+
+    expect(screen.getByText('Reduced motion toast').closest('li')).toHaveClass(
+      'data-[state=open]:animate-in',
+      'motion-reduce:animate-none',
+    );
+  });
 });

@@ -26,7 +26,7 @@ const DialogOverlay = ({ className, ...props }: DialogOverlayProps) => {
     <DialogPrimitive.Overlay
       {...props}
       className={cn(
-        'fixed inset-0 z-50 bg-foreground/35 backdrop-blur-sm data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
+        'fixed inset-0 z-50 bg-foreground/35 backdrop-blur-sm data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none',
         className,
       )}
     />
@@ -44,7 +44,7 @@ const DialogContent = ({
       <DialogPrimitive.Content
         {...props}
         className={cn(
-          'fixed left-1/2 top-1/2 z-50 flex w-[calc(100vw-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-[32px] border border-border bg-surface p-8 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+          'fixed left-1/2 top-1/2 z-50 flex w-[calc(100vw-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-[32px] border border-border bg-surface p-8 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none',
           className,
         )}
       >
