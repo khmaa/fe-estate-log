@@ -35,4 +35,13 @@ describe('Spinner', () => {
 
     expect(screen.getByRole('status').firstChild).toHaveClass('h-6', 'w-6');
   });
+
+  it('stops spinning when reduced motion is requested', () => {
+    render(<Spinner />);
+
+    expect(screen.getByRole('status').firstChild).toHaveClass(
+      'animate-spin',
+      'motion-reduce:animate-none',
+    );
+  });
 });
