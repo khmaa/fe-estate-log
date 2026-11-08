@@ -33,7 +33,7 @@ const Spinner = ({
       <span
         aria-hidden="true"
         className={cn(
-          'animate-spin rounded-full border-muted border-t-foreground',
+          'animate-spin rounded-full border-muted border-t-foreground motion-reduce:animate-none',
           spinnerSizes[size],
         )}
       />

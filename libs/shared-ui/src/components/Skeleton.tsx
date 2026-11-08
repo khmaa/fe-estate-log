@@ -8,7 +8,10 @@ const Skeleton = ({ className, ...props }: SkeletonProps) => {
     <div
       {...props}
       aria-hidden="true"
-      className={cn('animate-pulse rounded-ui bg-muted', className)}
+      className={cn(
+        'animate-pulse rounded-ui bg-muted motion-reduce:animate-none',
+        className,
+      )}
     />
   );
 };

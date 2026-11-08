@@ -17,4 +17,13 @@ describe('Skeleton', () => {
 
     expect(screen.getByTestId('skeleton')).toHaveClass('h-10', 'w-24');
   });
+
+  it('stops pulsing when reduced motion is requested', () => {
+    render(<Skeleton data-testid="skeleton" />);
+
+    expect(screen.getByTestId('skeleton')).toHaveClass(
+      'animate-pulse',
+      'motion-reduce:animate-none',
+    );
+  });
 });
