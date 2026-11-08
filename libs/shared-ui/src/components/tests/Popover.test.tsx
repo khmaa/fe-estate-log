@@ -53,4 +53,17 @@ describe('Popover', () => {
 
     expect(screen.getByRole('dialog')).toHaveClass('custom-popover');
   });
+
+  it('disables content animation for reduced motion', () => {
+    render(
+      <Popover defaultOpen>
+        <PopoverContent>Reduced motion popover</PopoverContent>
+      </Popover>,
+    );
+
+    expect(screen.getByRole('dialog')).toHaveClass(
+      'data-[state=open]:animate-in',
+      'motion-reduce:animate-none',
+    );
+  });
 });

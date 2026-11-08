@@ -40,7 +40,7 @@ const Toast = ({ className, variant = 'info', ...props }: ToastProps) => {
     <ToastPrimitive.Root
       {...props}
       className={cn(
-        'grid gap-2 rounded-[24px] border p-4 shadow-soft data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-right-full data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-right-full',
+        'grid gap-2 rounded-[24px] border p-4 shadow-soft data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-right-full data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-right-full motion-reduce:animate-none',
         toastVariants[variant],
         className,
       )}

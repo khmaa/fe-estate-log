@@ -39,7 +39,7 @@ const DropdownMenuContent = ({
         {...props}
         sideOffset={sideOffset}
         className={cn(
-          'z-50 min-w-52 rounded-[24px] border border-border bg-surface p-2 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+          'z-50 min-w-52 rounded-[24px] border border-border bg-surface p-2 shadow-soft outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none',
           className,
         )}
       />

@@ -77,4 +77,24 @@ describe('Dialog', () => {
 
     expect(screen.getByRole('dialog')).toHaveClass('custom-dialog');
   });
+
+  it('disables overlay and content animations for reduced motion', () => {
+    render(
+      <Dialog defaultOpen>
+        <DialogContent>
+          <DialogTitle>Reduced motion dialog</DialogTitle>
+          <DialogDescription>Dialog description</DialogDescription>
+        </DialogContent>
+      </Dialog>,
+    );
+
+    expect(screen.getByRole('dialog')).toHaveClass(
+      'data-[state=open]:animate-in',
+      'motion-reduce:animate-none',
+    );
+    expect(document.querySelector('.fixed.inset-0')).toHaveClass(
+      'data-[state=open]:animate-in',
+      'motion-reduce:animate-none',
+    );
+  });
 });

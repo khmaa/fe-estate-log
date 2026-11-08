@@ -60,4 +60,19 @@ describe('DropdownMenu', () => {
     expect(screen.getByText('Open detail').closest('[data-slot]')).toBeNull();
     expect(document.querySelector('.custom-menu')).toBeInTheDocument();
   });
+
+  it('disables content animation for reduced motion', () => {
+    render(
+      <DropdownMenu defaultOpen>
+        <DropdownMenuContent>
+          <DropdownMenuItem>Reduced motion action</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    expect(screen.getByRole('menu')).toHaveClass(
+      'data-[state=open]:animate-in',
+      'motion-reduce:animate-none',
+    );
+  });
 });
