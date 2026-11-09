@@ -30,6 +30,27 @@ describe('Switch', () => {
     expect(screen.getByRole('switch', { name: 'Notifications' })).toBeChecked();
   });
 
+  it('disables track and thumb transitions for reduced motion', () => {
+    render(<Switch aria-label="Reduced motion switch" />);
+
+    const toggle = screen.getByRole('switch', {
+      name: 'Reduced motion switch',
+    });
+    const track = toggle.nextElementSibling;
+    const thumb = track?.nextElementSibling;
+
+    expect(track).toHaveClass(
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
+    expect(thumb).toHaveClass(
+      'transition-transform',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
+  });
+
   it('respects the disabled state', () => {
     render(<Switch aria-label="Disabled switch" disabled />);
     expect(
