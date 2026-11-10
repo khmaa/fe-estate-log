@@ -17,11 +17,11 @@ type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
 type AlertTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 type AlertDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
-const Alert = ({ className, variant = 'info', ...props }: AlertProps) => {
+const Alert = ({ className, role, variant = 'info', ...props }: AlertProps) => {
   return (
     <div
       {...props}
-      role="alert"
+      role={role ?? (variant === 'error' ? 'alert' : 'status')}
       className={cn(
         'flex flex-col gap-2 rounded-ui border px-4 py-4 shadow-soft',
         alertVariants[variant],

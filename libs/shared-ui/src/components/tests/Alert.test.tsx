@@ -13,7 +13,7 @@ describe('Alert', () => {
       </Alert>,
     );
 
-    expect(screen.getByRole('alert')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument();
     expect(screen.getByText('Heads up')).toBeInTheDocument();
     expect(
       screen.getByText(
@@ -40,6 +40,16 @@ describe('Alert', () => {
       </Alert>,
     );
 
-    expect(screen.getByRole('alert')).toHaveClass('max-w-lg');
+    expect(screen.getByRole('status')).toHaveClass('max-w-lg');
+  });
+
+  it('uses an explicit role before the variant default', () => {
+    render(
+      <Alert role="alert" variant="warning">
+        <AlertTitle>Session expiring</AlertTitle>
+      </Alert>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Session expiring');
   });
 });

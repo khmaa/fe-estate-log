@@ -180,6 +180,12 @@ describe('App', () => {
     expect(
       screen.getByRole('status', { name: 'Background sync in progress' }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText('Changes published').closest('[role="status"]'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Validation error').closest('[role="alert"]'),
+    ).toBeInTheDocument();
     const notificationsSwitch = screen.getByRole('switch', {
       name: 'Release notifications',
     });
