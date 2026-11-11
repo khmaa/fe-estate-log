@@ -181,6 +181,9 @@ describe('App', () => {
       screen.getByRole('status', { name: 'Background sync in progress' }),
     ).toBeInTheDocument();
     expect(
+      screen.getByText('Showcase preview mode').closest('[role="status"]'),
+    ).toBeInTheDocument();
+    expect(
       screen.getByText('Changes published').closest('[role="status"]'),
     ).toBeInTheDocument();
     expect(

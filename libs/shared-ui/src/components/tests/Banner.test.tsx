@@ -43,4 +43,20 @@ describe('Banner', () => {
     expect(screen.getByRole('status')).toHaveClass('border-warning');
     expect(screen.getByRole('status')).toHaveClass('bg-warning-soft');
   });
+
+  it('uses an explicit role before the status default', () => {
+    render(
+      <Banner
+        aria-label="Preview details"
+        title="Preview environment"
+        description="This workspace is connected to preview data only."
+        role="region"
+      />,
+    );
+
+    expect(
+      screen.getByRole('region', { name: 'Preview details' }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
 });

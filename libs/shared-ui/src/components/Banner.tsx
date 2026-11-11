@@ -20,6 +20,7 @@ const Banner = ({
   action,
   className,
   description,
+  role = 'status',
   title,
   variant = 'info',
   ...props
@@ -27,7 +28,7 @@ const Banner = ({
   return (
     <div
       {...props}
-      role="status"
+      role={role}
       className={cn(
         'flex flex-col gap-4 rounded-ui border px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between',
         bannerVariants[variant],
