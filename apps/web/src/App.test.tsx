@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import { AppProviders } from './app/AppProviders';
@@ -275,6 +281,11 @@ describe('App', () => {
         'The new draft has been added through the feature mutation flow.',
       ),
     ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector('[aria-live="polite"]')).toHaveTextContent(
+        'Visit log created',
+      );
+    });
     expect(
       await screen.findByText('Jamsil riverside draft'),
     ).toBeInTheDocument();
