@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 import {
@@ -44,6 +44,58 @@ describe('Toast', () => {
     expect(screen.getByText('Publish failed').closest('li')).toHaveClass(
       'border-danger',
     );
+  });
+
+  it('announces success toasts with polite priority', async () => {
+    render(
+      <ToastProvider>
+        <Toast open variant="success">
+          <ToastTitle>Changes published</ToastTitle>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>,
+    );
+
+    await waitFor(() => {
+      expect(document.querySelector('[aria-live="polite"]')).toHaveTextContent(
+        'Changes published',
+      );
+    });
+  });
+
+  it('announces error toasts with assertive priority', async () => {
+    render(
+      <ToastProvider>
+        <Toast open variant="error">
+          <ToastTitle>Publish failed</ToastTitle>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>,
+    );
+
+    await waitFor(() => {
+      expect(
+        document.querySelector('[aria-live="assertive"]'),
+      ).toHaveTextContent('Publish failed');
+    });
+  });
+
+  it('uses an explicit announcement type before the variant default', async () => {
+    render(
+      <ToastProvider>
+        <Toast open type="background" variant="error">
+          <ToastTitle>Deferred error notice</ToastTitle>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>,
+    );
+
+    await waitFor(() => {
+      expect(document.querySelector('[aria-live="polite"]')).toHaveTextContent(
+        'Deferred error notice',
+      );
+    });
+    expect(document.querySelector('[aria-live="assertive"]')).toBeNull();
   });
 
   it('closes when the close action is pressed', () => {
