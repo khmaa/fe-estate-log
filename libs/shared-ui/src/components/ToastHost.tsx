@@ -57,6 +57,7 @@ const ToastHostProvider = ({
           <Toast
             duration={toast.duration}
             open={toast.open}
+            type={toast.type}
             variant={toast.variant}
             onOpenChange={(open) =>
               setToast((current) =>

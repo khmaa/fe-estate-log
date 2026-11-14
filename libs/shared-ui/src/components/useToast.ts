@@ -1,10 +1,11 @@
 import type React from 'react';
 import { createContext, useContext } from 'react';
-import type { ToastVariant } from './Toast';
+import type { ToastProps, ToastVariant } from './Toast';
 
 type ShowToastOptions = {
   title: string;
   description?: string;
+  type?: ToastProps['type'];
   variant?: ToastVariant;
   duration?: number;
   dismissLabel?: string;
