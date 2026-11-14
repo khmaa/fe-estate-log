@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Button } from '../Button';
 import { ToastHostProvider } from '../ToastHost';
@@ -70,6 +70,43 @@ describe('ToastHostProvider', () => {
 
     expect(screen.getByText('Minimal toast')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
+  });
+
+  it('forwards an explicit announcement type through the helper hook', async () => {
+    const PriorityToastConsumer = () => {
+      const { showToast } = useToast();
+
+      return (
+        <Button
+          onClick={() =>
+            showToast({
+              title: 'Deferred error notice',
+              type: 'background',
+              variant: 'error',
+            })
+          }
+        >
+          Show deferred error
+        </Button>
+      );
+    };
+
+    render(
+      <ToastHostProvider>
+        <PriorityToastConsumer />
+      </ToastHostProvider>,
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Show deferred error' }),
+    );
+
+    await waitFor(() => {
+      expect(document.querySelector('[aria-live="polite"]')).toHaveTextContent(
+        'Deferred error notice',
+      );
+    });
+    expect(document.querySelector('[aria-live="assertive"]')).toBeNull();
   });
 
   it('dismisses the active toast through the helper hook', () => {
