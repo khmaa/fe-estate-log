@@ -72,6 +72,42 @@ describe('ToastHostProvider', () => {
     expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
   });
 
+  it('preserves defaults when optional values are explicitly undefined', () => {
+    const UndefinedOptionsConsumer = () => {
+      const { showToast } = useToast();
+
+      return (
+        <Button
+          onClick={() =>
+            showToast({
+              title: 'Undefined options toast',
+              dismissLabel: undefined,
+              duration: undefined,
+              variant: undefined,
+            })
+          }
+        >
+          Show undefined options
+        </Button>
+      );
+    };
+
+    render(
+      <ToastHostProvider>
+        <UndefinedOptionsConsumer />
+      </ToastHostProvider>,
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Show undefined options' }),
+    );
+
+    expect(
+      screen.getByText('Undefined options toast').closest('li'),
+    ).toHaveClass('border-info');
+    expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
+  });
+
   it('forwards an explicit announcement type through the helper hook', async () => {
     const PriorityToastConsumer = () => {
       const { showToast } = useToast();

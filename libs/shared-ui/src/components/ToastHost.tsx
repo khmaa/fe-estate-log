@@ -38,11 +38,11 @@ const ToastHostProvider = ({
       },
       showToast: (options) => {
         setToast({
+          ...options,
           dismissLabel: options.dismissLabel ?? 'Dismiss',
           duration: options.duration ?? duration,
           open: true,
           variant: options.variant ?? 'info',
-          ...options,
         });
       },
     }),
