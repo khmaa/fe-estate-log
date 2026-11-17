@@ -47,6 +47,19 @@ describe('Field', () => {
     expect(textbox).toHaveAttribute('aria-errormessage', 'custom-error');
   });
 
+  it('connects the label to an explicit child control id', () => {
+    render(
+      <Field htmlFor="email-fallback" label="Email">
+        <Input id="email-control" type="email" />
+      </Field>,
+    );
+
+    const textbox = screen.getByRole('textbox');
+    expect(textbox).toHaveAttribute('id', 'email-control');
+    expect(screen.getByText('Email')).toHaveAttribute('for', 'email-control');
+    expect(screen.getByLabelText('Email')).toBe(textbox);
+  });
+
   it('renders error text and marks the control as invalid', () => {
     render(
       <Field htmlFor="password" label="Password" error="Password is required.">
