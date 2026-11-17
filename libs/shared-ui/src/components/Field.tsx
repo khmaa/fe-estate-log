@@ -43,6 +43,7 @@ const Field = ({
   label,
   required = false,
 }: FieldProps) => {
+  const controlId = children.props.id ?? htmlFor;
   const descriptionId = error
     ? `${htmlFor}-error`
     : helperText
@@ -52,7 +53,7 @@ const Field = ({
   const isRequired = required || Boolean(children.props.required);
   const control = React.cloneElement(children, {
     disabled: isDisabled,
-    id: children.props.id ?? htmlFor,
+    id: controlId,
     'aria-describedby': descriptionId
       ? mergeDescribedBy(children.props['aria-describedby'], descriptionId)
       : children.props['aria-describedby'],
@@ -72,7 +73,7 @@ const Field = ({
       )}
     >
       <div className="inline-flex items-center gap-1">
-        <Label htmlFor={htmlFor}>{label}</Label>
+        <Label htmlFor={controlId}>{label}</Label>
         {isRequired ? (
           <span
             aria-hidden="true"
