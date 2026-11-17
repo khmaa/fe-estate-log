@@ -50,7 +50,10 @@ const RadioGroup = ({
   return (
     <div className={cn('flex w-full flex-col gap-3', className)}>
       <div className="space-y-1">
-        <p className="inline-flex items-center gap-1 text-sm font-semibold text-foreground">
+        <p
+          id={groupId}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-foreground"
+        >
           {label}
           {required ? (
             <span aria-hidden="true" className="text-danger">
@@ -78,9 +81,6 @@ const RadioGroup = ({
         aria-required={required ? true : undefined}
         className="flex flex-col gap-3"
       >
-        <span id={groupId} className="sr-only">
-          {label}
-        </span>
         {options.map((option) => {
           const optionId = `${name}-${option.value}`;
           const isOptionDisabled = disabled || Boolean(option.disabled);

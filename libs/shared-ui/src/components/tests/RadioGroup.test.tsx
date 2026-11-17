@@ -26,9 +26,12 @@ describe('RadioGroup', () => {
       />,
     );
 
-    expect(
-      screen.getByRole('radiogroup', { name: 'Contact method' }),
-    ).toBeInTheDocument();
+    const group = screen.getByRole('radiogroup', { name: 'Contact method' });
+    const groupLabel = screen.getByText('Contact method');
+
+    expect(group).toHaveAttribute('aria-labelledby', 'contact-group');
+    expect(groupLabel).toHaveAttribute('id', 'contact-group');
+    expect(screen.getAllByText('Contact method')).toHaveLength(1);
     expect(screen.getByRole('radio', { name: /Email/i })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /Phone/i })).toBeInTheDocument();
   });
