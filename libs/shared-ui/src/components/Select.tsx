@@ -8,7 +8,7 @@ const Select = ({ className, children, ...props }: SelectProps) => {
     <select
       {...props}
       className={cn(
-        'flex h-11 w-full rounded-ui border border-border bg-surface px-4 text-sm text-foreground shadow-soft transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-[invalid=true]:border-danger aria-[invalid=true]:bg-danger-soft/40 aria-[invalid=true]:focus-visible:outline-danger disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground',
+        'flex h-11 w-full rounded-ui border border-border bg-surface px-4 text-sm text-foreground shadow-soft transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-[invalid=true]:border-danger aria-[invalid=true]:bg-danger-soft/40 aria-[invalid=true]:focus-visible:outline-danger disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground motion-reduce:transition-none',
         className,
       )}
     >

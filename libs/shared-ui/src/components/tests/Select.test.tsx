@@ -14,6 +14,11 @@ describe('Select', () => {
     expect(
       screen.getByRole('combobox', { name: 'Region' }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Region' })).toHaveClass(
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
     expect(screen.getByRole('option', { name: 'Seoul' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Busan' })).toBeInTheDocument();
   });

@@ -10,7 +10,12 @@ describe('Input', () => {
 
   it('applies className', () => {
     render(<Input className="bg-red-500" placeholder="Custom" />);
-    expect(screen.getByPlaceholderText('Custom')).toHaveClass('bg-red-500');
+    expect(screen.getByPlaceholderText('Custom')).toHaveClass(
+      'bg-red-500',
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
   });
 
   it('respects the disabled state', () => {
