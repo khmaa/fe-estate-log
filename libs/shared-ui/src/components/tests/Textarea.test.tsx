@@ -10,7 +10,12 @@ describe('Textarea', () => {
 
   it('applies className', () => {
     render(<Textarea className="resize-y" placeholder="Resizable" />);
-    expect(screen.getByPlaceholderText('Resizable')).toHaveClass('resize-y');
+    expect(screen.getByPlaceholderText('Resizable')).toHaveClass(
+      'resize-y',
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
   });
 
   it('respects the disabled state', () => {
