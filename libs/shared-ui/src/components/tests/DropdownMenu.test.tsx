@@ -74,5 +74,8 @@ describe('DropdownMenu', () => {
       'data-[state=open]:animate-in',
       'motion-reduce:animate-none',
     );
+    expect(
+      screen.getByRole('menuitem', { name: 'Reduced motion action' }),
+    ).toHaveClass('transition-colors', 'motion-reduce:transition-none');
   });
 });

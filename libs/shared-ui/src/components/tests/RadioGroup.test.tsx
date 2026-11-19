@@ -34,6 +34,13 @@ describe('RadioGroup', () => {
     expect(screen.getAllByText('Contact method')).toHaveLength(1);
     expect(screen.getByRole('radio', { name: /Email/i })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /Phone/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('radio', { name: /Email/i }).closest('label'),
+    ).toHaveClass(
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
   });
 
   it('marks a required group and hides its visual indicator', () => {

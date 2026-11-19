@@ -52,7 +52,7 @@ const DropdownMenuItem = ({ className, ...props }: DropdownMenuItemProps) => {
     <DropdownMenuPrimitive.Item
       {...props}
       className={cn(
-        'flex cursor-default select-none items-center rounded-ui px-3 py-2 text-sm font-medium text-foreground outline-none transition-colors focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'flex cursor-default select-none items-center rounded-ui px-3 py-2 text-sm font-medium text-foreground outline-none transition-colors focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50 motion-reduce:transition-none',
         className,
       )}
     />

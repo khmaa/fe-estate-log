@@ -10,6 +10,11 @@ describe('Button', () => {
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute('type', 'button');
     expect(button).not.toHaveAttribute('aria-busy');
+    expect(button).toHaveClass(
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
   });
 
   it('does not submit an enclosing form by default', () => {

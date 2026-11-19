@@ -72,7 +72,7 @@ const ToastClose = ({ className, ...props }: ToastCloseProps) => {
     <ToastPrimitive.Close
       {...props}
       className={cn(
-        'inline-flex h-8 items-center justify-center self-start rounded-ui px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'inline-flex h-8 items-center justify-center self-start rounded-ui px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus motion-reduce:transition-none',
         className,
       )}
     />
