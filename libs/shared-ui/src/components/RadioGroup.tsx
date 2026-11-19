@@ -96,7 +96,7 @@ const RadioGroup = ({
               key={option.value}
               htmlFor={optionId}
               className={cn(
-                'flex items-start gap-3 rounded-ui border border-border bg-surface-alt px-4 py-3 transition-colors duration-200',
+                'flex items-start gap-3 rounded-ui border border-border bg-surface-alt px-4 py-3 transition-colors duration-200 motion-reduce:transition-none',
                 isOptionDisabled && 'cursor-not-allowed opacity-70',
                 value === option.value && 'border-primary bg-primary/5',
               )}

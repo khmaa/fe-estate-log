@@ -116,6 +116,11 @@ describe('Toast', () => {
 
     render(<ToastHarness />);
 
+    expect(screen.getByRole('button', { name: 'Dismiss' })).toHaveClass(
+      'transition-colors',
+      'motion-reduce:transition-none',
+    );
+
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
 
     expect(screen.queryByText('Dismissible toast')).toBeNull();

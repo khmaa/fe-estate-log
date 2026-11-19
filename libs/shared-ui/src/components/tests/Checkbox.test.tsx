@@ -10,6 +10,11 @@ describe('Checkbox', () => {
 
     expect(checkbox).toBeInTheDocument();
     expect(checkbox).toHaveAttribute('type', 'checkbox');
+    expect(checkbox).toHaveClass(
+      'transition-colors',
+      'duration-200',
+      'motion-reduce:transition-none',
+    );
   });
 
   it('keeps checkbox behavior when an unsupported runtime type is passed', () => {
