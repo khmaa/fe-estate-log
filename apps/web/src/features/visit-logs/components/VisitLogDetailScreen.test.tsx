@@ -33,6 +33,9 @@ describe('VisitLogDetailScreen', () => {
     expect(screen.getByTestId('visit-log-detail-skeleton')).toBeInTheDocument();
     expect(
       screen.getByRole('main', { name: 'Loading visit log detail' }),
+    ).toHaveAttribute('aria-busy', 'true');
+    expect(
+      screen.getByRole('status', { name: 'Loading visit log detail' }),
     ).toBeInTheDocument();
   });
 

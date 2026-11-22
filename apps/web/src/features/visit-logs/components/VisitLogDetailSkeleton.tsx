@@ -6,12 +6,15 @@ const VisitLogDetailSkeleton = () => {
 
   return (
     <main
+      aria-busy="true"
       aria-label={t('visitLogs.detail.loadingLabel')}
       className="min-h-screen px-6 py-16"
     >
       <section
+        aria-label={t('visitLogs.detail.loadingLabel')}
         className="mx-auto flex max-w-4xl flex-col gap-8"
         data-testid="visit-log-detail-skeleton"
+        role="status"
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Skeleton className="h-11 w-40" />
