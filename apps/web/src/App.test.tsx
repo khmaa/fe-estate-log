@@ -282,9 +282,11 @@ describe('App', () => {
       ),
     ).toBeInTheDocument();
     await waitFor(() => {
-      expect(document.querySelector('[aria-live="polite"]')).toHaveTextContent(
-        'Visit log created',
-      );
+      expect(
+        Array.from(document.querySelectorAll('[aria-live="polite"]')).some(
+          (element) => element.textContent?.includes('Visit log created'),
+        ),
+      ).toBe(true);
     });
     expect(
       await screen.findByText('Jamsil riverside draft'),

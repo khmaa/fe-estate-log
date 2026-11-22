@@ -31,9 +31,14 @@ describe('VisitLogPagination', () => {
       />,
     );
 
-    expect(
-      screen.getByText('Showing 3-4 of 5 visit logs.'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Showing 3-4 of 5 visit logs.')).toHaveAttribute(
+      'aria-live',
+      'polite',
+    );
+    expect(screen.getByText('Showing 3-4 of 5 visit logs.')).toHaveAttribute(
+      'aria-atomic',
+      'true',
+    );
     expect(
       screen.getByRole('navigation', { name: 'Visit log pagination' }),
     ).toBeInTheDocument();
