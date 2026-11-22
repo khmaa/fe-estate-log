@@ -30,7 +30,11 @@ const VisitLogPagination = ({
       aria-label={t('visitLogs.pagination.label')}
       className="flex flex-col gap-4 rounded-[24px] border border-border bg-surface px-5 py-4 shadow-soft sm:flex-row sm:items-center sm:justify-between"
     >
-      <p className="text-sm text-muted-foreground">
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        className="text-sm text-muted-foreground"
+      >
         {t('visitLogs.pagination.summary', {
           page,
           rangeEnd,
