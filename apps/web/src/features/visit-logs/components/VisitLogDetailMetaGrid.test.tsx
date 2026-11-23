@@ -13,13 +13,16 @@ describe('VisitLogDetailMetaGrid', () => {
       />,
     );
 
-    expect(screen.getByText('District')).toBeInTheDocument();
-    expect(screen.getByText('Gangnam-gu')).toBeInTheDocument();
-    expect(screen.getByText('Price')).toBeInTheDocument();
-    expect(screen.getByText('KRW 1.28B')).toBeInTheDocument();
-    expect(screen.getByText('Visited')).toBeInTheDocument();
-    expect(screen.getByText('Mar 27, 2026')).toBeInTheDocument();
-    expect(screen.getByText('Agent')).toBeInTheDocument();
-    expect(screen.getByText('Minji Park')).toBeInTheDocument();
+    expect(screen.getByText('District').tagName).toBe('DT');
+    expect(screen.getByText('Gangnam-gu').tagName).toBe('DD');
+    expect(screen.getByText('Price').tagName).toBe('DT');
+    expect(screen.getByText('KRW 1.28B').tagName).toBe('DD');
+    expect(screen.getByText('Visited').tagName).toBe('DT');
+    expect(screen.getByText('Mar 27, 2026').tagName).toBe('DD');
+    expect(screen.getByText('Agent').tagName).toBe('DT');
+    expect(screen.getByText('Minji Park').tagName).toBe('DD');
+    expect(document.querySelectorAll('dl')).toHaveLength(1);
+    expect(document.querySelectorAll('dt')).toHaveLength(4);
+    expect(document.querySelectorAll('dd')).toHaveLength(4);
   });
 });
