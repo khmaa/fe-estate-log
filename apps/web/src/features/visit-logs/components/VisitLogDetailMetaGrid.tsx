@@ -18,32 +18,32 @@ const VisitLogDetailMetaGrid = ({
   const { t } = useTranslation();
 
   return (
-    <div className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
+    <dl className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
       <div>
-        <p className="font-semibold text-foreground">
+        <dt className="font-semibold text-foreground">
           {t('visitLogs.detail.fields.district')}
-        </p>
-        <p>{district}</p>
+        </dt>
+        <dd>{district}</dd>
       </div>
       <div>
-        <p className="font-semibold text-foreground">
+        <dt className="font-semibold text-foreground">
           {t('visitLogs.detail.fields.price')}
-        </p>
-        <p>{priceLabel}</p>
+        </dt>
+        <dd>{priceLabel}</dd>
       </div>
       <div>
-        <p className="font-semibold text-foreground">
+        <dt className="font-semibold text-foreground">
           {t('visitLogs.detail.fields.visited')}
-        </p>
-        <p>{formatVisitLogVisitedAt(visitedAt)}</p>
+        </dt>
+        <dd>{formatVisitLogVisitedAt(visitedAt)}</dd>
       </div>
       <div>
-        <p className="font-semibold text-foreground">
+        <dt className="font-semibold text-foreground">
           {t('visitLogs.detail.fields.agent')}
-        </p>
-        <p>{agentName}</p>
+        </dt>
+        <dd>{agentName}</dd>
       </div>
-    </div>
+    </dl>
   );
 };
 
