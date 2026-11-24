@@ -113,26 +113,26 @@ const VisitLogCard = ({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
+        <dl className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
           <div>
-            <p className="font-semibold text-foreground">
+            <dt className="font-semibold text-foreground">
               {t('visitLogs.card.fields.district')}
-            </p>
-            <p>{log.district}</p>
+            </dt>
+            <dd>{log.district}</dd>
           </div>
           <div>
-            <p className="font-semibold text-foreground">
+            <dt className="font-semibold text-foreground">
               {t('visitLogs.card.fields.price')}
-            </p>
-            <p>{log.priceLabel}</p>
+            </dt>
+            <dd>{log.priceLabel}</dd>
           </div>
           <div>
-            <p className="font-semibold text-foreground">
+            <dt className="font-semibold text-foreground">
               {t('visitLogs.card.fields.visited')}
-            </p>
-            <p>{formatVisitedAt(log.visitedAt)}</p>
+            </dt>
+            <dd>{formatVisitedAt(log.visitedAt)}</dd>
           </div>
-        </div>
+        </dl>
         <p className="text-sm leading-6 text-muted-foreground">{log.summary}</p>
         <div className="flex items-center justify-between gap-4 text-sm">
           <p className="text-muted-foreground">

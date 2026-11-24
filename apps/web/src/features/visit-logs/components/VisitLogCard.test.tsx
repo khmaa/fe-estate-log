@@ -36,7 +36,15 @@ describe('VisitLogCard', () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText('Pinned')).toBeInTheDocument();
-    expect(screen.getByText('KRW 1.28B')).toBeInTheDocument();
+    expect(screen.getByText('District').tagName).toBe('DT');
+    expect(screen.getByText('Gangnam-gu').tagName).toBe('DD');
+    expect(screen.getByText('Price').tagName).toBe('DT');
+    expect(screen.getByText('KRW 1.28B').tagName).toBe('DD');
+    expect(screen.getByText('Visited').tagName).toBe('DT');
+    expect(screen.getByText('Mar 27, 2026').tagName).toBe('DD');
+    expect(document.querySelectorAll('dl')).toHaveLength(1);
+    expect(document.querySelectorAll('dt')).toHaveLength(3);
+    expect(document.querySelectorAll('dd')).toHaveLength(3);
     expect(screen.getByText('Handled by Minji Park')).toBeInTheDocument();
   });
 
