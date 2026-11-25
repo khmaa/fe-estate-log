@@ -35,7 +35,9 @@ const VisitLogDetailMetaGrid = ({
         <dt className="font-semibold text-foreground">
           {t('visitLogs.detail.fields.visited')}
         </dt>
-        <dd>{formatVisitLogVisitedAt(visitedAt)}</dd>
+        <dd>
+          <time dateTime={visitedAt}>{formatVisitLogVisitedAt(visitedAt)}</time>
+        </dd>
       </div>
       <div>
         <dt className="font-semibold text-foreground">
