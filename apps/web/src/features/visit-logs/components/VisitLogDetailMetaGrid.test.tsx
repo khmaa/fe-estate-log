@@ -18,7 +18,9 @@ describe('VisitLogDetailMetaGrid', () => {
     expect(screen.getByText('Price').tagName).toBe('DT');
     expect(screen.getByText('KRW 1.28B').tagName).toBe('DD');
     expect(screen.getByText('Visited').tagName).toBe('DT');
-    expect(screen.getByText('Mar 27, 2026').tagName).toBe('DD');
+    const visitDate = screen.getByText('Mar 27, 2026', { selector: 'time' });
+    expect(visitDate).toHaveAttribute('datetime', '2026-03-27T10:30:00.000Z');
+    expect(visitDate.parentElement?.tagName).toBe('DD');
     expect(screen.getByText('Agent').tagName).toBe('DT');
     expect(screen.getByText('Minji Park').tagName).toBe('DD');
     expect(document.querySelectorAll('dl')).toHaveLength(1);

@@ -13,6 +13,7 @@ import {
 } from '@shared-ui/core';
 import { useTranslation } from 'react-i18next';
 import type { VisitLog } from '../types/visitLog';
+import { formatVisitLogVisitedAt } from '../utils/formatVisitLogVisitedAt';
 import {
   getVisitLogPropertyTypeLabel,
   getVisitLogStatusLabel,
@@ -29,14 +30,6 @@ type VisitLogCardProps = {
   onDuplicateDraft: (visitLog: VisitLog) => void;
   onOpenDetails: (visitLogId: string) => void;
   onPrefetchDetails: (visitLogId: string) => void;
-};
-
-const formatVisitedAt = (visitedAt: string) => {
-  return new Intl.DateTimeFormat('en-CA', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(visitedAt));
 };
 
 const VisitLogCard = ({
@@ -130,7 +123,11 @@ const VisitLogCard = ({
             <dt className="font-semibold text-foreground">
               {t('visitLogs.card.fields.visited')}
             </dt>
-            <dd>{formatVisitedAt(log.visitedAt)}</dd>
+            <dd>
+              <time dateTime={log.visitedAt}>
+                {formatVisitLogVisitedAt(log.visitedAt)}
+              </time>
+            </dd>
           </div>
         </dl>
         <p className="text-sm leading-6 text-muted-foreground">{log.summary}</p>

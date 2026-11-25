@@ -41,7 +41,9 @@ describe('VisitLogCard', () => {
     expect(screen.getByText('Price').tagName).toBe('DT');
     expect(screen.getByText('KRW 1.28B').tagName).toBe('DD');
     expect(screen.getByText('Visited').tagName).toBe('DT');
-    expect(screen.getByText('Mar 27, 2026').tagName).toBe('DD');
+    const visitDate = screen.getByText('Mar 27, 2026', { selector: 'time' });
+    expect(visitDate).toHaveAttribute('datetime', visitLog.visitedAt);
+    expect(visitDate.parentElement?.tagName).toBe('DD');
     expect(document.querySelectorAll('dl')).toHaveLength(1);
     expect(document.querySelectorAll('dt')).toHaveLength(3);
     expect(document.querySelectorAll('dd')).toHaveLength(3);
