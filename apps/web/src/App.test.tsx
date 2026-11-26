@@ -80,6 +80,9 @@ describe('App', () => {
     expect(
       (await screen.findAllByRole('button', { name: /기록 검토/ })).length,
     ).toBeGreaterThan(0);
+    expect(
+      screen.getByText('2026년 3월 27일', { selector: 'time' }),
+    ).toHaveAttribute('datetime', '2026-03-27T10:30:00.000Z');
 
     fireEvent.click(screen.getByRole('button', { name: '임장 기록 생성' }));
 
@@ -406,6 +409,15 @@ describe('App', () => {
     expect(
       screen.getByRole('button', { name: 'Back to visit logs' }),
     ).toBeInTheDocument();
+
+    const visitDate = screen.getByText(/Mar \d+, 2026/, { selector: 'time' });
+    const timestamp = visitDate.getAttribute('datetime');
+
+    fireEvent.click(screen.getByRole('button', { name: 'KO' }));
+
+    expect(
+      await screen.findByText(/2026년 3월 \d+일/, { selector: 'time' }),
+    ).toHaveAttribute('datetime', timestamp);
   });
 
   it('moves between visit log pages through the pagination controls', async () => {

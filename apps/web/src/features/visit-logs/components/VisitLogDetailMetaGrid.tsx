@@ -15,7 +15,7 @@ const VisitLogDetailMetaGrid = ({
   priceLabel,
   visitedAt,
 }: VisitLogDetailMetaGridProps) => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return (
     <dl className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
@@ -36,7 +36,9 @@ const VisitLogDetailMetaGrid = ({
           {t('visitLogs.detail.fields.visited')}
         </dt>
         <dd>
-          <time dateTime={visitedAt}>{formatVisitLogVisitedAt(visitedAt)}</time>
+          <time dateTime={visitedAt}>
+            {formatVisitLogVisitedAt(visitedAt, i18n.resolvedLanguage)}
+          </time>
         </dd>
       </div>
       <div>

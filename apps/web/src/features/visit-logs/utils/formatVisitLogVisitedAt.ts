@@ -1,5 +1,10 @@
-const formatVisitLogVisitedAt = (visitedAt: string) => {
-  return new Intl.DateTimeFormat('en-CA', {
+const formatVisitLogVisitedAt = (
+  visitedAt: string,
+  language: string | undefined,
+) => {
+  const locale = language === 'ko' ? 'ko-KR' : 'en-CA';
+
+  return new Intl.DateTimeFormat(locale, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
