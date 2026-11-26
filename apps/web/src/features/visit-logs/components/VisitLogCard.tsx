@@ -38,7 +38,7 @@ const VisitLogCard = ({
   onOpenDetails,
   onPrefetchDetails,
 }: VisitLogCardProps) => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const handlePrefetchDetails = () => {
     onPrefetchDetails(log.id);
   };
@@ -125,7 +125,7 @@ const VisitLogCard = ({
             </dt>
             <dd>
               <time dateTime={log.visitedAt}>
-                {formatVisitLogVisitedAt(log.visitedAt)}
+                {formatVisitLogVisitedAt(log.visitedAt, i18n.resolvedLanguage)}
               </time>
             </dd>
           </div>
