@@ -62,11 +62,14 @@ describe('App', () => {
   it('switches the app shell and visit logs copy to Korean', async () => {
     renderApp();
 
+    expect(document.documentElement).toHaveAttribute('lang', 'en');
+
     fireEvent.click(screen.getByRole('button', { name: 'KO' }));
 
     expect(
       await screen.findByRole('heading', { name: '임장 기록 워크스페이스' }),
     ).toBeInTheDocument();
+    expect(document.documentElement).toHaveAttribute('lang', 'ko');
     expect(
       screen.getByRole('main', { name: '임장 기록 워크스페이스' }),
     ).toBeInTheDocument();
@@ -104,6 +107,7 @@ describe('App', () => {
     expect(
       await screen.findByRole('heading', { name: 'Visit logs workspace' }),
     ).toBeInTheDocument();
+    expect(document.documentElement).toHaveAttribute('lang', 'en');
   });
 
   it('hydrates visit log filters from the query string', async () => {
