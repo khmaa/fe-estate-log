@@ -52,6 +52,12 @@ const persistLanguage = (
 };
 
 if (!i18n.isInitialized) {
+  i18n.on('languageChanged', (language) => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = i18n.resolvedLanguage ?? language;
+    }
+  });
+
   void i18n.use(initReactI18next).init({
     resources,
     lng: detectLanguage(),
